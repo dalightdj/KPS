@@ -72,7 +72,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		JLayeredPane layeredPane = new JLayeredPane();
 
 		/*Initialize the background Image*/
-		backgroundImage = load(ASSETS + "loginBackground2.png");
+		backgroundImage = load(ASSETS + "silverBackground.png");
 		ImageIcon icon = new ImageIcon(backgroundImage); 
 		panel = new JLabel();
 		panel.setIcon(icon);
@@ -95,10 +95,11 @@ public class MainFrame extends JFrame implements ActionListener {
 		panel.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(0,-50,30,50); //top, left, bottom, right padding (in that order)
-				
+		
 		JLabel LOGIN = new JLabel("LOGIN");
 		Font LOGINFONT = new Font("Tunga", Font.BOLD, 25);
 		LOGIN.setFont(LOGINFONT);
+		LOGIN.setForeground(Color.BLACK);
 		c.gridx = 1;
 		c.gridy = 0;
 		panel.add(LOGIN,c);
@@ -107,6 +108,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		usernameLabel = new JLabel("Username: ");
 		Font usernameFont = new Font("Tunga", Font.BOLD, 15);
 		usernameLabel.setFont(usernameFont);
+		usernameLabel.setForeground(Color.BLACK);
 		c.gridx = 1;
 		c.gridy = 1;
 		panel.add(usernameLabel,c);
@@ -114,6 +116,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		passwordLabel = new JLabel("Password: ");
 		Font passwordFont = new Font("Tunga", Font.BOLD, 15);
 		passwordLabel.setFont(passwordFont);
+		passwordLabel.setForeground(Color.BLACK);
 		c.gridx = 1;
 		c.gridy = 3;
 		panel.add(passwordLabel,c);
