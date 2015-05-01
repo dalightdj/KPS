@@ -21,6 +21,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
+import org.pushingpixels.substance.api.skin.SubstanceGraphiteLookAndFeel;
 
 import GUI.KPSFrame;
 
@@ -95,10 +100,21 @@ public class MainFrame extends JFrame implements ActionListener {
 	}
 		
 	
-	public static void main(String[] args) {
-		new MainFrame();
-	}
-
+	     public static void main(String[] args) {
+	    	    JFrame.setDefaultLookAndFeelDecorated(true);
+	    	    SwingUtilities.invokeLater(new Runnable() {
+	    	      public void run() {
+	    	        try {
+	    	            UIManager.setLookAndFeel(new SubstanceGraphiteLookAndFeel());
+	    	        	} catch (Exception e) {
+	    	          System.out.println("Substance Graphite failed to initialize");
+	    	        }
+	    			new MainFrame();
+	    	      }
+	    	    });
+	    	  }
+	     
+	     
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
