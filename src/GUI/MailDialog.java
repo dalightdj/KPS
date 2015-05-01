@@ -25,6 +25,9 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
+import Main.MainFrame;
+
+
 public class MailDialog extends JDialog implements ActionListener {
 
 	private KPSFrame frame;

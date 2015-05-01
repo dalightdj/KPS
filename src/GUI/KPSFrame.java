@@ -16,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import Main.MainFrame;
+
 public class KPSFrame extends JFrame {
 
 	
