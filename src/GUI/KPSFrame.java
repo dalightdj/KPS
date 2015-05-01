@@ -30,7 +30,8 @@ public class KPSFrame extends JFrame {
 		
 		/*Initialize the layout and the insets*/
 		this.setLayout(new BorderLayout());
-				
+		this.setTitle("Kelburn Postal Serivce");
+
 		/*Set the Frames icon*/
 		frameIcon = MainFrame.load(MainFrame.ASSETS + "frameIcon2.png");
 		ImageIcon icon = new ImageIcon(frameIcon); 
@@ -48,7 +49,7 @@ public class KPSFrame extends JFrame {
 		this.pack();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
-		JOptionPane.showMessageDialog(this,"Welcome"); //Welcome the user (maybe remove this as it can be annoying)
+		JOptionPane.showMessageDialog(this, "Welcome to Kelburn Postal Service!", "Welcome", JOptionPane.INFORMATION_MESSAGE); //Welcome the user (maybe remove this as it can be annoying)
 	}
 	
 	/**

@@ -59,7 +59,7 @@ public class MainFrame extends JFrame implements ActionListener {
 
 	public MainFrame() {
 		this.setLayout(new BorderLayout());
-		
+		this.setTitle("Kelburn Postal Serivce");
 		
 		/*Initialize the lock Image*/
 		lockImage = load(ASSETS + "lock.png");
@@ -72,7 +72,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		JLayeredPane layeredPane = new JLayeredPane();
 
 		/*Initialize the background Image*/
-		backgroundImage = load(ASSETS + "silverBackground.png");
+		backgroundImage = load(ASSETS + "silverBackground2.png");
 		ImageIcon icon = new ImageIcon(backgroundImage); 
 		panel = new JLabel();
 		panel.setIcon(icon);
