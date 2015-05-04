@@ -72,7 +72,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		JLayeredPane layeredPane = new JLayeredPane();
 
 		/*Initialize the background Image*/
-		backgroundImage = load(ASSETS + "silverBackground2.png");
+		backgroundImage = load(ASSETS + "silverBackground.png");
 		ImageIcon icon = new ImageIcon(backgroundImage); 
 		panel = new JLabel();
 		panel.setIcon(icon);
