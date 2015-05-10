@@ -50,6 +50,12 @@ public class ButtonPanel extends JPanel implements ActionListener {
 		this.add(transportCostUpdate,c);
 		transportCostUpdate.addActionListener(this);
 		
+		transportDiscontinue = new JButton("Transport Discontinued");
+		c.gridx = 0;
+		c.gridy = 3;
+		this.add(transportDiscontinue,c);
+		transportDiscontinue.addActionListener(this);
+		
 	}
 
 	@Override
