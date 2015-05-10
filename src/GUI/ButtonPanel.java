@@ -18,7 +18,10 @@ public class ButtonPanel extends JPanel implements ActionListener {
 	private KPSFrame frame;
 	
 	private JButton mailDelivery;
-	
+	private JButton customerPriceUpdate;
+	private JButton transportCostUpdate;
+	private JButton transportDiscontinue;
+
 	public ButtonPanel(KPSFrame frame) {
 		this.frame = frame;
 		this.setPreferredSize(new Dimension(150,0));
@@ -34,6 +37,18 @@ public class ButtonPanel extends JPanel implements ActionListener {
 		c.gridy = 0;
 		this.add(mailDelivery,c);
 		mailDelivery.addActionListener(this);
+		
+		customerPriceUpdate = new JButton("Customer Price Update");
+		c.gridx = 0;
+		c.gridy = 1;
+		this.add(customerPriceUpdate,c);
+		customerPriceUpdate.addActionListener(this);
+		
+		customerPriceUpdate = new JButton("Customer Price Update");
+		c.gridx = 0;
+		c.gridy = 1;
+		this.add(customerPriceUpdate,c);
+		customerPriceUpdate.addActionListener(this);
 		
 	}
 
