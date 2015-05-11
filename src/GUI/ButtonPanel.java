@@ -67,5 +67,8 @@ public class ButtonPanel extends JPanel implements ActionListener {
 		if(e.getSource() == customerPriceUpdate) {
 			new CustomerPriceUpdateDialog(frame);
 		}
+		if(e.getSource() == transportCostUpdate) {
+			new TransportCostUpdateDialog(frame);
+		}
 	}
 }

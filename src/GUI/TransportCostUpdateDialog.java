@@ -53,9 +53,14 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 	/*All the options for the form*/
 	private JComboBox destinationComboBox;
 	private JComboBox fromComboBox;
-	private JComboBox priorityComboBox;
+	private JComboBox typeComboBox;
+	private JTextField copmanyTextField;
 	private JTextField weightTextField;
 	private JTextField volumeTextField;
+	private JTextField departureTextField;
+	private JTextField frequencyTextField;
+	private JTextField durationTextField;
+	
 	private JLabel weightLabelInfo;
 	private JLabel volumeLabelInfo;
 	
@@ -70,7 +75,7 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		super(frame,true);
 		this.frame = frame;
 		setResizable(false);
-		setBounds(0, 0, 400, 330);
+		setBounds(0, 0, 500, 430);
         this.setLocationRelativeTo(frame); //sets position relative to the whole window
 		
 		/*Initialize the layout and the insets*/
@@ -124,7 +129,7 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
  		mainPanel.setLayout(new BorderLayout());
  		mainPanel.add(optionsPanel, BorderLayout.CENTER);
  		mainPanel.add(labelPanel, BorderLayout.WEST);
- 		TitledBorder title = BorderFactory.createTitledBorder(null, "Price Update", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 15), Color.RED);
+ 		TitledBorder title = BorderFactory.createTitledBorder(null, "Transport Price Update", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 15), Color.RED);
  		mainPanel.setBorder(title);
  		underLyingPanel.add(mainPanel,BorderLayout.CENTER);
  		underLyingPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 20, 20)); //this sets up the padding
@@ -143,6 +148,11 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 	 * @param c2 - the GridBagConstraints to use for positioning 
 	 */
 	private void setupOptions(JPanel op, GridBagConstraints c2) {
+		copmanyTextField = new JTextField(10);
+		c2.gridx = 0;
+		c2.gridy = 0;
+		op.add(copmanyTextField,c2);
+		
 		String[] destinationList = {"Wellington", "Hamilton", "Auckland"};
 		destinationComboBox = new JComboBox(destinationList);
 		destinationComboBox.addActionListener(this);
@@ -157,13 +167,13 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		c2.gridy = 2;
 		op.add(fromComboBox,c2);
 		
-		String[] priorityList = {"Standard", "Air"};
-		priorityComboBox = new JComboBox(priorityList);
-		priorityComboBox.addActionListener(this);
+		String[] typeList = {"Sea", "Air", "Land"};
+		typeComboBox = new JComboBox(typeList);
+		typeComboBox.addActionListener(this);
 		c2.gridx = 0;
 		c2.gridy = 3;
-		op.add(priorityComboBox,c2);	
-		
+		op.add(typeComboBox,c2);	
+				
 		weightTextField = new JTextField(10);
 		c2.gridx = 0;
 		c2.gridy = 4;
@@ -183,6 +193,22 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		c2.gridx = 1;
 		c2.gridy = 5;
 		op.add(volumeLabelInfo,c2);
+		
+		departureTextField = new JTextField(10);
+		c2.gridx = 0;
+		c2.gridy = 6;
+		op.add(departureTextField,c2);
+		
+		frequencyTextField = new JTextField(10);
+		c2.gridx = 0;
+		c2.gridy = 7;
+		op.add(frequencyTextField,c2);
+		
+		durationTextField = new JTextField(10);
+		c2.gridx = 0;
+		c2.gridy = 8;
+		op.add(durationTextField,c2);
+		
 		
 	}
 
