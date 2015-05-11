@@ -31,7 +31,8 @@ public class ButtonPanel extends JPanel implements ActionListener {
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5,1,5,1); //top, left, bottom, right padding (in that order)
-		
+		c.fill = GridBagConstraints.HORIZONTAL;
+
 		mailDelivery = new JButton("Mail Delivery");
 		c.gridx = 0;
 		c.gridy = 0;
@@ -62,6 +63,9 @@ public class ButtonPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == mailDelivery) {
 			new MailDialog(frame);
+		}
+		if(e.getSource() == customerPriceUpdate) {
+			new PriceUpdateDialog(frame);
 		}
 	}
 }
