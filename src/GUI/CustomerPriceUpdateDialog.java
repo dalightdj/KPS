@@ -25,7 +25,7 @@ import javax.swing.border.TitledBorder;
 
 import Main.MainFrame;
 
-public class PriceUpdateDialog extends JDialog implements ActionListener {
+public class CustomerPriceUpdateDialog extends JDialog implements ActionListener {
 
 
 	/*The two buttons submit and cancel*/
@@ -62,7 +62,7 @@ public class PriceUpdateDialog extends JDialog implements ActionListener {
 	
 	private KPSFrame frame;
 	
-	public PriceUpdateDialog(KPSFrame frame) {
+	public CustomerPriceUpdateDialog(KPSFrame frame) {
 		super(frame,true);
 		this.frame = frame;
 		setResizable(false);
@@ -246,6 +246,6 @@ public class PriceUpdateDialog extends JDialog implements ActionListener {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		new PriceUpdateDialog(new KPSFrame());
+		new CustomerPriceUpdateDialog(new KPSFrame());
 	}
 }
