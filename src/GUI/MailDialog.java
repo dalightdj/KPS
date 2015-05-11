@@ -124,7 +124,7 @@ public class MailDialog extends JDialog implements ActionListener {
  		mainPanel.setLayout(new BorderLayout());
  		mainPanel.add(optionsPanel, BorderLayout.CENTER);
  		mainPanel.add(labelPanel, BorderLayout.WEST);
- 		TitledBorder title = BorderFactory.createTitledBorder(null, "Details", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 15), Color.RED);
+ 		TitledBorder title = BorderFactory.createTitledBorder(null, "Delivery Details", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 15), Color.RED);
  		mainPanel.setBorder(title);
  		underLyingPanel.add(mainPanel,BorderLayout.CENTER);
  		underLyingPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 20, 20)); //this sets up the padding
