@@ -85,7 +85,7 @@ public class PriceUpdateDialog extends JDialog implements ActionListener {
 		/*This is the panel with all the labels*/
 		labelPanel = new JPanel();
 		//labelPanel.setBorder(BorderFactory.createLineBorder(Color.red)); //just for checking the positioning, can remove later
-		labelPanel.setPreferredSize(new Dimension(80,0));
+		labelPanel.setPreferredSize(new Dimension(110,0));
 		labelPanel.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5,1,5,1); //top, left, bottom, right padding (in that order)
@@ -108,7 +108,7 @@ public class PriceUpdateDialog extends JDialog implements ActionListener {
  		optionsPanel.setPreferredSize(new Dimension(this.getWidth(),80));
  		optionsPanel.setLayout(new GridBagLayout());
 		GridBagConstraints c2 = new GridBagConstraints();
-		c2.insets = new Insets(5,1,5,1); //top, left, bottom, right padding (in that order)
+		c2.insets = new Insets(5,10,5,1); //top, left, bottom, right padding (in that order)
 		c2.fill = GridBagConstraints.HORIZONTAL;
 		c2.weightx = 1.0;
 		c2.weighty = 1.0;
@@ -128,7 +128,6 @@ public class PriceUpdateDialog extends JDialog implements ActionListener {
  		/*Add the main panel to the underlying panel and make this dialog visible*/
  		this.add(underLyingPanel,BorderLayout.CENTER);
 		this.setVisible(true);		
-		
 	}
 	
 	
@@ -154,32 +153,33 @@ public class PriceUpdateDialog extends JDialog implements ActionListener {
 		c2.gridy = 2;
 		op.add(fromComboBox,c2);
 		
-		weightTextField = new JTextField(10);
-		c2.gridx = 0;
-		c2.gridy = 3;
-		op.add(weightTextField,c2);
-		
-		weightLabelInfo = new JLabel("(Grams)");
-		c2.gridx = 1;
-		c2.gridy = 3;
-		op.add(weightLabelInfo,c2);
-				
-		volumeTextField = new JTextField(10);
-		c2.gridx = 0;
-		c2.gridy = 4;
-		op.add(volumeTextField,c2);
-		
-		volumeLabelInfo = new JLabel("(Cubic Centimeters)");
-		c2.gridx = 1;
-		c2.gridy = 4;
-		op.add(volumeLabelInfo,c2);
-		
 		String[] priorityList = {"Standard", "Air"};
 		priorityComboBox = new JComboBox(priorityList);
 		priorityComboBox.addActionListener(this);
 		c2.gridx = 0;
-		c2.gridy = 5;
+		c2.gridy = 3;
 		op.add(priorityComboBox,c2);	
+		
+		weightTextField = new JTextField(10);
+		c2.gridx = 0;
+		c2.gridy = 4;
+		op.add(weightTextField,c2);
+		
+		weightLabelInfo = new JLabel("(Per Gram)");
+		c2.gridx = 1;
+		c2.gridy = 4;
+		op.add(weightLabelInfo,c2);
+				
+		volumeTextField = new JTextField(10);
+		c2.gridx = 0;
+		c2.gridy = 5;
+		op.add(volumeTextField,c2);
+		
+		volumeLabelInfo = new JLabel("(Per Cubic Centimeter)");
+		c2.gridx = 1;
+		c2.gridy = 5;
+		op.add(volumeLabelInfo,c2);
+		
 	}
 
 	/**
@@ -238,5 +238,14 @@ public class PriceUpdateDialog extends JDialog implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
+	}
+	
+	/**
+	 * This is just for quickly testing the layout of this
+	 * dialog without having to run the whole thing from log in screen.
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		new PriceUpdateDialog(new KPSFrame());
 	}
 }
