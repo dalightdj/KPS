@@ -211,31 +211,52 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 	 */
 	private void setupLabels(JPanel labelPanel, GridBagConstraints c) {
 
-		destinationLabel = new JLabel("Destination: ");
+		companyLabel = new JLabel("Company: ");
 		c.gridx = 0;
 		c.gridy = 0;
+		labelPanel.add(companyLabel,c);
+		
+		destinationLabel = new JLabel("Destination: ");
+		c.gridx = 0;
+		c.gridy = 1;
 		labelPanel.add(destinationLabel,c);
 		
 		fromLabel = new JLabel("From: ");
 		c.gridx = 0;
-		c.gridy = 1;
+		c.gridy = 2;
 		labelPanel.add(fromLabel,c);
 		
 		typeLabel = new JLabel("Type: ");
 		c.gridx = 0;
-		c.gridy = 2;
+		c.gridy = 3;
 		labelPanel.add(typeLabel,c);	
 		
 		newWeightCostLabel = new JLabel("New Weight Cost: ");
 		c.gridx = 0;
-		c.gridy = 3;
+		c.gridy = 4;
 		labelPanel.add(newWeightCostLabel,c);
 		
 		newVolumeCostLabel = new JLabel("New Volume Cost: ");
 		c.gridx = 0;
-		c.gridy = 4;
+		c.gridy = 5;
 		labelPanel.add(newVolumeCostLabel,c);
+	
+		dayOfDepartureLabel = new JLabel("Day of Departure: ");
+		c.gridx = 0;
+		c.gridy = 6;
+		labelPanel.add(dayOfDepartureLabel,c);
 		
+		frequencyLabel = new JLabel("Frequency: ");
+		c.gridx = 0;
+		c.gridy = 7;
+		labelPanel.add(frequencyLabel,c);
+		
+		
+		durationLabel = new JLabel("Duration of Trip: ");
+		c.gridx = 0;
+		c.gridy = 8;
+		labelPanel.add(durationLabel,c);
+
 	}
 
 
