@@ -17,11 +17,15 @@ public class Location {
 		this.city = city;
 	}
 	
-	public void addPath(Path path){
+	protected void addPath(Path path){
 		paths.add(path);
 	}
 	
-	public String getCity(){
+	protected void removePath(Path path){
+		paths.remove(path);
+	}
+	
+	protected String getCity(){
 		return city;
 	}
 	
@@ -29,7 +33,7 @@ public class Location {
 	 * 
 	 * @return An unmodifiable list of all the paths.
 	 */
-	public ArrayList<Path> getPaths(){
+	protected ArrayList<Path> getPaths(){
 		return (ArrayList<Path>) Collections.unmodifiableList(paths);
 	}
 

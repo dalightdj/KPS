@@ -14,17 +14,20 @@ public class Path {
 	
 	private double ppGram;//price per gram
 	private double ppCmCubed;//price per cm cubed
-	private double hoursAfterMidnightFromMondayMorning;
-	private int frequency;
-	private double duration;
+	private DayOfWeek day;//private double hoursAfterMidnightFromMondayMorning;
+	private int frequency;//hours between each departure
+	private double duration;//duration of trip in hours
 	private double cost;
 		
 	public enum TransportType{
 		AIR, SEA, LAND;
 	}
 	
+	public enum DayOfWeek{
+		MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY;
+	}
 	
-	public Path(Location origin, Location dest, String company, TransportType type){
+	public Path(Location origin, Location dest, String company, TransportType type, float ppg, float ppcc, Path.DayOfWeek dayOfWeek, int frequency, int duration){
 		this.origin = origin;
 		this.dest = dest;
 		this.company = company;
@@ -36,7 +39,7 @@ public class Path {
 	 * Update 'price per gram'
 	 * @param price The new price per gram
 	 */
-	public void updatePPG(double price){
+	protected void updatePPG(double price){
 		ppGram = price;
 	}
 	
@@ -44,7 +47,29 @@ public class Path {
 	 * Update 'price per centimeter cubed'
 	 * @param price
 	 */
-	public void updatePPCC(double price){
+	protected void updatePPCC(double price){
 		ppCmCubed = price;
+	}
+	
+	protected Path update(float ppg, float ppcc, DayOfWeek dayOfWeek, int frequency, int duration){
+		this.ppGram = ppg;
+		this.ppCmCubed = ppcc;
+		this.day = dayOfWeek;
+		this.frequency = frequency;
+		this.duration = duration;
+		
+		return this;
+	}
+	
+	protected Location getDestination(){
+		return dest;
+	}
+	
+	protected String getCompany(){
+		return company;
+	}
+	
+	protected TransportType getTransportType(){
+		return type;
 	}
 }

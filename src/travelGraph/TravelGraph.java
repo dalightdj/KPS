@@ -11,8 +11,57 @@ public class TravelGraph {
 	}
 	
 	
-	public void updatePathPrice(){
+	/**
+	 * Updates the given Path's price information. If the Path doesn't exist then a new one is created.
+	 * @param origin Name of origin
+	 * @param destination Name of destination
+	 * @param company Name of the transport firm
+	 * @param type The type of transport i.e. Land, Air or Sea
+	 * @param ppg New price per gram
+	 * @param ppcc New price per cubic centimeter
+	 * @param dayOfWeek The day of the week the transport departs
+	 * @param frequency The frequency in hours between departures
+	 * @param duration The duration of the trip in hours
+	 * @return The updated path. Returns a new path if no path existed with the given origin, destination, company name, transport type.
+	 */
+	public Path updatePathPrice(String origin, String destination, String company, Path.TransportType type, float ppg, float ppcc, Path.DayOfWeek dayOfWeek, int frequency, int duration){
+		Location[] locs = getLocs(origin, destination);
+		Location originLoc = locs[0];
+		Location destLoc = locs[1];
 		
+		//If the path exists then update it and return it
+		if(originLoc!=null && destLoc!=null){
+			for(Path p : originLoc.getPaths()){
+				if(p.getDestination()==destLoc){
+					if(p.getCompany().equals(company)){
+						if(p.getTransportType() == type){
+							return p.update(ppg, ppcc, dayOfWeek, frequency, duration);
+						}
+					}
+				}
+			}
+		}
+		
+		
+		///////////////////////////////////////////////////////////////////
+		//The current path must not exist so make a new one and return it//
+		///////////////////////////////////////////////////////////////////
+		
+		//if either one of the given locations don't exist then create one and add it to the list of locations
+		if(originLoc == null){
+			originLoc = new Location(origin);
+			locations.add(originLoc);
+		}
+		if(destLoc == null){
+			destLoc = new Location(destination);
+			locations.add(destLoc);
+		}
+		
+		//create the path and then add it to the origin's list of outgoing paths
+		Path path = new Path(originLoc, destLoc, company, type, ppg, ppcc, dayOfWeek, frequency, duration);
+		originLoc.addPath(path);
+		
+		return path;
 	}
 				
 	
@@ -33,42 +82,41 @@ public class TravelGraph {
 		return route;
 	}
 	
-	
 	/**
-	 * Creates a direct path from origin to destination.
-	 * @param origin Name of location. If one doesn't exist then this method creates one.
-	 * @param destination Name of destination. If one doesn't exist then this method creates one.
-	 * @param company The name of the transport company
+	 * Removes a particular Path from the collection of Paths
+	 * @param origin Name of origin
+	 * @param destination Name of destination
+	 * @param company Name of transport firm
 	 * @param type The type of transport i.e. Land, Air or Sea
+	 * @return True if the path was successfully removed. False otherwise. For a path to be removed it must have the same origin, destination, company and type.
 	 */
-	public void createPath(String origin, String destination, String company, Path.TransportType type){
-		
+	public boolean removePath(String origin, String destination, String company, Path.TransportType type){
 		Location[] locs = getLocs(origin, destination);
 		Location originLoc = locs[0];
 		Location destLoc = locs[1];
-				
-		//if either one of the given locations don't exist then create one and add it to the list of locations
-		if(originLoc == null){
-			originLoc = new Location(origin);
-			locations.add(originLoc);
-		}
-		if(destLoc == null){
-			destLoc = new Location(destination);
-			locations.add(destLoc);
+		
+		if(originLoc!=null && destLoc!=null){
+			for(Path p : originLoc.getPaths()){
+				if(p.getDestination()==destLoc){
+					if(p.getCompany().equals(company)){
+						if(p.getTransportType() == type){
+							originLoc.removePath(p);
+							return true;
+						}
+					}
+				}
+			}
 		}
 		
-		//create the path and then add it to the origin's list of outgoing paths
-		Path path = new Path(originLoc, destLoc, company, type);
-		originLoc.addPath(path);
+		return false;
 	}
-	
 	
 	
 	//======================================================
 	//====================HELPER METHODS====================
 	//======================================================
 	/**
-	 * Gets an origin and destination location and returns them in an array of size 2.
+	 * Gets an origin and destination Location from the stored collection of Locations and returns them in an array of size 2.
 	 * @param origin The name of the origin location
 	 * @param destination The name of the destination location
 	 * @return An array with index 0 holding the origin location, and index 1 holding the destination location. The location will be null if a location doesn't exist.
