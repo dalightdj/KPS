@@ -20,29 +20,28 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SpringLayout;
-import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
 import Main.MainFrame;
 
+public class TransportCostUpdateDialog extends JDialog implements ActionListener {
 
-public class MailDialog extends JDialog implements ActionListener {
-
-	private KPSFrame frame;
-	
 	/*The two buttons submit and cancel*/
 	private JButton submit;
 	private JButton cancel;
 	
 	/*All the labels*/
-	private JLabel dayLabel;
+	private JLabel companyLabel;
 	private JLabel destinationLabel;
 	private JLabel fromLabel;
-	private JLabel weightLabel;
-	private JLabel volumeLabel;
-	private JLabel priorityLabel;
+	private JLabel typeLabel;
+	private JLabel newWeightCostLabel;
+	private JLabel newVolumeCostLabel;
+	private JLabel dayOfDepartureLabel;
+	private JLabel frequencyLabel;
+	private JLabel durationLabel;
+
 	
 	/*The three panels on this Dialog*/
 	private JPanel labelPanel;
@@ -52,12 +51,16 @@ public class MailDialog extends JDialog implements ActionListener {
 	private JPanel underLyingPanel;
 	
 	/*All the options for the form*/
-	private JComboBox daysComboBox;
 	private JComboBox destinationComboBox;
 	private JComboBox fromComboBox;
-	private JComboBox priorityComboBox;
+	private JComboBox typeComboBox;
+	private JTextField copmanyTextField;
 	private JTextField weightTextField;
 	private JTextField volumeTextField;
+	private JTextField departureTextField;
+	private JTextField frequencyTextField;
+	private JTextField durationTextField;
+	
 	private JLabel weightLabelInfo;
 	private JLabel volumeLabelInfo;
 	
@@ -66,11 +69,13 @@ public class MailDialog extends JDialog implements ActionListener {
 	Border raisedbevel = BorderFactory.createRaisedBevelBorder();
 	Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 	
-	public MailDialog(KPSFrame frame) {
+	private KPSFrame frame;
+	
+	public TransportCostUpdateDialog(KPSFrame frame) {
 		super(frame,true);
 		this.frame = frame;
 		setResizable(false);
-		setBounds(0, 0, 400, 330);
+		setBounds(0, 0, 500, 430);
         this.setLocationRelativeTo(frame); //sets position relative to the whole window
 		
 		/*Initialize the layout and the insets*/
@@ -89,7 +94,7 @@ public class MailDialog extends JDialog implements ActionListener {
 		/*This is the panel with all the labels*/
 		labelPanel = new JPanel();
 		//labelPanel.setBorder(BorderFactory.createLineBorder(Color.red)); //just for checking the positioning, can remove later
-		labelPanel.setPreferredSize(new Dimension(80,0));
+		labelPanel.setPreferredSize(new Dimension(110,0));
 		labelPanel.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5,1,5,1); //top, left, bottom, right padding (in that order)
@@ -112,7 +117,7 @@ public class MailDialog extends JDialog implements ActionListener {
  		optionsPanel.setPreferredSize(new Dimension(this.getWidth(),80));
  		optionsPanel.setLayout(new GridBagLayout());
 		GridBagConstraints c2 = new GridBagConstraints();
-		c2.insets = new Insets(5,1,5,1); //top, left, bottom, right padding (in that order)
+		c2.insets = new Insets(5,10,5,1); //top, left, bottom, right padding (in that order)
 		c2.fill = GridBagConstraints.HORIZONTAL;
 		c2.weightx = 1.0;
 		c2.weighty = 1.0;
@@ -124,7 +129,7 @@ public class MailDialog extends JDialog implements ActionListener {
  		mainPanel.setLayout(new BorderLayout());
  		mainPanel.add(optionsPanel, BorderLayout.CENTER);
  		mainPanel.add(labelPanel, BorderLayout.WEST);
- 		TitledBorder title = BorderFactory.createTitledBorder(null, "Delivery Details", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 15), Color.RED);
+ 		TitledBorder title = BorderFactory.createTitledBorder(null, "Transport Price Update", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 15), Color.RED);
  		mainPanel.setBorder(title);
  		underLyingPanel.add(mainPanel,BorderLayout.CENTER);
  		underLyingPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 20, 20)); //this sets up the padding
@@ -132,7 +137,6 @@ public class MailDialog extends JDialog implements ActionListener {
  		/*Add the main panel to the underlying panel and make this dialog visible*/
  		this.add(underLyingPanel,BorderLayout.CENTER);
 		this.setVisible(true);		
-		
 	}
 	
 	
@@ -144,12 +148,10 @@ public class MailDialog extends JDialog implements ActionListener {
 	 * @param c2 - the GridBagConstraints to use for positioning 
 	 */
 	private void setupOptions(JPanel op, GridBagConstraints c2) {
-		String[] daysList = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
-		daysComboBox = new JComboBox(daysList);
-		daysComboBox.addActionListener(this);
+		copmanyTextField = new JTextField(10);
 		c2.gridx = 0;
 		c2.gridy = 0;
-		op.add(daysComboBox,c2);
+		op.add(copmanyTextField,c2);
 		
 		String[] destinationList = {"Wellington", "Hamilton", "Auckland"};
 		destinationComboBox = new JComboBox(destinationList);
@@ -165,32 +167,49 @@ public class MailDialog extends JDialog implements ActionListener {
 		c2.gridy = 2;
 		op.add(fromComboBox,c2);
 		
-		weightTextField = new JTextField(10);
+		String[] typeList = {"Sea", "Air", "Land"};
+		typeComboBox = new JComboBox(typeList);
+		typeComboBox.addActionListener(this);
 		c2.gridx = 0;
 		c2.gridy = 3;
+		op.add(typeComboBox,c2);	
+				
+		weightTextField = new JTextField(10);
+		c2.gridx = 0;
+		c2.gridy = 4;
 		op.add(weightTextField,c2);
 		
-		weightLabelInfo = new JLabel("(Grams)");
+		weightLabelInfo = new JLabel("(Per Gram)");
 		c2.gridx = 1;
-		c2.gridy = 3;
+		c2.gridy = 4;
 		op.add(weightLabelInfo,c2);
 				
 		volumeTextField = new JTextField(10);
 		c2.gridx = 0;
-		c2.gridy = 4;
+		c2.gridy = 5;
 		op.add(volumeTextField,c2);
 		
-		volumeLabelInfo = new JLabel("(Cubic Centimeters)");
+		volumeLabelInfo = new JLabel("(Per Cubic Centimeter)");
 		c2.gridx = 1;
-		c2.gridy = 4;
+		c2.gridy = 5;
 		op.add(volumeLabelInfo,c2);
 		
-		String[] priorityList = {"Standard", "Air"};
-		priorityComboBox = new JComboBox(priorityList);
-		priorityComboBox.addActionListener(this);
+		departureTextField = new JTextField(10);
 		c2.gridx = 0;
-		c2.gridy = 5;
-		op.add(priorityComboBox,c2);	
+		c2.gridy = 6;
+		op.add(departureTextField,c2);
+		
+		frequencyTextField = new JTextField(10);
+		c2.gridx = 0;
+		c2.gridy = 7;
+		op.add(frequencyTextField,c2);
+		
+		durationTextField = new JTextField(10);
+		c2.gridx = 0;
+		c2.gridy = 8;
+		op.add(durationTextField,c2);
+		
+		
 	}
 
 	/**
@@ -217,11 +236,12 @@ public class MailDialog extends JDialog implements ActionListener {
 	 * @param c - The GridBagConstraints to use for positioning
 	 */
 	private void setupLabels(JPanel labelPanel, GridBagConstraints c) {
-		dayLabel = new JLabel("Day: ");
+
+		companyLabel = new JLabel("Company: ");
 		c.gridx = 0;
 		c.gridy = 0;
-		labelPanel.add(dayLabel,c);
-
+		labelPanel.add(companyLabel,c);
+		
 		destinationLabel = new JLabel("Destination: ");
 		c.gridx = 0;
 		c.gridy = 1;
@@ -232,20 +252,37 @@ public class MailDialog extends JDialog implements ActionListener {
 		c.gridy = 2;
 		labelPanel.add(fromLabel,c);
 		
-		weightLabel = new JLabel("Weight: ");
+		typeLabel = new JLabel("Type: ");
 		c.gridx = 0;
 		c.gridy = 3;
-		labelPanel.add(weightLabel,c);
+		labelPanel.add(typeLabel,c);	
 		
-		volumeLabel = new JLabel("Volume: ");
+		newWeightCostLabel = new JLabel("New Weight Cost: ");
 		c.gridx = 0;
 		c.gridy = 4;
-		labelPanel.add(volumeLabel,c);
+		labelPanel.add(newWeightCostLabel,c);
 		
-		priorityLabel = new JLabel("Priority: ");
+		newVolumeCostLabel = new JLabel("New Volume Cost: ");
 		c.gridx = 0;
 		c.gridy = 5;
-		labelPanel.add(priorityLabel,c);		
+		labelPanel.add(newVolumeCostLabel,c);
+	
+		dayOfDepartureLabel = new JLabel("Day of Departure: ");
+		c.gridx = 0;
+		c.gridy = 6;
+		labelPanel.add(dayOfDepartureLabel,c);
+		
+		frequencyLabel = new JLabel("Frequency: ");
+		c.gridx = 0;
+		c.gridy = 7;
+		labelPanel.add(frequencyLabel,c);
+		
+		
+		durationLabel = new JLabel("Duration of Trip: ");
+		c.gridx = 0;
+		c.gridy = 8;
+		labelPanel.add(durationLabel,c);
+
 	}
 
 
@@ -253,5 +290,14 @@ public class MailDialog extends JDialog implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 	}
-
+	
+	/**
+	 * This is just for quickly testing the layout of this
+	 * dialog without having to run the whole thing from log in screen.
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		new TransportCostUpdateDialog(new KPSFrame());
+	}
+	
 }
