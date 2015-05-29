@@ -268,7 +268,7 @@ public class Logger {
 
 	}
 
-
+	/*
 	public static void main(String[] args) {
 		Logger logger = new Logger();
 		TDEvent tdEvent = new TDEvent("NX Post", "Japan", "New Zealand", "something");
@@ -281,6 +281,6 @@ public class Logger {
 		logger.addEvent(tcuEvent);
 		ArrayList<Event> e = logger.readXML();
 		System.out.println("sda");
-	}
+	}*/
 
 }
