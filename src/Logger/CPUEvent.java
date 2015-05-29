@@ -3,17 +3,16 @@ package Logger;
 public class CPUEvent extends Event {
 	
 	private static final String eventType = "CustomerPriceUpdate";
-	private String desTo;
-	private String desFrom;
+	private String destination;
+	private String origin;
 	private String priority;
 	private int weightCost;
 	private int volumeCost;
 	
 	
-	public CPUEvent(String desTo, String desFrom, String priority, int weightCost, int volumeCost) {
-		super();
-		this.desTo = desTo;
-		this.desFrom = desFrom;
+	public CPUEvent(String destination, String origin, String priority, int weightCost, int volumeCost) {
+		this.destination = destination;
+		this.origin = origin;
 		this.priority = priority;
 		this.weightCost = weightCost;
 		this.volumeCost = volumeCost;
@@ -21,22 +20,22 @@ public class CPUEvent extends Event {
 
 
 	public String getDesTo() {
-		return desTo;
+		return destination;
 	}
 
 
-	public void setDesTo(String desTo) {
-		this.desTo = desTo;
+	public void setDesTo(String destination) {
+		this.destination = destination;
 	}
 
 
 	public String getDesFrom() {
-		return desFrom;
+		return origin;
 	}
 
 
-	public void setDesFrom(String desFrom) {
-		this.desFrom = desFrom;
+	public void setDesFrom(String origin) {
+		this.origin = origin;
 	}
 
 

@@ -4,10 +4,10 @@ public class TCUEvent extends Event {
 	
 	private static final String eventType = "TransportCostUpdate";
 	private String company;
-	private String desTo;
-	private String desFrom;
+	private String destination;
+	private String origin;
 	private String type;
-	private String day;
+	private String date;
 	private int weightCost;
 	private int volumeCost;
 	private int maxWeight;
@@ -15,12 +15,12 @@ public class TCUEvent extends Event {
 	private int duration;
 	private int frequency;
 	
-	public TCUEvent(String company, String desTo, String desFrom, String type, String day, int weightCost, int volumeCost, int maxWeight, int maxVolume, int duration, int frequency) {
+	public TCUEvent(String company, String destination, String origin, String type, String date, int weightCost, int volumeCost, int maxWeight, int maxVolume, int duration, int frequency) {
 		this.company = company;
-		this.desTo = desTo;
-		this.desFrom = desFrom;
+		this.destination = destination;
+		this.origin = origin;
 		this.type = type;
-		this.day = day;
+		this.date = date;
 		this.weightCost = weightCost;
 		this.volumeCost = volumeCost;
 		this.maxWeight = maxWeight;
@@ -35,25 +35,23 @@ public class TCUEvent extends Event {
 		return eventType;
 	}
 
-
-
 	public String getCompany() {
 		return company;
 	}
 	public void setCompany(String company) {
 		this.company = company;
 	}
-	public String getDesTo() {
-		return desTo;
+	public String getDestination() {
+		return destination;
 	}
-	public void setDesTo(String desTo) {
-		this.desTo = desTo;
+	public void setDestination(String destination) {
+		this.destination = destination;
 	}
-	public String getDesFrom() {
-		return desFrom;
+	public String getOrigin() {
+		return origin;
 	}
-	public void setDesFrom(String desFrom) {
-		this.desFrom = desFrom;
+	public void setOrigin(String origin) {
+		this.origin = origin;
 	}
 	public String getType() {
 		return type;
@@ -61,11 +59,11 @@ public class TCUEvent extends Event {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public String getDay() {
-		return day;
+	public String getDate() {
+		return date;
 	}
-	public void setDay(String day) {
-		this.day = day;
+	public void setDate(String date) {
+		this.date = date;
 	}
 	public int getWeightCost() {
 		return weightCost;

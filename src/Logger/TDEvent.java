@@ -9,16 +9,16 @@ public class TDEvent extends Event {
 
 	private static final String eventType = "TransportDiscontinued";
 	private String company;
-	private String desTo;
-	private String desFrom;
+	private String destination;
+	private String origin;
 	private String type;
 
 
-	public TDEvent(String company, String desTo, String desFrom, String type) {
-		setCompany(company);
-		setDesTo(desTo);		
-		setDesFrom(desFrom);	
-		setType(type);
+	public TDEvent(String company, String destination, String origin, String type) {
+		this.company = company;
+		this.company = company;
+		this.origin = origin;
+		this.type = type;
 	}
 
 	public String getCompany() {
@@ -30,22 +30,22 @@ public class TDEvent extends Event {
 		this.company = company;
 	}
 
-	public String getDesTo() {
-		return desTo;
+	public String getDestination() {
+		return destination;
 	}
 
 	@XmlElement  
-	public void setDesTo(String desTo) {
-		this.desTo = desTo;
+	public void setDestination(String destination) {
+		this.destination = destination;
 	}
 
-	public String getDesFrom() {
-		return desFrom;
+	public String getOrigin() {
+		return origin;
 	}
 
 	@XmlElement  
-	public void setDesFrom(String desFrom) {
-		this.desFrom = desFrom;
+	public void setOrigin(String origin) {
+		this.origin = origin;
 	}
 
 	public String getType() {
