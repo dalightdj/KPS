@@ -3,52 +3,51 @@ package Logger;
 public class MDEvent extends Event {
 	
 	private static final String eventType = "MailDelivery";
-	private String day;
-	private String desTo;
-	private String desFrom;
+	private String date;
+	private String destination;
+	private String origin;
 	private String priority;
 	private int weight;
 	private int volume;
 	
 	
-	public MDEvent(String day, String desTo, String desFrom, String priority, int weight, int volume) {
-		super();
-		this.day = day;
-		this.desTo = desTo;
-		this.desFrom = desFrom;
+	public MDEvent(String date, String destination, String origin, String priority, int weight, int volume) {
+		this.date = date;
+		this.destination = destination;
+		this.origin = origin;
 		this.priority = priority;
 		this.weight = weight;
 		this.volume = volume;
 	}
 
 
-	public String getDay() {
-		return day;
+	public String getDate() {
+		return date;
 	}
 
 
-	public void setDay(String day) {
-		this.day = day;
+	public void setDate(String date) {
+		this.date = date;
 	}
 
 
-	public String getDesTo() {
-		return desTo;
+	public String getDestination() {
+		return destination;
 	}
 
 
-	public void setDesTo(String desTo) {
-		this.desTo = desTo;
+	public void setDestination(String destination) {
+		this.destination = destination;
 	}
 
 
-	public String getDesFrom() {
-		return desFrom;
+	public String getOrigin() {
+		return origin;
 	}
 
 
-	public void setDesFrom(String desFrom) {
-		this.desFrom = desFrom;
+	public void setOrigin(String origin) {
+		this.origin = origin;
 	}
 
 
