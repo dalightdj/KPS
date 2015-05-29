@@ -196,15 +196,10 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 		c.gridx = 0;
 		c.gridy = 2;
 		labelPanel.add(fromLabel,c);
-		
-		fromLabel = new JLabel("From: ");
-		c.gridx = 0;
-		c.gridy = 3;
-		labelPanel.add(fromLabel,c);
-		
+				
 		typeLabel = new JLabel("Type: ");
 		c.gridx = 0;
-		c.gridy = 4;
+		c.gridy = 3;
 		labelPanel.add(typeLabel,c);
 		
 	}

@@ -37,7 +37,6 @@ public class MailDialog extends JDialog implements ActionListener {
 	private JButton cancel;
 	
 	/*All the labels*/
-	private JLabel dayLabel;
 	private JLabel destinationLabel;
 	private JLabel fromLabel;
 	private JLabel weightLabel;
@@ -52,7 +51,6 @@ public class MailDialog extends JDialog implements ActionListener {
 	private JPanel underLyingPanel;
 	
 	/*All the options for the form*/
-	private JComboBox daysComboBox;
 	private JComboBox destinationComboBox;
 	private JComboBox fromComboBox;
 	private JComboBox priorityComboBox;
@@ -144,12 +142,6 @@ public class MailDialog extends JDialog implements ActionListener {
 	 * @param c2 - the GridBagConstraints to use for positioning 
 	 */
 	private void setupOptions(JPanel op, GridBagConstraints c2) {
-		String[] daysList = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
-		daysComboBox = new JComboBox(daysList);
-		daysComboBox.addActionListener(this);
-		c2.gridx = 0;
-		c2.gridy = 0;
-		op.add(daysComboBox,c2);
 		
 		String[] destinationList = {"Wellington", "Hamilton", "Auckland"};
 		destinationComboBox = new JComboBox(destinationList);
@@ -158,8 +150,9 @@ public class MailDialog extends JDialog implements ActionListener {
 		c2.gridy = 1;
 		op.add(destinationComboBox,c2);
 		
-		String[] fromList = {"Wellington", "Hamilton", "Auckland"};
-		fromComboBox = new JComboBox(destinationList);
+		
+		String[] fromList = {"Auckland", "Hamilton", "Rotorua", "Palmerston North", "Wellington", "Christchurch", "Dunedin"};
+		fromComboBox = new JComboBox(fromList);
 		fromComboBox.addActionListener(this);
 		c2.gridx = 0;
 		c2.gridy = 2;
@@ -217,11 +210,6 @@ public class MailDialog extends JDialog implements ActionListener {
 	 * @param c - The GridBagConstraints to use for positioning
 	 */
 	private void setupLabels(JPanel labelPanel, GridBagConstraints c) {
-		dayLabel = new JLabel("Day: ");
-		c.gridx = 0;
-		c.gridy = 0;
-		labelPanel.add(dayLabel,c);
-
 		destinationLabel = new JLabel("Destination: ");
 		c.gridx = 0;
 		c.gridy = 1;
@@ -251,7 +239,10 @@ public class MailDialog extends JDialog implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+		// is submit use this bit of code to send the current time
+		//DateFormat dateFormat = new SimpleDateFormat("EEE HH:mm");
+		//Date date = new Date();
+		//String dateString = (dateFormat.format(date));
 	}
 
 }
