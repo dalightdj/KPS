@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -30,6 +31,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import org.pushingpixels.substance.api.skin.SubstanceGraphiteLookAndFeel;
+
 
 
 
@@ -61,6 +63,15 @@ public class MainFrame extends JFrame implements ActionListener {
 		this.setLayout(new BorderLayout());
 		this.setTitle("Kelburn Postal Serivce");
 		
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		int width = (int) screenSize.getWidth();
+		int height = (int) screenSize.getHeight();
+		
+		System.out.println(width);
+		System.out.println(height);
+
+		
+		
 		/*Initialize the lock Image*/
 		lockImage = load(ASSETS + "lock.png");
 		ImageIcon lockIcon = new ImageIcon(lockImage); 
@@ -76,7 +87,8 @@ public class MainFrame extends JFrame implements ActionListener {
 		ImageIcon icon = new ImageIcon(backgroundImage); 
 		panel = new JLabel();
 		panel.setIcon(icon);
-		panel.setBounds(0,0,500,400);
+		panel.setBounds(0,0,width - 940, height - 500); //width, height
+		
  		//panel.setBorder(BorderFactory.createLineBorder(Color.red)); //for testing purposes
 		layeredPane.add(panel,new Integer(0),0);
 		
@@ -86,7 +98,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		lockPanel.setOpaque(false);
 		lockPanel.add(lockLabel);
  		//lockPanel.setBorder(BorderFactory.createLineBorder(Color.YELLOW)); //for testing purposes
-		layeredPane.add(lockPanel,new Integer(1),0);
+		//layeredPane.add(lockPanel,new Integer(1),0);
 		
 		
 		this.add(layeredPane);
