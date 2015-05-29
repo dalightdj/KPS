@@ -98,7 +98,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		lockPanel.setOpaque(false);
 		lockPanel.add(lockLabel);
  		//lockPanel.setBorder(BorderFactory.createLineBorder(Color.YELLOW)); //for testing purposes
-		layeredPane.add(lockPanel,new Integer(1),0);
+		//layeredPane.add(lockPanel,new Integer(1),0);
 		
 		
 		this.add(layeredPane);
