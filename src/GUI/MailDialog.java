@@ -150,8 +150,9 @@ public class MailDialog extends JDialog implements ActionListener {
 		c2.gridy = 1;
 		op.add(destinationComboBox,c2);
 		
-		String[] fromList = {"Wellington", "Hamilton", "Auckland"};
-		fromComboBox = new JComboBox(destinationList);
+		
+		String[] fromList = {"Auckland", "Hamilton", "Rotorua", "Palmerston North", "Wellington", "Christchurch", "Dunedin"};
+		fromComboBox = new JComboBox(fromList);
 		fromComboBox.addActionListener(this);
 		c2.gridx = 0;
 		c2.gridy = 2;
