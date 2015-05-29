@@ -32,6 +32,8 @@ public class Path {
 		this.dest = dest;
 		this.company = company;
 		this.type = type;
+		
+		updateCost();
 	}
 	
 	
@@ -41,6 +43,7 @@ public class Path {
 	 */
 	protected void updatePPG(double price){
 		ppGram = price;
+		updateCost();
 	}
 	
 	/**
@@ -49,6 +52,11 @@ public class Path {
 	 */
 	protected void updatePPCC(double price){
 		ppCmCubed = price;
+		updateCost();
+	}
+	
+	private void updateCost(){
+		cost = ppGram+ppCmCubed;
 	}
 	
 	protected Path update(float ppg, float ppcc, DayOfWeek dayOfWeek, int frequency, int duration){
@@ -71,5 +79,9 @@ public class Path {
 	
 	protected TransportType getTransportType(){
 		return type;
+	}
+	
+	protected double getCost(){
+		return cost;
 	}
 }
