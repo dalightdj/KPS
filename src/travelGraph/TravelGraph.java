@@ -38,7 +38,7 @@ public class TravelGraph {
 	 * @param duration The duration of the trip in hours
 	 * @return The updated path. Returns a new path if no path existed with the given origin, destination, company name, transport type.
 	 */
-	public Path updatePathPrice(String origin, String destination, String company, Path.TransportType type, float ppg, float ppcc, Path.DayOfWeek dayOfWeek, int frequency, int duration){
+	public Path updatePathPrice(String origin, String destination, String company, Path.TransportType type, float ppg, float ppcc, float maxWeight, float maxVol, Path.DayOfWeek dayOfWeek, int frequency, int duration){
 		Location[] locs = getLocs(origin, destination);
 		Location originLoc = locs[0];
 		Location destLoc = locs[1];
@@ -72,7 +72,7 @@ public class TravelGraph {
 		}
 
 		//create the path and then add it to the origin's list of outgoing paths
-		Path path = new Path(originLoc, destLoc, company, type, ppg, ppcc, dayOfWeek, frequency, duration);
+		Path path = new Path(originLoc, destLoc, company, type, ppg, ppcc, maxWeight, maxVol, dayOfWeek, frequency, duration);
 		originLoc.addPath(path);
 
 		return path;
