@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.PriorityQueue;
 
+import travelGraph.Path.DayOfWeek;
 import travelGraph.Path.TransportType;
 
 /**
@@ -111,35 +112,35 @@ public class TravelGraph {
 				return getPath(destLoc);//we've found our path
 			}
 
-			
+
 			for(Path p : from.getPaths()){
 				//if(airPriority(p, priority)){
 				//stdPriority searches for land or sea first nd only searches for air if there is no other choice
 
-					Location to = p.getDestination();
-					double weight = p.getCost();
-					double weightPlusPath = weight + from.getDistance();
-					if(weightPlusPath < to.getDistance()){
-						queue.remove(to);//remove it so it can be updated and the re-added. does nothing if the Location isn't in the queue
-						to.setDistance(weightPlusPath);
-						to.setFrom(from, p);
-						queue.offer(to);//add or re-add the node to the queue so that it can update with its new priority
-					}
+				Location to = p.getDestination();
+				double weight = p.getCost();
+				double weightPlusPath = weight + from.getDistance();
+				if(weightPlusPath < to.getDistance()){
+					queue.remove(to);//remove it so it can be updated and the re-added. does nothing if the Location isn't in the queue
+					to.setDistance(weightPlusPath);
+					to.setFrom(from, p);
+					queue.offer(to);//add or re-add the node to the queue so that it can update with its new priority
+				}
 				//}
 			}
 		}
 
 		return null;
 	}
-	
+
 	//create list of air paths. if no from path then check air paths
-	
+
 	private boolean airPriority(Path p, Priority priority){
 		return (priority==Priority.DomesticAir || priority==Priority.InternationalAir) && p.getTransportType()==TransportType.AIR;
 	}
-	
+
 	private boolean standardPriority(){
-		
+
 	}
 
 	/**
@@ -166,7 +167,7 @@ public class TravelGraph {
 	 * @param type The type of transport i.e. Land, Air or Sea
 	 * @return True if the path was successfully removed. False otherwise. For a path to be removed it must have the same origin, destination, company and type.
 	 */
-	public boolean removePath(String origin, String destination, String company, Path.TransportType type){
+	public boolean removePath(String origin, String destination, String company, Path.TransportType type, DayOfWeek day){
 		Location[] locs = getLocs(origin, destination);
 		Location originLoc = locs[0];
 		Location destLoc = locs[1];
@@ -176,8 +177,10 @@ public class TravelGraph {
 				if(p.getDestination()==destLoc){
 					if(p.getCompany().equals(company)){
 						if(p.getTransportType() == type){
-							originLoc.removePath(p);
-							return true;
+							if(p.getDay() == day){
+								originLoc.removePath(p);
+								return true;
+							}
 						}
 					}
 				}

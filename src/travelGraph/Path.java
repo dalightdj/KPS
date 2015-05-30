@@ -117,6 +117,10 @@ public class Path {
 		return type;
 	}
 	
+	protected DayOfWeek getDay(){
+		return day;
+	}
+	
 	protected double getCost(){
 		return cost;
 	}
