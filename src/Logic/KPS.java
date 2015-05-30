@@ -22,8 +22,9 @@ public class KPS {
 		expendetureTotal = 0.0;
 		deliveriesCount = 0;
 		LDCs = new ArrayList<LocalDistributionCentre>();
+		events = new ArrayList<Event>();
 		journeys = new ArrayList<Journey>();
-		logger = new Logger();
+		logger = new Logger(); //Does not affect the XML file.
 		loadEvents(); //WILL BE NULL AT THE START UNLESS WE HAVE A DEFAULT XML FILE
 	}
 
