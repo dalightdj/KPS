@@ -14,6 +14,8 @@ public class Path {
 	
 	private double ppGram;//price per gram
 	private double ppCmCubed;//price per cm cubed
+	private double maxWeight;
+	private double maxVolume;
 	private DayOfWeek day;//private double hoursAfterMidnightFromMondayMorning;
 	private int frequency;//hours between each departure
 	private double duration;//duration of trip in hours
@@ -49,7 +51,7 @@ public class Path {
 	 * @param frequency The frequency in hours between departures
 	 * @param duration The duration of time from origin to destination
 	 */
-	public Path(Location origin, Location dest, String company, TransportType type, float ppg, float ppcc, Path.DayOfWeek dayOfWeek, int frequency, int duration){
+	public Path(Location origin, Location dest, String company, TransportType type, float ppg, float ppcc, float maxWeight, float maxVolume, Path.DayOfWeek dayOfWeek, int frequency, int duration){
 		this.origin = origin;
 		this.dest = dest;
 		this.company = company;
