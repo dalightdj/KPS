@@ -109,8 +109,8 @@ public class Logger {
 
 		Element TDENode = new Element("TDEvent");
 		TDENode.addContent(new Element("company").setText(tdEvent.getCompany()));
-		TDENode.addContent(new Element("origin").setText(tdEvent.getDesFrom()));
-		TDENode.addContent(new Element("destination").setText(tdEvent.getDesTo()));
+		TDENode.addContent(new Element("origin").setText(tdEvent.getOrigin()));
+		TDENode.addContent(new Element("destination").setText(tdEvent.getDestination()));
 		TDENode.addContent(new Element("type").setText(tdEvent.getType()));
 
 		parentElement.addContent(TDENode);
@@ -150,12 +150,12 @@ public class Logger {
 
 		Element tcuNode = new Element("TCUEvent");
 		tcuNode.addContent(new Element("company").setText(tcuEvent.getCompany()));
-		tcuNode.addContent(new Element("origin").setText(tcuEvent.getDesFrom()));
-		tcuNode.addContent(new Element("destination").setText(tcuEvent.getDesTo()));
+		tcuNode.addContent(new Element("origin").setText(tcuEvent.getOrigin()));
+		tcuNode.addContent(new Element("destination").setText(tcuEvent.getDestination()));
 		tcuNode.addContent(new Element("type").setText(tcuEvent.getType()));
 		tcuNode.addContent(new Element("weightCost").setText(Integer.toString(tcuEvent.getWeightCost())));
 		tcuNode.addContent(new Element("volumeCost").setText(Integer.toString(tcuEvent.getVolumeCost())));
-		tcuNode.addContent(new Element("day").setText(tcuEvent.getDay()));
+		tcuNode.addContent(new Element("day").setText(tcuEvent.getDate()));
 		tcuNode.addContent(new Element("maxWeight").setText(Integer.toString(tcuEvent.getMaxWeight())));
 		tcuNode.addContent(new Element("maxVolume").setText(Integer.toString(tcuEvent.getMaxVolume())));
 		tcuNode.addContent(new Element("duration").setText(Integer.toString(tcuEvent.getDuration())));
@@ -175,10 +175,10 @@ public class Logger {
 		MDEvent mdEvent = (MDEvent) event;
 
 		Element mdNode = new Element("MDEvent");
-		mdNode.addContent(new Element("origin").setText(mdEvent.getDesFrom()));
-		mdNode.addContent(new Element("destination").setText(mdEvent.getDesTo()));
+		mdNode.addContent(new Element("origin").setText(mdEvent.getOrigin()));
+		mdNode.addContent(new Element("destination").setText(mdEvent.getDestination()));
 		mdNode.addContent(new Element("priority").setText(mdEvent.getPriority()));
-		mdNode.addContent(new Element("day").setText(mdEvent.getDay()));
+		mdNode.addContent(new Element("day").setText(mdEvent.getDate()));
 		mdNode.addContent(new Element("weight").setText(Integer.toString(mdEvent.getWeight())));
 		mdNode.addContent(new Element("volume").setText(Integer.toString(mdEvent.getVolume())));
 
