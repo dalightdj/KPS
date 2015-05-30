@@ -123,7 +123,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		panel.add(login,c);
 		login.addActionListener(this);
 		
-		this.getRootPane().setDefaultButton(login);
+		this.getRootPane().setDefaultButton(login); //sets default (enter key) to login button
 		this.add(panel);
 		this.setPreferredSize(new Dimension(500,400));
 		this.setResizable(false);

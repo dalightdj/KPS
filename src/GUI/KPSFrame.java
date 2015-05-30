@@ -30,6 +30,7 @@ public class KPSFrame extends JFrame {
 	private BufferedImage frameIcon;
 
 	/*Labels for the GUI information*/
+	private JLabel title;
 	private JLabel totalRevenue;
 	private JLabel totalExpenditure;
 	private JLabel totalNumberOfEvents;
@@ -80,7 +81,8 @@ public class KPSFrame extends JFrame {
 		c.insets = new Insets(0,-50,30,50); //top, left, bottom, right padding (in that order)
 		c.fill = GridBagConstraints.HORIZONTAL;
 	
-		
+		title = new JLabel("<html><b><u><font size = 5 color=BLACK>KELBURN POSTAL SERVICE</b></u></html>");
+
 		totalRevenue = new JLabel("<html><b><font size = 5 color=White>Total Revenue:</b></html>");
 		
 		totalExpenditure = new JLabel("<html><b><font size = 5 color=White>Total Expenditure:</b></html>");
@@ -95,25 +97,29 @@ public class KPSFrame extends JFrame {
 		c.weightx = 1.0;
 		
 		c.gridx = 0;
-		c.gridy = 0;
+		c.gridy = 1;
 		guiInformation.add(totalRevenue,c);
 		
 		c.gridx = 0;
-		c.gridy = 1;
+		c.gridy = 2;
 		guiInformation.add(totalExpenditure,c);
 		
 		c.gridx = 0;
-		c.gridy = 2;
+		c.gridy = 3;
 		guiInformation.add(totalNumberOfEvents,c);
 		
 		c.gridx = 0;
-		c.gridy = 3;
+		c.gridy = 4;
 		guiInformation.add(amountOfMail,c);
 		
 		c.gridx = 0;
-		c.gridy = 4;
+		c.gridy = 5;
 		guiInformation.add(criticalRoutes,c);
 				
+		c.gridx = 1;
+		c.gridy = 0;
+		guiInformation.add(title,c);
+		
 	}
 
 	/**
