@@ -272,22 +272,22 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		c.gridy = 3;
 		labelPanel.add(typeLabel,c);	
 		
-		newWeightCostLabel = new JLabel("New Weight Cost: ");
+		newWeightCostLabel = new JLabel("Weight Cost: ");
 		c.gridx = 0;
 		c.gridy = 4;
 		labelPanel.add(newWeightCostLabel,c);
 		
-		maxwWeightLabel = new JLabel("New Max Weight: ");
+		maxwWeightLabel = new JLabel("Max Weight: ");
 		c.gridx = 0;
 		c.gridy = 5;
 		labelPanel.add(maxwWeightLabel,c);
 		
-		newVolumeCostLabel = new JLabel("New Volume Cost: ");
+		newVolumeCostLabel = new JLabel("Volume Cost: ");
 		c.gridx = 0;
 		c.gridy = 6;
 		labelPanel.add(newVolumeCostLabel,c);
 	
-		maxVolumeLabel = new JLabel("New Max Volume: ");
+		maxVolumeLabel = new JLabel("Max Volume: ");
 		c.gridx = 0;
 		c.gridy = 7;
 		labelPanel.add(maxVolumeLabel,c);

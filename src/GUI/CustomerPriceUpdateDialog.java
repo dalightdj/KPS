@@ -222,12 +222,12 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
 		c.gridy = 2;
 		labelPanel.add(priorityLabel,c);	
 		
-		newWeightCostLabel = new JLabel("New Weight Cost: ");
+		newWeightCostLabel = new JLabel("Weight Cost: ");
 		c.gridx = 0;
 		c.gridy = 3;
 		labelPanel.add(newWeightCostLabel,c);
 		
-		newVolumeCostLabel = new JLabel("New Volume Cost: ");
+		newVolumeCostLabel = new JLabel("Volume Cost: ");
 		c.gridx = 0;
 		c.gridy = 4;
 		labelPanel.add(newVolumeCostLabel,c);
