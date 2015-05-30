@@ -15,6 +15,7 @@ public class TDEvent extends Event {
 
 
 	public TDEvent(String company, String destination, String origin, String type) {
+		super();
 		this.company = company;
 		this.company = company;
 		this.origin = origin;

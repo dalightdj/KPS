@@ -14,6 +14,7 @@ public class MDEvent extends Event {
 	
 	
 	public MDEvent(String date, String destination, String origin, Priority priority, int weight, int volume) {
+		super();
 		this.date = date;
 		this.destination = destination;
 		this.origin = origin;

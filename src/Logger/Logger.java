@@ -11,6 +11,8 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.XMLOutputter;
 
+import travelGraph.TravelGraph.Priority;
+
 
 
 
@@ -130,7 +132,7 @@ public class Logger {
 		Element cpuNode = new Element("CPUEvent");
 		cpuNode.addContent(new Element("origin").setText(cpuEvent.getDesFrom()));
 		cpuNode.addContent(new Element("destination").setText(cpuEvent.getDesTo()));
-		cpuNode.addContent(new Element("priority").setText(cpuEvent.getPriority()));
+		cpuNode.addContent(new Element("priority").setText(cpuEvent.getPriority().toString()));
 		cpuNode.addContent(new Element("weightCost").setText(Integer.toString(cpuEvent.getWeightCost())));
 		cpuNode.addContent(new Element("volumeCost").setText(Integer.toString(cpuEvent.getVolumeCost())));
 
@@ -177,7 +179,7 @@ public class Logger {
 		Element mdNode = new Element("MDEvent");
 		mdNode.addContent(new Element("origin").setText(mdEvent.getOrigin()));
 		mdNode.addContent(new Element("destination").setText(mdEvent.getDestination()));
-		mdNode.addContent(new Element("priority").setText(mdEvent.getPriority()));
+		mdNode.addContent(new Element("priority").setText(mdEvent.getPriority().toString()));
 		mdNode.addContent(new Element("day").setText(mdEvent.getDate()));
 		mdNode.addContent(new Element("weight").setText(Integer.toString(mdEvent.getWeight())));
 		mdNode.addContent(new Element("volume").setText(Integer.toString(mdEvent.getVolume())));
@@ -214,10 +216,11 @@ public class Logger {
 					events.add(tdEvent);
 					break;
 				case "MDEvent":
+					
 					MDEvent mdEvent = new MDEvent(ele.getChildText("day"),
 							ele.getChildText("destination"), 
 							ele.getChildText("origin"), 
-							ele.getChildText("priority"), 
+							getPriority(ele.getChildText("priority")), 
 							Integer.parseInt(ele.getChildText("weight")), 
 							Integer.parseInt(ele.getChildText("volume")));
 					
@@ -226,7 +229,7 @@ public class Logger {
 				case "CPUEvent":
 					CPUEvent cpuEvent = new CPUEvent(ele.getChildText("destination"), 
 							ele.getChildText("origin"), 
-							ele.getChildText("priority"), 
+							getPriority(ele.getChildText("priority")), 
 							Integer.parseInt(ele.getChildText("weightCost")), 
 							Integer.parseInt(ele.getChildText("volumeCost")));
 					
@@ -266,6 +269,33 @@ public class Logger {
 
 		return events;
 
+	}
+	
+	
+	public Priority getPriority(String priority){
+		
+		Priority p = null;
+		
+		switch (priority) {
+		case "InternationalAir":
+			p = Priority.InternationalAir;
+			break;
+		case "InternationalStandard":
+			p =  Priority.InternationalStandard;
+			break;
+		case "DomesticAir":
+			p = Priority.DomesticAir;
+			break;
+		case "DomesticStandard":
+			p = Priority.DomesticStandard;
+			break;
+		default:
+			break;
+		}
+		
+		return p;
+		
+		
 	}
 
 	/*
