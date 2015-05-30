@@ -40,8 +40,6 @@ import GUI.KPSFrame;
 public class MainFrame extends JFrame implements ActionListener {
 
 	private JLabel panel;
-	private JLabel lockLabel;
-	private JPanel lockPanel;
 	
 	private JButton login;
 	
@@ -61,48 +59,17 @@ public class MainFrame extends JFrame implements ActionListener {
 
 	public MainFrame() {
 		this.setLayout(new BorderLayout());
-		this.setTitle("Kelburn Postal Serivce");
-		
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		int width = (int) screenSize.getWidth();
-		int height = (int) screenSize.getHeight();
-		
-		System.out.println(width);
-		System.out.println(height);
-
-		
-		
-		/*Initialize the lock Image*/
-		lockImage = load(ASSETS + "lock.png");
-		ImageIcon lockIcon = new ImageIcon(lockImage); 
-		lockLabel = new JLabel();
-		lockLabel.setIcon(lockIcon);
-		lockPanel = new JPanel();
-	
-		/*Initialize a layeredPane that will store the login form and the lock image*/
-		JLayeredPane layeredPane = new JLayeredPane();
-
+		this.setTitle("Kelburn Postal Serivce");	
+			
 		/*Initialize the background Image*/
 		backgroundImage = load(ASSETS + "silverBackground.png");
 		ImageIcon icon = new ImageIcon(backgroundImage); 
 		panel = new JLabel();
 		panel.setIcon(icon);
-		panel.setBounds(0,0,width - 940, height - 500); //width, height
+		panel.setBounds(0,0,500, 400); //width, height
 		
  		//panel.setBorder(BorderFactory.createLineBorder(Color.red)); //for testing purposes
-		layeredPane.add(panel,new Integer(0),0);
-		
-		/*Declare and initialise a new mini map border panel and set the layering position on top */
-		lockPanel = new JPanel();
-		lockPanel.setBounds(20,140,150,150);
-		lockPanel.setOpaque(false);
-		lockPanel.add(lockLabel);
- 		//lockPanel.setBorder(BorderFactory.createLineBorder(Color.YELLOW)); //for testing purposes
-		//layeredPane.add(lockPanel,new Integer(1),0);
-		
-		
-		this.add(layeredPane);
-		
+			
 		/*Initialize the layout and the insets*/
 		panel.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -152,6 +119,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		panel.add(login,c);
 		login.addActionListener(this);
 		
+		this.add(panel);
 		this.setPreferredSize(new Dimension(500,400));
 		this.setResizable(false);
 		this.pack();
