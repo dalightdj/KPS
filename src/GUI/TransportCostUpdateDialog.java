@@ -263,7 +263,7 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		c.gridy = 1;
 		labelPanel.add(destinationLabel,c);
 		
-		fromLabel = new JLabel("From: ");
+		fromLabel = new JLabel("Origin: ");
 		c.gridx = 0;
 		c.gridy = 2;
 		labelPanel.add(fromLabel,c);

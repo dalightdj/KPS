@@ -212,7 +212,7 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
 		c.gridy = 0;
 		labelPanel.add(destinationLabel,c);
 		
-		fromLabel = new JLabel("From: ");
+		fromLabel = new JLabel("Origin: ");
 		c.gridx = 0;
 		c.gridy = 1;
 		labelPanel.add(fromLabel,c);
