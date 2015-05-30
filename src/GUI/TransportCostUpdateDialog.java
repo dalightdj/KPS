@@ -159,19 +159,19 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		c2.gridy = 0;
 		op.add(copmanyTextField,c2);
 		
-		String[] destinationList = {"Wellington", "Hamilton", "Auckland"};
-		destinationComboBox = new JComboBox(destinationList);
-		destinationComboBox.addActionListener(this);
-		c2.gridx = 0;
-		c2.gridy = 1;
-		op.add(destinationComboBox,c2);
-		
 		String[] fromList = {"Auckland", "Hamilton", "Rotorua", "Palmerston North", "Wellington", "Christchurch", "Dunedin"};
 		fromComboBox = new JComboBox(fromList);
 		fromComboBox.addActionListener(this);
 		c2.gridx = 0;
-		c2.gridy = 2;
+		c2.gridy = 1;
 		op.add(fromComboBox,c2);
+		
+		String[] destinationList = {"Wellington", "Hamilton", "Auckland"};
+		destinationComboBox = new JComboBox(destinationList);
+		destinationComboBox.addActionListener(this);
+		c2.gridx = 0;
+		c2.gridy = 2;
+		op.add(destinationComboBox,c2);
 		
 		String[] typeList = {"Sea", "Air", "Land"};
 		typeComboBox = new JComboBox(typeList);

@@ -137,16 +137,17 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 		c2.gridx = 0;
 		c2.gridy = 0;
 		op.add(companyTextField,c2);
-				
-		destinationTextField = new JTextField(15);
-		c2.gridx = 0;
-		c2.gridy = 1;
-		op.add(destinationTextField,c2);
-		
+			
 		fromTextField = new JTextField(15);
 		c2.gridx = 0;
-		c2.gridy = 2;
+		c2.gridy = 1;
 		op.add(fromTextField,c2);
+		
+		destinationTextField = new JTextField(15);
+		c2.gridx = 0;
+		c2.gridy = 2;
+		op.add(destinationTextField,c2);
+		
 		
 		String[] destinationList = {"Sea", "Land", "Air"};
 		typeComboBox = new JComboBox(destinationList);
