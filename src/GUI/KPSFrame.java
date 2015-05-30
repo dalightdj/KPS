@@ -34,7 +34,6 @@ public class KPSFrame extends JFrame {
 	private JLabel totalExpenditure;
 	private JLabel totalNumberOfEvents;
 	private JLabel amountOfMail;
-	private JLabel averageDeliveryTime;
 	private JLabel criticalRoutes;
 
 	/*Labels that contain the values*/
@@ -42,7 +41,6 @@ public class KPSFrame extends JFrame {
 	private JLabel totalExpenditureValue;
 	private JLabel totalNumberOfEventsValue;
 	private JLabel amountOfMailValue;
-	private JLabel averageDeliveryTimeValue;
 	private JLabel criticalRoutesValue;
 
 	
@@ -90,9 +88,7 @@ public class KPSFrame extends JFrame {
 		totalNumberOfEvents = new JLabel("<html><b><font size = 5 color=White>Total Number of Events:</b></html>");
 
 		amountOfMail = new JLabel("<html><b><font size = 5 color=White>Amount of Mail:</b></html>");
-		
-		averageDeliveryTime = new JLabel("<html><b><font size = 5 color=White>Average Delivery Time:</b><</html>");
-		
+				
 		criticalRoutes = new JLabel("<html><b><font size = 5 color=White>Critical Routes:</b></html>");
 		//criticalRoutes.setBorder(BorderFactory.createLineBorder(Color.red));			
 		
@@ -116,10 +112,6 @@ public class KPSFrame extends JFrame {
 		
 		c.gridx = 0;
 		c.gridy = 4;
-		guiInformation.add(averageDeliveryTime,c);
-		
-		c.gridx = 0;
-		c.gridy = 5;
 		guiInformation.add(criticalRoutes,c);
 				
 	}
