@@ -81,18 +81,19 @@ public class KPSFrame extends JFrame {
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(0,-50,30,50); //top, left, bottom, right padding (in that order)
 		c.fill = GridBagConstraints.HORIZONTAL;
+	
 		
-		totalRevenue = new JLabel("Total Revenue: ");
+		totalRevenue = new JLabel("<html><b><u><font color=black>Total Revenue:</b></u></html>");
 		
-		totalExpenditure = new JLabel("Total Expenditure: ");
+		totalExpenditure = new JLabel("<html><b><u><font color=yellow>Total Expenditure:</b></u></html>");
 
-		totalNumberOfEvents = new JLabel("Total Number of Events: ");
+		totalNumberOfEvents = new JLabel("<html><b><u><font color=red>Total Number of Events:</b></u></html>");
+
+		amountOfMail = new JLabel("<html><b><u><font color=green>Amount of Mail:</b></u></html>");
 		
-		amountOfMail = new JLabel("Amount of Mail: ");
+		averageDeliveryTime = new JLabel("<html><b><u><font color=blue>Average Delivery Time:</b></u></html>");
 		
-		averageDeliveryTime = new JLabel("Average Delivery Time: ");
-		
-		criticalRoutes = new JLabel("Critical Routes: ");
+		criticalRoutes = new JLabel("<html><b><u><font color=#202020>Critical Routes:</b></u></html>");
 		//criticalRoutes.setBorder(BorderFactory.createLineBorder(Color.red));			
 		
 		c.weightx = 1.0;
