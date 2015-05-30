@@ -1,5 +1,6 @@
 package Logger;
 
+import travelGraph.Path.DayOfWeek;
 import travelGraph.TravelGraph.Priority;
 
 public class CPUEvent extends Event {
@@ -10,14 +11,16 @@ public class CPUEvent extends Event {
 	private Priority priority;
 	private int weightCost;
 	private int volumeCost;
-	
-	
-	public CPUEvent(String destination, String origin, Priority priority, int weightCost, int volumeCost) {
+	private DayOfWeek dow;
+
+
+	public CPUEvent(String destination, String origin, Priority priority, int weightCost, int volumeCost, DayOfWeek dow) {
 		this.destination = destination;
 		this.origin = origin;
 		this.priority = priority;
 		this.weightCost = weightCost;
 		this.volumeCost = volumeCost;
+		this.dow = dow;
 	}
 
 
@@ -75,6 +78,12 @@ public class CPUEvent extends Event {
 		return eventType;
 	}
 
-	
+	public DayOfWeek getDow() {
+		return dow;
+	}
+
+	public void setDow(DayOfWeek dow) {
+		this.dow = dow;
+	}
 	
 }
