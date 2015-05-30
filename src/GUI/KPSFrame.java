@@ -83,17 +83,17 @@ public class KPSFrame extends JFrame {
 		c.fill = GridBagConstraints.HORIZONTAL;
 	
 		
-		totalRevenue = new JLabel("<html><b><u><font color=black>Total Revenue:</b></u></html>");
+		totalRevenue = new JLabel("<html><b><u><font size = 5 color=White>Total Revenue:</b></u></html>");
 		
-		totalExpenditure = new JLabel("<html><b><u><font color=yellow>Total Expenditure:</b></u></html>");
+		totalExpenditure = new JLabel("<html><b><u><font size = 5 color=White>Total Expenditure:</b></u></html>");
 
-		totalNumberOfEvents = new JLabel("<html><b><u><font color=red>Total Number of Events:</b></u></html>");
+		totalNumberOfEvents = new JLabel("<html><b><u><font size = 5 color=White>Total Number of Events:</b></u></html>");
 
-		amountOfMail = new JLabel("<html><b><u><font color=green>Amount of Mail:</b></u></html>");
+		amountOfMail = new JLabel("<html><b><u><font size = 5 color=White>Amount of Mail:</b></u></html>");
 		
-		averageDeliveryTime = new JLabel("<html><b><u><font color=blue>Average Delivery Time:</b></u></html>");
+		averageDeliveryTime = new JLabel("<html><b><u><font size = 5 color=White>Average Delivery Time:</b></u></html>");
 		
-		criticalRoutes = new JLabel("<html><b><u><font color=#202020>Critical Routes:</b></u></html>");
+		criticalRoutes = new JLabel("<html><b><u><font size = 5 color=White>Critical Routes:</b></u></html>");
 		//criticalRoutes.setBorder(BorderFactory.createLineBorder(Color.red));			
 		
 		c.weightx = 1.0;
