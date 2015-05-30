@@ -207,15 +207,16 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
 	 */
 	private void setupLabels(JPanel labelPanel, GridBagConstraints c) {
 
-		destinationLabel = new JLabel("Destination: ");
-		c.gridx = 0;
-		c.gridy = 0;
-		labelPanel.add(destinationLabel,c);
-		
 		fromLabel = new JLabel("Origin: ");
 		c.gridx = 0;
-		c.gridy = 1;
+		c.gridy = 0;
 		labelPanel.add(fromLabel,c);
+		
+		destinationLabel = new JLabel("Destination: ");
+		c.gridx = 0;
+		c.gridy = 1;
+		labelPanel.add(destinationLabel,c);
+		
 		
 		priorityLabel = new JLabel("Priority: ");
 		c.gridx = 0;

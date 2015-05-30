@@ -210,15 +210,16 @@ public class MailDialog extends JDialog implements ActionListener {
 	 * @param c - The GridBagConstraints to use for positioning
 	 */
 	private void setupLabels(JPanel labelPanel, GridBagConstraints c) {
-		destinationLabel = new JLabel("Destination: ");
-		c.gridx = 0;
-		c.gridy = 1;
-		labelPanel.add(destinationLabel,c);
-		
 		fromLabel = new JLabel("Origin: ");
 		c.gridx = 0;
-		c.gridy = 2;
+		c.gridy = 1;
 		labelPanel.add(fromLabel,c);
+		
+		destinationLabel = new JLabel("Destination: ");
+		c.gridx = 0;
+		c.gridy = 2;
+		labelPanel.add(destinationLabel,c);
+		
 		
 		weightLabel = new JLabel("Weight: ");
 		c.gridx = 0;
