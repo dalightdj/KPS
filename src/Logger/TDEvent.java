@@ -4,6 +4,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlElement;
 
+import travelGraph.Path.DayOfWeek;
 import travelGraph.Path.TransportType;
 
 @XmlRootElement 
@@ -14,14 +15,18 @@ public class TDEvent extends Event {
 	private String destination;
 	private String origin;
 	private TransportType type;
+	private DayOfWeek dow;
 
 
-	public TDEvent(String company, String destination, String origin, TransportType type) {
+
+
+	public TDEvent(String company, String destination, String origin, TransportType type, DayOfWeek dow) {
 		super();
 		this.company = company;
 		this.company = company;
 		this.origin = origin;
 		this.type = type;
+		this.dow = dow;
 	}
 
 	public String getCompany() {
@@ -62,6 +67,14 @@ public class TDEvent extends Event {
 
 	public static String getEventtype() {
 		return eventType;
+	}
+	
+	public DayOfWeek getDow() {
+		return dow;
+	}
+
+	public void setDow(DayOfWeek dow) {
+		this.dow = dow;
 	}
 
 }
