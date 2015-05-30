@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import travelGraph.Path.DayOfWeek;
 import travelGraph.Path.TransportType;
+import travelGraph.Path;
 import travelGraph.TravelGraph;
 import travelGraph.TravelGraph.Priority;
 import Logger.Event;
@@ -88,6 +89,11 @@ public class KPS {
 				mailDelivery(((MDEvent) e).getDate(), ((MDEvent) e).getDestination(), ((MDEvent) e).getOrigin(),
 						((MDEvent) e).getWeight(), ((MDEvent) e).getVolume(), ((MDEvent) e).getPriority(), false);
 			}
+			else if(e instanceof TCUEvent){
+				costUpdate(((TCUEvent) e).getCompany(), ((TCUEvent) e).getDestination(), ((TCUEvent) e).getOrigin(), ((TCUEvent) e).getType(),
+						((TCUEvent) e).getDate(), ((TCUEvent) e).getWeightCost(), ((TCUEvent) e).getVolumeCost(), ((TCUEvent) e).getMaxWeight(),
+						((TCUEvent) e).getMaxVolume(), ((TCUEvent) e).getDuration(), ((TCUEvent) e).getFrequency(),false);
+			}
 
 		}
 	}
@@ -110,9 +116,7 @@ public class KPS {
 			logger.addEvent(event);
 		}
 
-		travelGraph.updatePathPrice(origin, destination, company, priority, weightCost, volumeCost, getDay(date), frequency, duration);
-
-
+		travelGraph.updatePathPrice(origin, destination, company, type, weightCost, volumeCost, maxWeight, maxVolume, getDay(date), frequency, duration);
 
 
 		//write XML
