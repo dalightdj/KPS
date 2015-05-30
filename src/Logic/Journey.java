@@ -3,11 +3,12 @@ package Logic;
 import java.util.ArrayList;
 
 import travelGraph.Path;
+import travelGraph.TravelGraph.Priority;
 
 public class Journey {
 	private String destination;
 	private String origin;
-	private int priority;
+	private Priority priority;
 	private Double weightPrice;
 	private Double volumePrice;
 	private ArrayList<Path> usedPaths;
@@ -17,7 +18,7 @@ public class Journey {
 //	private double priceSum;
 //	private int count;
 
-	public Journey(String destination, String origin, int priority, 
+	public Journey(String destination, String origin, Priority priority,
 			double weightPrice, double volumePrice, ArrayList<Path> usedPaths) {
 		this.destination = destination;
 		this.origin = origin;
@@ -35,7 +36,7 @@ public class Journey {
 	public String getOrigin() {
 		return origin;
 	}
-	public int getPriority() {
+	public Priority getPriority() {
 		return priority;
 	}
 //	public double getAverageDeliveryTime() {
