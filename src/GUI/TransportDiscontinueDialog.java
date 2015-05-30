@@ -37,6 +37,8 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 	private JLabel destinationLabel;
 	private JLabel fromLabel;
 	private JLabel typeLabel;
+	private JLabel dayLabel;
+
 	
 	/*The three panels on this Dialog*/
 	private JPanel labelPanel;
@@ -51,7 +53,7 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 	private JTextField destinationTextField;
 	private JTextField fromTextField;
 	private JComboBox typeComboBox;
-
+	private JComboBox daysComboBox; 
 	
 	private BufferedImage frameIcon;
 	
@@ -133,19 +135,26 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 	 * @param c2 - the GridBagConstraints to use for positioning 
 	 */
 	private void setupOptions(JPanel op, GridBagConstraints c2) {
-		companyTextField = new JTextField(15);
+		String[] daysList = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+		daysComboBox = new JComboBox(daysList);
+		daysComboBox.addActionListener(this);
 		c2.gridx = 0;
 		c2.gridy = 0;
+		op.add(daysComboBox,c2);
+		
+		companyTextField = new JTextField(15);
+		c2.gridx = 0;
+		c2.gridy = 1;
 		op.add(companyTextField,c2);
 			
 		fromTextField = new JTextField(15);
 		c2.gridx = 0;
-		c2.gridy = 1;
+		c2.gridy = 2;
 		op.add(fromTextField,c2);
 		
 		destinationTextField = new JTextField(15);
 		c2.gridx = 0;
-		c2.gridy = 2;
+		c2.gridy = 3;
 		op.add(destinationTextField,c2);
 		
 		
@@ -153,7 +162,7 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 		typeComboBox = new JComboBox(destinationList);
 		typeComboBox.addActionListener(this);
 		c2.gridx = 0;
-		c2.gridy = 3;
+		c2.gridy = 4;
 		op.add(typeComboBox,c2);
 		
 	}
@@ -182,25 +191,29 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 	 * @param c - The GridBagConstraints to use for positioning
 	 */
 	private void setupLabels(JPanel labelPanel, GridBagConstraints c) {
-
-		companyLabel = new JLabel("Company: ");
+		dayLabel = new JLabel("Day: ");
 		c.gridx = 0;
 		c.gridy = 0;
+		labelPanel.add(dayLabel,c);
+				
+		companyLabel = new JLabel("Company: ");
+		c.gridx = 0;
+		c.gridy = 1;
 		labelPanel.add(companyLabel,c);	
 		
 		fromLabel = new JLabel("Origin: ");
 		c.gridx = 0;
-		c.gridy = 1;
+		c.gridy = 2;
 		labelPanel.add(fromLabel,c);
 		
 		destinationLabel = new JLabel("Destination: ");
 		c.gridx = 0;
-		c.gridy = 2;
+		c.gridy = 3;
 		labelPanel.add(destinationLabel,c);
 				
 		typeLabel = new JLabel("Type: ");
 		c.gridx = 0;
-		c.gridy = 3;
+		c.gridy = 4;
 		labelPanel.add(typeLabel,c);
 		
 	}

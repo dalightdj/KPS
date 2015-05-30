@@ -83,17 +83,17 @@ public class KPSFrame extends JFrame {
 		c.fill = GridBagConstraints.HORIZONTAL;
 	
 		
-		totalRevenue = new JLabel("<html><b><font size = 4 color=White>Total Revenue:</b></html>");
+		totalRevenue = new JLabel("<html><b><font size = 5 color=White>Total Revenue:</b></html>");
 		
-		totalExpenditure = new JLabel("<html><b><font size = 4 color=White>Total Expenditure:</b></html>");
+		totalExpenditure = new JLabel("<html><b><font size = 5 color=White>Total Expenditure:</b></html>");
 
-		totalNumberOfEvents = new JLabel("<html><b><font size = 4 color=White>Total Number of Events:</b></html>");
+		totalNumberOfEvents = new JLabel("<html><b><font size = 5 color=White>Total Number of Events:</b></html>");
 
-		amountOfMail = new JLabel("<html><b><font size = 4 color=White>Amount of Mail:</b></html>");
+		amountOfMail = new JLabel("<html><b><font size = 5 color=White>Amount of Mail:</b></html>");
 		
-		averageDeliveryTime = new JLabel("<html><b><font size = 4 color=White>Average Delivery Time:</b><</html>");
+		averageDeliveryTime = new JLabel("<html><b><font size = 5 color=White>Average Delivery Time:</b><</html>");
 		
-		criticalRoutes = new JLabel("<html><b><font size = 4 color=White>Critical Routes:</b></html>");
+		criticalRoutes = new JLabel("<html><b><font size = 5 color=White>Critical Routes:</b></html>");
 		//criticalRoutes.setBorder(BorderFactory.createLineBorder(Color.red));			
 		
 		c.weightx = 1.0;
