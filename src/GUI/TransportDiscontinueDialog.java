@@ -61,7 +61,7 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 		super(frame,true);
 		this.frame = frame;
 		setResizable(false);
-		setBounds(0, 0, 400, 330);
+		setBounds(0, 0, 360, 280);
         this.setLocationRelativeTo(frame); //sets position relative to the whole window
 		
 		/*Initialize the layout and the insets*/
@@ -105,7 +105,7 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 		GridBagConstraints c2 = new GridBagConstraints();
 		c2.insets = new Insets(5,10,5,1); //top, left, bottom, right padding (in that order)
 		c2.fill = GridBagConstraints.HORIZONTAL;
-		c2.weightx = 1.0;
+		//c2.weightx = 1.0;
 		c2.weighty = 1.0;
  		setupOptions(optionsPanel, c2);
  		//this.add(optionsPanel, BorderLayout.CENTER);
@@ -133,17 +133,17 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 	 * @param c2 - the GridBagConstraints to use for positioning 
 	 */
 	private void setupOptions(JPanel op, GridBagConstraints c2) {
-		companyTextField = new JTextField(10);
+		companyTextField = new JTextField(15);
 		c2.gridx = 0;
 		c2.gridy = 0;
 		op.add(companyTextField,c2);
 				
-		destinationTextField = new JTextField(10);
+		destinationTextField = new JTextField(15);
 		c2.gridx = 0;
 		c2.gridy = 1;
 		op.add(destinationTextField,c2);
 		
-		fromTextField = new JTextField(10);
+		fromTextField = new JTextField(15);
 		c2.gridx = 0;
 		c2.gridy = 2;
 		op.add(fromTextField,c2);
