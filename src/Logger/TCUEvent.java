@@ -16,6 +16,7 @@ public class TCUEvent extends Event {
 	private int frequency;
 	
 	public TCUEvent(String company, String destination, String origin, String type, String date, int weightCost, int volumeCost, int maxWeight, int maxVolume, int duration, int frequency) {
+		super();
 		this.company = company;
 		this.destination = destination;
 		this.origin = origin;
