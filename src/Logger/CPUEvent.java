@@ -1,16 +1,18 @@
 package Logger;
 
+import travelGraph.TravelGraph.Priority;
+
 public class CPUEvent extends Event {
 	
 	private static final String eventType = "CustomerPriceUpdate";
 	private String destination;
 	private String origin;
-	private String priority;
+	private Priority priority;
 	private int weightCost;
 	private int volumeCost;
 	
 	
-	public CPUEvent(String destination, String origin, String priority, int weightCost, int volumeCost) {
+	public CPUEvent(String destination, String origin, Priority priority, int weightCost, int volumeCost) {
 		this.destination = destination;
 		this.origin = origin;
 		this.priority = priority;
@@ -39,12 +41,12 @@ public class CPUEvent extends Event {
 	}
 
 
-	public String getPriority() {
+	public Priority getPriority() {
 		return priority;
 	}
 
 
-	public void setPriority(String priority) {
+	public void setPriority(Priority priority) {
 		this.priority = priority;
 	}
 

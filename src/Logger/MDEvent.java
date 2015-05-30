@@ -1,17 +1,19 @@
 package Logger;
 
+import travelGraph.TravelGraph.Priority;
+
 public class MDEvent extends Event {
 	
 	private static final String eventType = "MailDelivery";
 	private String date;
 	private String destination;
 	private String origin;
-	private String priority;
+	private Priority priority;
 	private int weight;
 	private int volume;
 	
 	
-	public MDEvent(String date, String destination, String origin, String priority, int weight, int volume) {
+	public MDEvent(String date, String destination, String origin, Priority priority, int weight, int volume) {
 		this.date = date;
 		this.destination = destination;
 		this.origin = origin;
@@ -51,12 +53,12 @@ public class MDEvent extends Event {
 	}
 
 
-	public String getPriority() {
+	public Priority getPriority() {
 		return priority;
 	}
 
 
-	public void setPriority(String priority) {
+	public void setPriority(Priority priority) {
 		this.priority = priority;
 	}
 
