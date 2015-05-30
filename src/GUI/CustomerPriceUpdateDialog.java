@@ -126,7 +126,7 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
  		underLyingPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 20, 20)); //this sets up the padding
  		
  		/*Add the main panel to the underlying panel and make this dialog visible*/
-		this.getRootPane().setDefaultButton(submit); //sets default (enter key) to login button
+		this.getRootPane().setDefaultButton(submit); 
  		this.add(underLyingPanel,BorderLayout.CENTER);
 		this.setVisible(true);		
 	}
