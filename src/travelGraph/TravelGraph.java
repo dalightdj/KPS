@@ -16,13 +16,7 @@ public class TravelGraph {
 	ArrayList<Location> locations = new ArrayList<Location>();
 
 	public enum Priority{
-		//requires that it be transported by air
-		InternationalAir,
-		//requires that mail be transferred by land or sea (unless air transfer is the only option)
-		InternationalStandard,
-		//domestic air priority and domestic standard priority are the same. im taking this to mean that domestic air priority is similar to international air priority and the same for standard
-		DomesticAir,
-		DomesticStandard;
+		AIR, STANDARD;
 	}	
 
 	/**
@@ -137,6 +131,8 @@ public class TravelGraph {
 
 		return null;
 	}
+	
+	//create list of air paths. if no from path then check air paths
 	
 	private boolean airPriority(Path p, Priority priority){
 		return (priority==Priority.DomesticAir || priority==Priority.InternationalAir) && p.getTransportType()==TransportType.AIR;
