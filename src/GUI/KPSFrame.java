@@ -68,7 +68,7 @@ public class KPSFrame extends JFrame {
  			
  		setupGuiInformationLabels();
  		
-		this.setPreferredSize(new Dimension(1000,800));
+		this.setPreferredSize(new Dimension(700,600));
 		buttonsPanel.setPreferredSize(new Dimension(220,this.getHeight()));
 		this.setResizable(true);
 		this.pack();
