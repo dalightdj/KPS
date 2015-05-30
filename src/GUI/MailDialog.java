@@ -239,6 +239,10 @@ public class MailDialog extends JDialog implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == cancel) {
+			this.dispose();
+		}
+		
 		// is submit use this bit of code to send the current time
 		//DateFormat dateFormat = new SimpleDateFormat("EEE HH:mm");
 		//Date date = new Date();

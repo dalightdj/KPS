@@ -237,7 +237,9 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+		if(e.getSource() == cancel) {
+			this.dispose();
+		}
 	}
 	
 	/**

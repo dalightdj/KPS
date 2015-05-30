@@ -18,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
@@ -313,7 +314,10 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+		if(e.getSource() == cancel) {
+			this.dispose();
+		}
+		//JOptionPane.showMessageDialog(this,"Please fill in all details","Invalid Details",JOptionPane.ERROR_MESSAGE);
 	}
 	
 	/**
