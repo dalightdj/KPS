@@ -12,14 +12,14 @@ public class Path {
 	private final String company;
 	private final TransportType type;
 	
-	private double ppGram;//price per gram
-	private double ppCmCubed;//price per cm cubed
-	private double maxWeight;
-	private double maxVolume;
+	private float ppGram;//price per gram
+	private float ppCmCubed;//price per cm cubed
+	private int maxWeight;
+	private int maxVolume;
 	private DayOfWeek day;//private double hoursAfterMidnightFromMondayMorning;
 	private int frequency;//hours between each departure
-	private double duration;//duration of trip in hours
-	private double cost;
+	private int duration;//duration of trip in hours
+	private float cost;
 		
 	/**
 	 * The transport type of a particular path i.e. Air, Sea or Land
@@ -51,7 +51,7 @@ public class Path {
 	 * @param frequency The frequency in hours between departures
 	 * @param duration The duration of time from origin to destination
 	 */
-	public Path(Location origin, Location dest, String company, TransportType type, float ppg, float ppcc, float maxWeight, float maxVolume, Path.DayOfWeek dayOfWeek, int frequency, int duration){
+	public Path(Location origin, Location dest, String company, TransportType type, float ppg, float ppcc, int maxWeight, int maxVolume, Path.DayOfWeek dayOfWeek, int frequency, int duration){
 		this.origin = origin;
 		this.dest = dest;
 		this.company = company;
@@ -65,7 +65,7 @@ public class Path {
 	 * Update 'price per gram'
 	 * @param price The new price per gram
 	 */
-	protected void updatePPG(double price){
+	protected void updatePPG(float price){
 		ppGram = price;
 		updateCost();
 	}
@@ -74,7 +74,7 @@ public class Path {
 	 * Update 'price per centimeter cubed'
 	 * @param price
 	 */
-	protected void updatePPCC(double price){
+	protected void updatePPCC(float price){
 		ppCmCubed = price;
 		updateCost();
 	}
@@ -121,7 +121,7 @@ public class Path {
 		return day;
 	}
 	
-	protected double getCost(){
+	protected float getCost(){
 		return cost;
 	}
 }
