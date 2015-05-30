@@ -4,6 +4,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlElement;
 
+import travelGraph.Path.TransportType;
+
 @XmlRootElement 
 public class TDEvent extends Event {
 
@@ -11,10 +13,10 @@ public class TDEvent extends Event {
 	private String company;
 	private String destination;
 	private String origin;
-	private String type;
+	private TransportType type;
 
 
-	public TDEvent(String company, String destination, String origin, String type) {
+	public TDEvent(String company, String destination, String origin, TransportType type) {
 		super();
 		this.company = company;
 		this.company = company;
@@ -49,12 +51,12 @@ public class TDEvent extends Event {
 		this.origin = origin;
 	}
 
-	public String getType() {
+	public TransportType getType() {
 		return type;
 	}
 
 	@XmlElement  
-	public void setType(String type) {
+	public void setType(TransportType type) {
 		this.type = type;
 	}
 
