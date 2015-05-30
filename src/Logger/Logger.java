@@ -11,6 +11,7 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.XMLOutputter;
 
+import travelGraph.Path.TransportType;
 import travelGraph.TravelGraph.Priority;
 
 
@@ -113,7 +114,7 @@ public class Logger {
 		TDENode.addContent(new Element("company").setText(tdEvent.getCompany()));
 		TDENode.addContent(new Element("origin").setText(tdEvent.getOrigin()));
 		TDENode.addContent(new Element("destination").setText(tdEvent.getDestination()));
-		TDENode.addContent(new Element("type").setText(tdEvent.getType()));
+		TDENode.addContent(new Element("type").setText(tdEvent.getType().toString()));
 
 		parentElement.addContent(TDENode);
 
@@ -154,7 +155,7 @@ public class Logger {
 		tcuNode.addContent(new Element("company").setText(tcuEvent.getCompany()));
 		tcuNode.addContent(new Element("origin").setText(tcuEvent.getOrigin()));
 		tcuNode.addContent(new Element("destination").setText(tcuEvent.getDestination()));
-		tcuNode.addContent(new Element("type").setText(tcuEvent.getType()));
+		tcuNode.addContent(new Element("type").setText(tcuEvent.getType().toString()));
 		tcuNode.addContent(new Element("weightCost").setText(Integer.toString(tcuEvent.getWeightCost())));
 		tcuNode.addContent(new Element("volumeCost").setText(Integer.toString(tcuEvent.getVolumeCost())));
 		tcuNode.addContent(new Element("day").setText(tcuEvent.getDate()));
@@ -211,7 +212,7 @@ public class Logger {
 					TDEvent tdEvent = new TDEvent(ele.getChildText("company"),
 							ele.getChildText("destination"),
 							ele.getChildText("origin"), 
-							ele.getChildText("type"));
+							getType(ele.getChildText("type")));
 					
 					events.add(tdEvent);
 					break;
@@ -239,7 +240,7 @@ public class Logger {
 					TCUEvent tcuEvent = new TCUEvent(ele.getChildText("company"), 
 							ele.getChildText("destination"), 
 							ele.getChildText("origin"), 
-							ele.getChildText("type"), 
+							getType(ele.getChildText("type")), 
 							ele.getChildText("day"), 
 							Integer.parseInt(ele.getChildText("weightCost")), 
 									Integer.parseInt(ele.getChildText("volumeCost")), 
@@ -276,27 +277,36 @@ public class Logger {
 		
 		Priority p = null;
 		
-		switch (priority) {
-		case "InternationalAir":
-			p = Priority.InternationalAir;
+	if(priority.equals("AIR")){
+		p = Priority.AIR;
+	}else{
+		p = Priority.STANDARD;
+	}
+		
+		return p;	
+	}
+	
+	
+	public TransportType getType(String type){
+		
+		TransportType t = null;
+		
+		switch (type) {
+		case "AIR":
+			t = TransportType.AIR;
 			break;
-		case "InternationalStandard":
-			p =  Priority.InternationalStandard;
-			break;
-		case "DomesticAir":
-			p = Priority.DomesticAir;
-			break;
-		case "DomesticStandard":
-			p = Priority.DomesticStandard;
-			break;
+		case "LAND":
+			t = TransportType.LAND;
 		default:
+			t = TransportType.SEA;
 			break;
 		}
 		
-		return p;
-		
+		return t;
 		
 	}
+	
+	
 
 	/*
 	public static void main(String[] args) {
