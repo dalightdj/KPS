@@ -14,14 +14,17 @@ public class Location implements Comparable<Location>{
 	private ArrayList<Path> paths = new ArrayList<Path>();//outgoing paths
 	
 	//For Dijkstra
-	private double distance = Double.POSITIVE_INFINITY;
+	private double distance = Double.POSITIVE_INFINITY;//Current optimal distance from origin to here
 	private boolean visited = false;
-	private Location fromLoc;
-	private Path fromPath;
+	private Location fromLoc;//The origin Location of the current optimal path
+	private Path fromPath;//The current optimal path
 	
-	
-	public Location(String city){
-		this.city = city;
+	/**
+	 * 
+	 * @param name Name of Location
+	 */
+	public Location(String name){
+		this.city = name;
 	}
 	
 	protected void addPath(Path path){
@@ -51,30 +54,53 @@ public class Location implements Comparable<Location>{
 		return(int) (this.distance - other.distance);
 	}
 	
+	/**
+	 * 
+	 * @return Current optimal distance from origin to this Location
+	 */
 	public double getDistance(){
 		return distance;
 	}
 	
+	/**
+	 * 
+	 * @param distance Optimal distance from origin to this Location
+	 */
 	public void setDistance(double distance){
 		this.distance = distance;
 	}
 	
+	/**
+	 * 
+	 * @param visited Whether or not this Location has been visited by the Dijkstra search algorithm
+	 */
 	public void setVisited(boolean visited){
 		this.visited = visited;
 	}
 	
-	public Location getFromLoc(){
+
+	
+	/**
+	 * Set the optimal from Path for Dijkstra's algorithm
+	 * @param fromLoc The Location from where the current optimal path comes from
+	 * @param fromPath The optimal Path
+	 */
+	protected void setFrom(Location fromLoc, Path fromPath){
+		
+	}
+	
+	/**
+	 * 
+	 * @return The Location from where the current optimal path comes from
+	 */
+	protected Location getFromLoc(){
 		return fromLoc;
 	}
 	
-	public void setFromLoc(Location from){
-		this.fromLoc = from;
-	}
-	
-	public void setFromPath(Path from){
-		this.fromPath = from;
-	}
-	
+	/**
+	 * 
+	 * @return The optimal Path
+	 */
 	public Path getFromPath(){
 		return fromPath;
 	}
