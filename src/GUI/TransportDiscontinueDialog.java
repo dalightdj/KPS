@@ -123,6 +123,7 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
  		underLyingPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 20, 20)); //this sets up the padding
  		
  		/*Add the main panel to the underlying panel and make this dialog visible*/
+		this.getRootPane().setDefaultButton(submit); 
  		this.add(underLyingPanel,BorderLayout.CENTER);
 		this.setVisible(true);		
 	}
