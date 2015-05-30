@@ -37,7 +37,9 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 	private JLabel fromLabel;
 	private JLabel typeLabel;
 	private JLabel newWeightCostLabel;
+	private JLabel maxwWeightLabel;
 	private JLabel newVolumeCostLabel;
+	private JLabel maxVolumeLabel;
 	private JLabel dayOfDepartureLabel;
 	private JLabel frequencyLabel;
 	private JLabel durationLabel;
@@ -56,12 +58,15 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 	private JComboBox typeComboBox;
 	private JTextField copmanyTextField;
 	private JTextField weightTextField;
+	private JTextField maxWeightTextField;
+	private JTextField maxVolumeTextField;
 	private JTextField volumeTextField;
 	private JTextField departureTextField;
 	private JTextField frequencyTextField;
 	private JTextField durationTextField;
 	
 	private JLabel weightLabelInfo;
+	private JLabel maxWeightLabelInfo;
 	private JLabel volumeLabelInfo;
 	
 	private BufferedImage frameIcon;
@@ -75,7 +80,7 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		super(frame,true);
 		this.frame = frame;
 		setResizable(false);
-		setBounds(0, 0, 500, 430);
+		setBounds(0, 0, 500, 500);
         this.setLocationRelativeTo(frame); //sets position relative to the whole window
 		
 		/*Initialize the layout and the insets*/
@@ -179,34 +184,44 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		c2.gridy = 4;
 		op.add(weightTextField,c2);
 		
+		maxWeightTextField = new JTextField(10);
+		c2.gridx = 0;
+		c2.gridy = 5;
+		op.add(maxWeightTextField,c2);
+		
 		weightLabelInfo = new JLabel("(Per Gram)");
 		c2.gridx = 1;
 		c2.gridy = 4;
 		op.add(weightLabelInfo,c2);
-				
+		
 		volumeTextField = new JTextField(10);
 		c2.gridx = 0;
-		c2.gridy = 5;
+		c2.gridy = 6;
 		op.add(volumeTextField,c2);
+		
+		maxVolumeTextField = new JTextField(10);
+		c2.gridx = 0;
+		c2.gridy = 7;
+		op.add(maxVolumeTextField,c2);
 		
 		volumeLabelInfo = new JLabel("(Per Cubic Centimeter)");
 		c2.gridx = 1;
-		c2.gridy = 5;
+		c2.gridy = 6;
 		op.add(volumeLabelInfo,c2);
 		
 		departureTextField = new JTextField(10);
 		c2.gridx = 0;
-		c2.gridy = 6;
+		c2.gridy = 8;
 		op.add(departureTextField,c2);
 		
 		frequencyTextField = new JTextField(10);
 		c2.gridx = 0;
-		c2.gridy = 7;
+		c2.gridy = 9;
 		op.add(frequencyTextField,c2);
 		
 		durationTextField = new JTextField(10);
 		c2.gridx = 0;
-		c2.gridy = 8;
+		c2.gridy = 10;
 		op.add(durationTextField,c2);
 		
 		
@@ -262,25 +277,35 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		c.gridy = 4;
 		labelPanel.add(newWeightCostLabel,c);
 		
-		newVolumeCostLabel = new JLabel("New Volume Cost: ");
+		maxwWeightLabel = new JLabel("New Max Weight: ");
 		c.gridx = 0;
 		c.gridy = 5;
-		labelPanel.add(newVolumeCostLabel,c);
-	
-		dayOfDepartureLabel = new JLabel("Day of Departure: ");
+		labelPanel.add(maxwWeightLabel,c);
+		
+		newVolumeCostLabel = new JLabel("New Volume Cost: ");
 		c.gridx = 0;
 		c.gridy = 6;
+		labelPanel.add(newVolumeCostLabel,c);
+	
+		maxVolumeLabel = new JLabel("New Max Volume: ");
+		c.gridx = 0;
+		c.gridy = 7;
+		labelPanel.add(maxVolumeLabel,c);
+		
+		dayOfDepartureLabel = new JLabel("Day of Departure: ");
+		c.gridx = 0;
+		c.gridy = 8;
 		labelPanel.add(dayOfDepartureLabel,c);
 		
 		frequencyLabel = new JLabel("Frequency: ");
 		c.gridx = 0;
-		c.gridy = 7;
+		c.gridy = 9;
 		labelPanel.add(frequencyLabel,c);
 		
 		
 		durationLabel = new JLabel("Duration of Trip: ");
 		c.gridx = 0;
-		c.gridy = 8;
+		c.gridy = 10;
 		labelPanel.add(durationLabel,c);
 
 	}
