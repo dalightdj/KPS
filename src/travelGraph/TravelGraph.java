@@ -6,6 +6,11 @@ import java.util.PriorityQueue;
 
 import travelGraph.Path.TransportType;
 
+/**
+ * A class that creates a graph using the Path and Location classes.
+ * @author TeAka
+ *
+ */
 public class TravelGraph {
 
 	ArrayList<Location> locations = new ArrayList<Location>();
@@ -53,7 +58,7 @@ public class TravelGraph {
 
 
 		///////////////////////////////////////////////////////////////////
-		//The current path must not exist so make a new one and return it//
+		//The given path must not exist so make a new one and return it//
 		///////////////////////////////////////////////////////////////////
 
 		//if either one of the given locations don't exist then create one and add it to the list of locations
@@ -73,7 +78,13 @@ public class TravelGraph {
 		return path;
 	}
 
-
+	/**
+	 * Gets the cheapest route using Dijkstra's search algorithm
+	 * @param origin Name of origin
+	 * @param destination Name of destination
+	 * @param priority The priority given to this package determines which routes will be searched
+	 * @return An ordered ArrayList of the Paths from origin to destination. Returns null if no such path exists
+	 */
 	public ArrayList<Path> getRoute(String origin, String destination, Priority priority){
 		ArrayList<Path> route = new ArrayList<Path>();
 
@@ -115,11 +126,10 @@ public class TravelGraph {
 					double weight = p.getCost();
 					double weightPlusPath = weight + from.getDistance();
 					if(weightPlusPath < to.getDistance()){
-						queue.remove(to);//remove it so it can be updated and the re-added
+						queue.remove(to);//remove it so it can be updated and the re-added. does nothing if the Location isn't in the queue
 						to.setDistance(weightPlusPath);
-						to.setFromLoc(from);
-						to.setFromPath(p);
-						queue.offer(to);//add or re-add the node to the queue so that it can update with the new priority
+						to.setFrom(from, p);
+						queue.offer(to);//add or re-add the node to the queue so that it can update with its new priority
 					}
 				//}
 			}
@@ -136,6 +146,11 @@ public class TravelGraph {
 		
 	}
 
+	/**
+	 * Traces the path from destination to origin, places it into an ArrayList and reverses it so that it is in the right order, that is from origin to destination
+	 * @param destination
+	 * @return An ordered ArrayList of the Paths from origin to destination.
+	 */
 	private ArrayList<Path> getPath(Location destination){
 		ArrayList<Path> path = new ArrayList<Path>();
 		for(Location l = destination; l!=null; l = l.getFromLoc()){
