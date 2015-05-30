@@ -1,12 +1,14 @@
 package Logger;
 
+import travelGraph.Path.TransportType;
+
 public class TCUEvent extends Event {
 	
 	private static final String eventType = "TransportCostUpdate";
 	private String company;
 	private String destination;
 	private String origin;
-	private String type;
+	private TransportType type;
 	private String date;
 	private int weightCost;
 	private int volumeCost;
@@ -15,7 +17,7 @@ public class TCUEvent extends Event {
 	private int duration;
 	private int frequency;
 	
-	public TCUEvent(String company, String destination, String origin, String type, String date, int weightCost, int volumeCost, int maxWeight, int maxVolume, int duration, int frequency) {
+	public TCUEvent(String company, String destination, String origin, TransportType type, String date, int weightCost, int volumeCost, int maxWeight, int maxVolume, int duration, int frequency) {
 		super();
 		this.company = company;
 		this.destination = destination;
@@ -54,10 +56,10 @@ public class TCUEvent extends Event {
 	public void setOrigin(String origin) {
 		this.origin = origin;
 	}
-	public String getType() {
+	public TransportType getType() {
 		return type;
 	}
-	public void setType(String type) {
+	public void setType(TransportType type) {
 		this.type = type;
 	}
 	public String getDate() {
