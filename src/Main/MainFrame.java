@@ -41,7 +41,7 @@ import org.pushingpixels.substance.api.skin.SubstanceGraphiteLookAndFeel;
 
 import GUI.KPSFrame;
 
-public class MainFrame extends JFrame implements ActionListener,  KeyListener {
+public class MainFrame extends JFrame implements ActionListener {
 
 	private JLabel panel;
 	
@@ -123,6 +123,7 @@ public class MainFrame extends JFrame implements ActionListener,  KeyListener {
 		panel.add(login,c);
 		login.addActionListener(this);
 		
+		this.getRootPane().setDefaultButton(login);
 		this.add(panel);
 		this.setPreferredSize(new Dimension(500,400));
 		this.setResizable(false);
@@ -151,13 +152,7 @@ public class MainFrame extends JFrame implements ActionListener,  KeyListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == login) {
-			if(username.getText().equals("admin") && password.getText().equals("admin")) {
-				this.dispose();
-				new KPSFrame();
-			}
-			else {
-				JOptionPane.showMessageDialog(this,"Please re-enter your log in details","Invalid Login Details",JOptionPane.ERROR_MESSAGE);
-			}
+			login();
 		}
 	}
 	
@@ -178,25 +173,15 @@ public class MainFrame extends JFrame implements ActionListener,  KeyListener {
 			}
 	 }
 
-
-	@Override
-	public void keyPressed(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	 
+	 public void login() {
+			if(username.getText().equals("admin") && password.getText().equals("admin")) {
+				this.dispose();
+				new KPSFrame();
+			}
+			else {
+				JOptionPane.showMessageDialog(this,"Please re-enter your log in details","Invalid Login Details",JOptionPane.ERROR_MESSAGE);
+			}
+	 }
 	
 }
