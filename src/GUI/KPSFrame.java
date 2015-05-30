@@ -45,7 +45,7 @@ public class KPSFrame extends JFrame {
  		this.add(guiInformation,BorderLayout.CENTER);
  				
 		this.setPreferredSize(new Dimension(1000,800));
-		this.setResizable(false);
+		this.setResizable(true);
 		this.pack();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
