@@ -1,12 +1,15 @@
 package Logger;
 
+import travelGraph.Path.DayOfWeek;
+import travelGraph.Path.TransportType;
+
 public class TCUEvent extends Event {
 	
 	private static final String eventType = "TransportCostUpdate";
 	private String company;
 	private String destination;
 	private String origin;
-	private String type;
+	private TransportType type;
 	private String date;
 	private int weightCost;
 	private int volumeCost;
@@ -14,8 +17,11 @@ public class TCUEvent extends Event {
 	private int maxVolume;
 	private int duration;
 	private int frequency;
-	
-	public TCUEvent(String company, String destination, String origin, String type, String date, int weightCost, int volumeCost, int maxWeight, int maxVolume, int duration, int frequency) {
+	private DayOfWeek dow;
+
+
+
+	public TCUEvent(String company, String destination, String origin, TransportType type, String date, int weightCost, int volumeCost, int maxWeight, int maxVolume, int duration, int frequency, DayOfWeek dow) {
 		super();
 		this.company = company;
 		this.destination = destination;
@@ -28,6 +34,7 @@ public class TCUEvent extends Event {
 		this.maxVolume = maxVolume;
 		this.duration = duration;
 		this.frequency = frequency;
+		this.dow = dow;
 	}
 	
 	
@@ -54,10 +61,10 @@ public class TCUEvent extends Event {
 	public void setOrigin(String origin) {
 		this.origin = origin;
 	}
-	public String getType() {
+	public TransportType getType() {
 		return type;
 	}
-	public void setType(String type) {
+	public void setType(TransportType type) {
 		this.type = type;
 	}
 	public String getDate() {
@@ -103,6 +110,12 @@ public class TCUEvent extends Event {
 		this.frequency = frequency;
 	}
 
+	public DayOfWeek getDow() {
+		return dow;
+	}
 
+	public void setDow(DayOfWeek dow) {
+		this.dow = dow;
+	}
 	
 }

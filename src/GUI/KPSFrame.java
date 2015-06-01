@@ -4,7 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.image.BufferedImage;
 
 import javax.swing.BorderFactory;
@@ -26,6 +29,23 @@ public class KPSFrame extends JFrame {
 	
 	private BufferedImage frameIcon;
 
+	/*Labels for the GUI information*/
+	private JLabel title;
+	private JLabel totalRevenue;
+	private JLabel totalExpenditure;
+	private JLabel totalNumberOfEvents;
+	private JLabel amountOfMail;
+	private JLabel criticalRoutes;
+
+	/*Labels that contain the values*/
+	private JLabel totalRevenueValue;
+	private JLabel totalExpenditureValue;
+	private JLabel totalNumberOfEventsValue;
+	private JLabel amountOfMailValue;
+	private JLabel criticalRoutesValue;
+
+	
+	
 	public KPSFrame() {
 		
 		/*Initialize the layout and the insets*/
@@ -41,10 +61,13 @@ public class KPSFrame extends JFrame {
  		this.add(buttonsPanel, BorderLayout.WEST);
 		
  		guiInformation = new JPanel();
+ 		guiInformation.setLayout(new GridBagLayout());
  		guiInformation.setBorder(BorderFactory.createLineBorder(Color.red));
  		this.add(guiInformation,BorderLayout.CENTER);
- 				
-		this.setPreferredSize(new Dimension(1000,800));
+ 			
+ 		setupGuiInformationLabels();
+ 		
+		this.setPreferredSize(new Dimension(700,600));
 		buttonsPanel.setPreferredSize(new Dimension(220,this.getHeight()));
 		this.setResizable(true);
 		this.pack();
@@ -53,6 +76,52 @@ public class KPSFrame extends JFrame {
 		JOptionPane.showMessageDialog(this, "Welcome to Kelburn Postal Service!", "Welcome", JOptionPane.INFORMATION_MESSAGE); //Welcome the user (maybe remove this as it can be annoying)
 	}
 	
+	private void setupGuiInformationLabels() {
+		GridBagConstraints c = new GridBagConstraints();
+		c.insets = new Insets(0,-50,30,50); //top, left, bottom, right padding (in that order)
+		c.fill = GridBagConstraints.HORIZONTAL;
+	
+		title = new JLabel("<html><b><u><font size = 5 color=BLACK>KELBURN POSTAL SERVICE</b></u></html>");
+
+		totalRevenue = new JLabel("<html><b><font size = 5 color=White>Total Revenue:</b></html>");
+		
+		totalExpenditure = new JLabel("<html><b><font size = 5 color=White>Total Expenditure:</b></html>");
+
+		totalNumberOfEvents = new JLabel("<html><b><font size = 5 color=White>Total Number of Events:</b></html>");
+
+		amountOfMail = new JLabel("<html><b><font size = 5 color=White>Amount of Mail:</b></html>");
+				
+		criticalRoutes = new JLabel("<html><b><font size = 5 color=White>Critical Routes:</b></html>");
+		//criticalRoutes.setBorder(BorderFactory.createLineBorder(Color.red));			
+		
+		c.weightx = 1.0;
+		
+		c.gridx = 0;
+		c.gridy = 1;
+		guiInformation.add(totalRevenue,c);
+		
+		c.gridx = 0;
+		c.gridy = 2;
+		guiInformation.add(totalExpenditure,c);
+		
+		c.gridx = 0;
+		c.gridy = 3;
+		guiInformation.add(totalNumberOfEvents,c);
+		
+		c.gridx = 0;
+		c.gridy = 4;
+		guiInformation.add(amountOfMail,c);
+		
+		c.gridx = 0;
+		c.gridy = 5;
+		guiInformation.add(criticalRoutes,c);
+				
+		c.gridx = 1;
+		c.gridy = 0;
+		guiInformation.add(title,c);
+		
+	}
+
 	/**
 	 * This is just a test method to run it directly
 	 * @param args

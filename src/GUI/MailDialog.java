@@ -128,6 +128,7 @@ public class MailDialog extends JDialog implements ActionListener {
  		underLyingPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 20, 20)); //this sets up the padding
  		
  		/*Add the main panel to the underlying panel and make this dialog visible*/
+		this.getRootPane().setDefaultButton(submit); 
  		this.add(underLyingPanel,BorderLayout.CENTER);
 		this.setVisible(true);		
 		
@@ -143,20 +144,20 @@ public class MailDialog extends JDialog implements ActionListener {
 	 */
 	private void setupOptions(JPanel op, GridBagConstraints c2) {
 		
-		String[] destinationList = {"Wellington", "Hamilton", "Auckland"};
-		destinationComboBox = new JComboBox(destinationList);
-		destinationComboBox.addActionListener(this);
-		c2.gridx = 0;
-		c2.gridy = 1;
-		op.add(destinationComboBox,c2);
-		
-		
 		String[] fromList = {"Auckland", "Hamilton", "Rotorua", "Palmerston North", "Wellington", "Christchurch", "Dunedin"};
 		fromComboBox = new JComboBox(fromList);
 		fromComboBox.addActionListener(this);
 		c2.gridx = 0;
-		c2.gridy = 2;
+		c2.gridy = 1;
 		op.add(fromComboBox,c2);
+		
+		String[] destinationList = {"Wellington", "Hamilton", "Auckland"};
+		destinationComboBox = new JComboBox(destinationList);
+		destinationComboBox.addActionListener(this);
+		c2.gridx = 0;
+		c2.gridy = 2;
+		op.add(destinationComboBox,c2);
+		
 		
 		weightTextField = new JTextField(10);
 		c2.gridx = 0;
@@ -210,15 +211,16 @@ public class MailDialog extends JDialog implements ActionListener {
 	 * @param c - The GridBagConstraints to use for positioning
 	 */
 	private void setupLabels(JPanel labelPanel, GridBagConstraints c) {
-		destinationLabel = new JLabel("Destination: ");
+		fromLabel = new JLabel("Origin: ");
 		c.gridx = 0;
 		c.gridy = 1;
-		labelPanel.add(destinationLabel,c);
+		labelPanel.add(fromLabel,c);
 		
-		fromLabel = new JLabel("From: ");
+		destinationLabel = new JLabel("Destination: ");
 		c.gridx = 0;
 		c.gridy = 2;
-		labelPanel.add(fromLabel,c);
+		labelPanel.add(destinationLabel,c);
+		
 		
 		weightLabel = new JLabel("Weight: ");
 		c.gridx = 0;
@@ -239,6 +241,10 @@ public class MailDialog extends JDialog implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == cancel) {
+			this.dispose();
+		}
+		
 		// is submit use this bit of code to send the current time
 		//DateFormat dateFormat = new SimpleDateFormat("EEE HH:mm");
 		//Date date = new Date();

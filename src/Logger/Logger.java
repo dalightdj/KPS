@@ -11,6 +11,8 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.XMLOutputter;
 
+import travelGraph.Path.DayOfWeek;
+import travelGraph.Path.TransportType;
 import travelGraph.TravelGraph.Priority;
 
 
@@ -113,7 +115,8 @@ public class Logger {
 		TDENode.addContent(new Element("company").setText(tdEvent.getCompany()));
 		TDENode.addContent(new Element("origin").setText(tdEvent.getOrigin()));
 		TDENode.addContent(new Element("destination").setText(tdEvent.getDestination()));
-		TDENode.addContent(new Element("type").setText(tdEvent.getType()));
+		TDENode.addContent(new Element("type").setText(tdEvent.getType().toString()));
+		TDENode.addContent(new Element("dow").setText(tdEvent.getDow().toString()));
 
 		parentElement.addContent(TDENode);
 
@@ -135,6 +138,7 @@ public class Logger {
 		cpuNode.addContent(new Element("priority").setText(cpuEvent.getPriority().toString()));
 		cpuNode.addContent(new Element("weightCost").setText(Integer.toString(cpuEvent.getWeightCost())));
 		cpuNode.addContent(new Element("volumeCost").setText(Integer.toString(cpuEvent.getVolumeCost())));
+		cpuNode.addContent(new Element("dow").setText(cpuEvent.getDow().toString()));
 
 		parentElement.addContent(cpuNode);				
 
@@ -154,10 +158,10 @@ public class Logger {
 		tcuNode.addContent(new Element("company").setText(tcuEvent.getCompany()));
 		tcuNode.addContent(new Element("origin").setText(tcuEvent.getOrigin()));
 		tcuNode.addContent(new Element("destination").setText(tcuEvent.getDestination()));
-		tcuNode.addContent(new Element("type").setText(tcuEvent.getType()));
+		tcuNode.addContent(new Element("type").setText(tcuEvent.getType().toString()));
 		tcuNode.addContent(new Element("weightCost").setText(Integer.toString(tcuEvent.getWeightCost())));
 		tcuNode.addContent(new Element("volumeCost").setText(Integer.toString(tcuEvent.getVolumeCost())));
-		tcuNode.addContent(new Element("day").setText(tcuEvent.getDate()));
+		tcuNode.addContent(new Element("dow").setText(tcuEvent.getDow().toString()));
 		tcuNode.addContent(new Element("maxWeight").setText(Integer.toString(tcuEvent.getMaxWeight())));
 		tcuNode.addContent(new Element("maxVolume").setText(Integer.toString(tcuEvent.getMaxVolume())));
 		tcuNode.addContent(new Element("duration").setText(Integer.toString(tcuEvent.getDuration())));
@@ -183,7 +187,7 @@ public class Logger {
 		mdNode.addContent(new Element("day").setText(mdEvent.getDate()));
 		mdNode.addContent(new Element("weight").setText(Integer.toString(mdEvent.getWeight())));
 		mdNode.addContent(new Element("volume").setText(Integer.toString(mdEvent.getVolume())));
-
+		
 		parentElement.addContent(mdNode);
 
 	}
@@ -211,7 +215,8 @@ public class Logger {
 					TDEvent tdEvent = new TDEvent(ele.getChildText("company"),
 							ele.getChildText("destination"),
 							ele.getChildText("origin"), 
-							ele.getChildText("type"));
+							getType(ele.getChildText("type")),
+							getDow(ele.getChildText("dow")));
 					
 					events.add(tdEvent);
 					break;
@@ -231,7 +236,8 @@ public class Logger {
 							ele.getChildText("origin"), 
 							getPriority(ele.getChildText("priority")), 
 							Integer.parseInt(ele.getChildText("weightCost")), 
-							Integer.parseInt(ele.getChildText("volumeCost")));
+							Integer.parseInt(ele.getChildText("volumeCost")),
+							getDow(ele.getChildText("dow")));
 					
 					events.add(cpuEvent);
 					break;
@@ -239,14 +245,14 @@ public class Logger {
 					TCUEvent tcuEvent = new TCUEvent(ele.getChildText("company"), 
 							ele.getChildText("destination"), 
 							ele.getChildText("origin"), 
-							ele.getChildText("type"), 
-							ele.getChildText("day"), 
+							getType(ele.getChildText("type")), 
 							Integer.parseInt(ele.getChildText("weightCost")), 
 									Integer.parseInt(ele.getChildText("volumeCost")), 
 									Integer.parseInt(ele.getChildText("maxWeight")), 
 									Integer.parseInt(ele.getChildText("maxVolume")), 
 									Integer.parseInt(ele.getChildText("duration")), 
-									Integer.parseInt(ele.getChildText("frequency")));
+									Integer.parseInt(ele.getChildText("frequency")),
+									getDow(ele.getChildText("dow")));
 					
 					events.add(tcuEvent);
 				default:
@@ -276,27 +282,65 @@ public class Logger {
 		
 		Priority p = null;
 		
-		switch (priority) {
-		case "InternationalAir":
-			p = Priority.InternationalAir;
+	if(priority.equals("AIR")){
+		p = Priority.AIR;
+	}else{
+		p = Priority.STANDARD;
+	}
+		
+		return p;	
+	}
+	
+	
+	public TransportType getType(String type){
+		
+		TransportType t = null;
+		
+		switch (type) {
+		case "AIR":
+			t = TransportType.AIR;
 			break;
-		case "InternationalStandard":
-			p =  Priority.InternationalStandard;
+		case "LAND":
+			t = TransportType.LAND;
+		default:
+			t = TransportType.SEA;
 			break;
-		case "DomesticAir":
-			p = Priority.DomesticAir;
+		}
+		
+		return t;
+		
+	}
+	
+	public DayOfWeek getDow(String dow){
+		
+		DayOfWeek d = null;
+		
+		switch (dow) {
+		case "MONDAY":
+			d = DayOfWeek.MONDAY;
 			break;
-		case "DomesticStandard":
-			p = Priority.DomesticStandard;
+		case "TUESDAY":
+			d = DayOfWeek.TUESDAY;
 			break;
+		case "WEDNESDAY":
+			d = DayOfWeek.WEDNESDAY;
+			break;
+		case "THURSDAY":
+			d = DayOfWeek.THURSDAY;
+			break;
+		case "FRIDAY":
+			d = DayOfWeek.FRIDAY;
+			break;
+
 		default:
 			break;
 		}
 		
-		return p;
-		
+		return d;
 		
 	}
+	
+	
 
 	/*
 	public static void main(String[] args) {

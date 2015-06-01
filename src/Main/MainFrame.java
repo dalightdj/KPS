@@ -11,6 +11,8 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -31,6 +33,8 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import org.pushingpixels.substance.api.skin.SubstanceGraphiteLookAndFeel;
+
+
 
 
 
@@ -119,6 +123,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		panel.add(login,c);
 		login.addActionListener(this);
 		
+		this.getRootPane().setDefaultButton(login); //sets default (enter key) to login button
 		this.add(panel);
 		this.setPreferredSize(new Dimension(500,400));
 		this.setResizable(false);
@@ -147,13 +152,7 @@ public class MainFrame extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == login) {
-			if(username.getText().equals("admin") && password.getText().equals("admin")) {
-				this.dispose();
-				new KPSFrame();
-			}
-			else {
-				JOptionPane.showMessageDialog(this,"Please re-enter your log in details","Invalid Login Details",JOptionPane.ERROR_MESSAGE);
-			}
+			login();
 		}
 	}
 	
@@ -171,6 +170,17 @@ public class MainFrame extends JFrame implements ActionListener {
 				//Display an error and return a 1x1 Image
 				System.err.println("Error loading file \""+filename+"\"\n");
 				return null;
+			}
+	 }
+
+	 
+	 public void login() {
+			if(username.getText().equals("admin") && password.getText().equals("admin")) {
+				this.dispose();
+				new KPSFrame();
+			}
+			else {
+				JOptionPane.showMessageDialog(this,"Please re-enter your log in details","Invalid Login Details",JOptionPane.ERROR_MESSAGE);
 			}
 	 }
 	
