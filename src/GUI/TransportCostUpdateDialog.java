@@ -44,6 +44,7 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 	private JLabel dayOfDepartureLabel;
 	private JLabel frequencyLabel;
 	private JLabel durationLabel;
+	private JLabel dayLabel;
 
 	
 	/*The three panels on this Dialog*/
@@ -54,6 +55,7 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 	private JPanel underLyingPanel;
 	
 	/*All the options for the form*/
+	private JComboBox daysComboBox; 
 	private JComboBox destinationComboBox;
 	private JComboBox fromComboBox;
 	private JComboBox typeComboBox;
@@ -155,75 +157,82 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 	 * @param c2 - the GridBagConstraints to use for positioning 
 	 */
 	private void setupOptions(JPanel op, GridBagConstraints c2) {
-		copmanyTextField = new JTextField(10);
+		String[] daysList = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+		daysComboBox = new JComboBox(daysList);
+		daysComboBox.addActionListener(this);
 		c2.gridx = 0;
 		c2.gridy = 0;
+		op.add(daysComboBox,c2);
+		
+		copmanyTextField = new JTextField(10);
+		c2.gridx = 0;
+		c2.gridy = 1;
 		op.add(copmanyTextField,c2);
 		
 		String[] fromList = {"Auckland", "Hamilton", "Rotorua", "Palmerston North", "Wellington", "Christchurch", "Dunedin"};
 		fromComboBox = new JComboBox(fromList);
 		fromComboBox.addActionListener(this);
 		c2.gridx = 0;
-		c2.gridy = 1;
+		c2.gridy = 2;
 		op.add(fromComboBox,c2);
 		
 		String[] destinationList = {"Wellington", "Hamilton", "Auckland"};
 		destinationComboBox = new JComboBox(destinationList);
 		destinationComboBox.addActionListener(this);
 		c2.gridx = 0;
-		c2.gridy = 2;
+		c2.gridy = 3;
 		op.add(destinationComboBox,c2);
 		
 		String[] typeList = {"Sea", "Air", "Land"};
 		typeComboBox = new JComboBox(typeList);
 		typeComboBox.addActionListener(this);
 		c2.gridx = 0;
-		c2.gridy = 3;
+		c2.gridy = 4;
 		op.add(typeComboBox,c2);	
 				
 		weightTextField = new JTextField(10);
 		c2.gridx = 0;
-		c2.gridy = 4;
+		c2.gridy = 5;
 		op.add(weightTextField,c2);
 		
 		maxWeightTextField = new JTextField(10);
 		c2.gridx = 0;
-		c2.gridy = 5;
+		c2.gridy = 6;
 		op.add(maxWeightTextField,c2);
 		
 		weightLabelInfo = new JLabel("(Per Gram)");
 		c2.gridx = 1;
-		c2.gridy = 4;
+		c2.gridy = 5;
 		op.add(weightLabelInfo,c2);
 		
 		volumeTextField = new JTextField(10);
 		c2.gridx = 0;
-		c2.gridy = 6;
+		c2.gridy = 7;
 		op.add(volumeTextField,c2);
 		
 		maxVolumeTextField = new JTextField(10);
 		c2.gridx = 0;
-		c2.gridy = 7;
+		c2.gridy = 8;
 		op.add(maxVolumeTextField,c2);
 		
 		volumeLabelInfo = new JLabel("(Per Cubic Centimeter)");
 		c2.gridx = 1;
-		c2.gridy = 6;
+		c2.gridy = 7;
 		op.add(volumeLabelInfo,c2);
 		
 		departureTextField = new JTextField(10);
 		c2.gridx = 0;
-		c2.gridy = 8;
+		c2.gridy = 9;
 		op.add(departureTextField,c2);
 		
 		frequencyTextField = new JTextField(10);
 		c2.gridx = 0;
-		c2.gridy = 9;
+		c2.gridy = 10;
 		op.add(frequencyTextField,c2);
 		
 		durationTextField = new JTextField(10);
 		c2.gridx = 0;
-		c2.gridy = 10;
+		c2.gridy = 11;
 		op.add(durationTextField,c2);
 		
 		
@@ -253,62 +262,66 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 	 * @param c - The GridBagConstraints to use for positioning
 	 */
 	private void setupLabels(JPanel labelPanel, GridBagConstraints c) {
-
-		companyLabel = new JLabel("Company: ");
+		dayLabel = new JLabel("Day: ");
 		c.gridx = 0;
 		c.gridy = 0;
+		labelPanel.add(dayLabel,c);
+		
+		companyLabel = new JLabel("Company: ");
+		c.gridx = 0;
+		c.gridy = 1;
 		labelPanel.add(companyLabel,c);
 		
 		fromLabel = new JLabel("Origin: ");
 		c.gridx = 0;
-		c.gridy = 1;
+		c.gridy = 2;
 		labelPanel.add(fromLabel,c);
 		
 		destinationLabel = new JLabel("Destination: ");
 		c.gridx = 0;
-		c.gridy = 2;
+		c.gridy = 3;
 		labelPanel.add(destinationLabel,c);
 		
 		
 		typeLabel = new JLabel("Type: ");
 		c.gridx = 0;
-		c.gridy = 3;
+		c.gridy = 4;
 		labelPanel.add(typeLabel,c);	
 		
 		newWeightCostLabel = new JLabel("Weight Cost: ");
 		c.gridx = 0;
-		c.gridy = 4;
+		c.gridy = 5;
 		labelPanel.add(newWeightCostLabel,c);
 		
 		maxwWeightLabel = new JLabel("Max Weight: ");
 		c.gridx = 0;
-		c.gridy = 5;
+		c.gridy = 6;
 		labelPanel.add(maxwWeightLabel,c);
 		
 		newVolumeCostLabel = new JLabel("Volume Cost: ");
 		c.gridx = 0;
-		c.gridy = 6;
+		c.gridy = 7;
 		labelPanel.add(newVolumeCostLabel,c);
 	
 		maxVolumeLabel = new JLabel("Max Volume: ");
 		c.gridx = 0;
-		c.gridy = 7;
+		c.gridy = 8;
 		labelPanel.add(maxVolumeLabel,c);
 		
 		dayOfDepartureLabel = new JLabel("Day of Departure: ");
 		c.gridx = 0;
-		c.gridy = 8;
+		c.gridy = 9;
 		labelPanel.add(dayOfDepartureLabel,c);
 		
 		frequencyLabel = new JLabel("Frequency: ");
 		c.gridx = 0;
-		c.gridy = 9;
+		c.gridy = 10;
 		labelPanel.add(frequencyLabel,c);
 		
 		
 		durationLabel = new JLabel("Duration of Trip: ");
 		c.gridx = 0;
-		c.gridy = 10;
+		c.gridy = 11;
 		labelPanel.add(durationLabel,c);
 
 	}
