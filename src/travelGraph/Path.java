@@ -88,19 +88,21 @@ public class Path {
 	
 	/**
 	 * Update this path's information
-	 * @param ppg The new price per gram. -1 to keep the previous price per gram
-	 * @param ppcc The new price per cubic centimeter
-	 * @param dayOfWeek The new day of the week that this path operates
-	 * @param frequency The new frequency between departures in hours
-	 * @param duration The new duration of time it takes to travel from origin to destination in hours
+	 * @param ppg The new price per gram. 0< to keep the previous price per gram
+	 * @param ppcc The new price per cubic centimeter. 0< to keep the previous price per cubic centimeter
+	 * @param maxWeight The new maximum weight. 0< to keep the previous maximum weight
+	 * @param maxVol The new maximum volume. 0< to keep the previous maximum volume
+	 * @param frequency The new frequency between departures in hours. 0< to keep the previous frequency
+	 * @param duration The new duration of time it takes to travel from origin to destination in hours. 0< to keep the previous duration
 	 * @return The updated path
 	 */
-	protected Path update(float ppg, float ppcc, DayOfWeek dayOfWeek, int frequency, int duration){
-		this.ppGram = ppg;
-		this.ppCmCubed = ppcc;
-		this.day = dayOfWeek;
-		this.frequency = frequency;
-		this.duration = duration;
+	protected Path update(float ppg, float ppcc, int maxWeight, int maxVol, int frequency, int duration){
+		if(ppg<0) {this.ppGram = ppg;}
+		if(ppcc<0) {this.ppCmCubed = ppcc;}
+		if(maxWeight<0) {this.maxWeight = maxWeight;}
+		if(maxVol<0) {this.maxVolume = maxVol;}
+		if(frequency<0) {this.frequency = frequency;}
+		if(duration<0) {this.duration = duration;}
 		
 		return this;
 	}
