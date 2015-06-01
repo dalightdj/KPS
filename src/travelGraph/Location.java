@@ -78,7 +78,9 @@ public class Location implements Comparable<Location>{
 		this.visited = visited;
 	}
 	
-
+	public boolean isVisited(){
+		return visited;
+	}
 	
 	/**
 	 * Set the optimal from Path for Dijkstra's algorithm

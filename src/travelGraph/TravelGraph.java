@@ -26,11 +26,13 @@ public class TravelGraph {
 	 * @param destination Name of destination
 	 * @param company Name of the transport firm
 	 * @param type The type of transport i.e. Land, Air or Sea
-	 * @param ppg New price per gram
-	 * @param ppcc New price per cubic centimeter
+	 * @param ppg New price per gram. 0< to keep the previous price per gram
+	 * @param ppcc New price per cubic centimeter. 0< to keep the previous price per cubic centimeter
+	 * @param maxWeight New maximum weight. 0< to keep the previous maximum weight
+	 * @param maxVol New maximum volume. 0< to keep the previous maximum volume
 	 * @param dayOfWeek The day of the week the transport departs
-	 * @param frequency The frequency in hours between departures
-	 * @param duration The duration of the trip in hours
+	 * @param frequency The new frequency in hours between departures. 0< to keep the previous frequency 
+	 * @param duration The new duration of the trip in hours. . 0< to keep the previous duration
 	 * @return The updated path. Returns a new path if no path existed with the given origin, destination, company name, transport type.
 	 */
 	public Path updatePathPrice(String origin, String destination, String company, Path.TransportType type, float ppg, float ppcc, int maxWeight, int maxVol, Path.DayOfWeek dayOfWeek, int frequency, int duration){
@@ -44,7 +46,9 @@ public class TravelGraph {
 				if(p.getDestination()==destLoc){
 					if(p.getCompany().equals(company)){
 						if(p.getTransportType() == type){
-							return p.update(ppg, ppcc, dayOfWeek, frequency, duration);
+							if(p.getDay() == dayOfWeek){
+								return p.update(ppg, ppcc, maxWeight, maxVol, frequency, duration);
+							}
 						}
 					}
 				}
@@ -81,8 +85,6 @@ public class TravelGraph {
 	 * @return An ordered ArrayList of the Paths from origin to destination. Returns null if no such path exists
 	 */
 	public ArrayList<Path> getRoute(String origin, String destination, Priority priority){
-		ArrayList<Path> route = new ArrayList<Path>();
-
 		Location[] locs = getLocs(origin, destination);
 		Location originLoc = locs[0];
 		Location destLoc = locs[1];
@@ -94,16 +96,19 @@ public class TravelGraph {
 		//FIND A ROUTE USING DIJKSTRA
 		PriorityQueue<Location> queue = new PriorityQueue<Location>();
 
+		//reset values
 		for(Location loc : locations){
 			loc.setDistance(Double.POSITIVE_INFINITY);
 			loc.setVisited(false);
 
+			//mark the origin with a distance of 0 from origin then add it to the priority queue
 			if(loc==originLoc){
 				loc.setDistance(0);
 				queue.offer(loc);
 			}
 		}
 
+		boolean airPriority = priority==Priority.AIR;//there are currently only 2 priorities, Air and Standard. so if this is false then the priority is Standard
 		while(!queue.isEmpty()){
 			Location from = queue.poll();
 			from.setVisited(true);
@@ -112,35 +117,60 @@ public class TravelGraph {
 				return getPath(destLoc);//we've found our path
 			}
 
-
+			ArrayList<Path> airPaths = new ArrayList<Path>();//used for standard priority to hold Air paths, just in case there are no Land or Sea paths
+			boolean foundAPath = false;//used for standard priority, if this is true then we dont have to look through airpaths
 			for(Path p : from.getPaths()){
-				//if(airPriority(p, priority)){
-				//stdPriority searches for land or sea first nd only searches for air if there is no other choice
-
-				Location to = p.getDestination();
-				double weight = p.getCost();
-				double weightPlusPath = weight + from.getDistance();
-				if(weightPlusPath < to.getDistance()){
-					queue.remove(to);//remove it so it can be updated and the re-added. does nothing if the Location isn't in the queue
-					to.setDistance(weightPlusPath);
-					to.setFrom(from, p);
-					queue.offer(to);//add or re-add the node to the queue so that it can update with its new priority
+				
+				//if the path doesnt match air priority then we dont really care about it
+				if(airPriority && p.getTransportType()!=TransportType.AIR){
+					continue;
 				}
-				//}
+				
+				//if the path doesnt match standard priority then add the path to the airpaths and we'll check it later
+				if(!airPriority && p.getTransportType()==TransportType.AIR){
+					airPaths.add(p);
+					continue;
+				}
+				
+				foundAPath = true;
+				Location to = p.getDestination();
+				if(!to.isVisited()){
+					double weight = p.getCost();
+					double weightPlusPath = weight + from.getDistance();
+					if(weightPlusPath < to.getDistance()){
+						queue.remove(to);//remove it so it can be updated and the re-added, this ensures that the queue's priorities are always up to date. does nothing if the Location isn't in the queue
+						to.setDistance(weightPlusPath);
+						to.setFrom(from, p);
+						queue.offer(to);//add or re-add the node to the queue so the queue can update with its new priority
+					}
+				}
+			}
+			
+			//if standard priority and no standard path was found then find the best air path
+			if(!foundAPath){
+				double bestWeight = Double.POSITIVE_INFINITY;
+				Path bestPath = null;
+				for(Path p : airPaths){
+					Location to = p.getDestination();
+					if(!to.isVisited()){
+						double weight = p.getCost();
+						double weightPlusPath = weight + from.getDistance();
+						if(weightPlusPath < to.getDistance()){
+							bestWeight = weightPlusPath;
+							bestPath = p;
+						}
+					}
+				}
+				if(bestPath==null){return null;}
+				Location to = bestPath.getDestination();
+				queue.remove(to);//remove it so it can be updated and the re-added, this ensures that the queue's priorities are always up to date. does nothing if the Location isn't in the queue
+				to.setDistance(bestWeight);
+				to.setFrom(from, bestPath);
+				queue.offer(to);//add or re-add the node to the queue so the queue can update with its new priority
 			}
 		}
 
 		return null;
-	}
-
-	//create list of air paths. if no from path then check air paths
-
-	private boolean airPriority(Path p, Priority priority){
-		return (priority==Priority.DomesticAir || priority==Priority.InternationalAir) && p.getTransportType()==TransportType.AIR;
-	}
-
-	private boolean standardPriority(){
-
 	}
 
 	/**
