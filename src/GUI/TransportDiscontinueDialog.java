@@ -48,10 +48,9 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 	private JPanel underLyingPanel;
 	
 	/*All the options for the form*/
-
+	private JComboBox destinationComboBox;
+	private JComboBox fromComboBox;
 	private JTextField companyTextField;
-	private JTextField destinationTextField;
-	private JTextField fromTextField;
 	private JComboBox typeComboBox;
 	private JComboBox daysComboBox; 
 	
@@ -148,19 +147,23 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 		c2.gridy = 1;
 		op.add(companyTextField,c2);
 			
-		fromTextField = new JTextField(15);
+		String[] fromList = {"Auckland", "Hamilton", "Rotorua", "Palmerston North", "Wellington", "Christchurch", "Dunedin"};
+		fromComboBox = new JComboBox(fromList);
+		fromComboBox.addActionListener(this);
 		c2.gridx = 0;
 		c2.gridy = 2;
-		op.add(fromTextField,c2);
+		op.add(fromComboBox,c2);
 		
-		destinationTextField = new JTextField(15);
+		String[] destinationList = {"Wellington", "Hamilton", "Auckland"};
+		destinationComboBox = new JComboBox(destinationList);
+		destinationComboBox.addActionListener(this);
 		c2.gridx = 0;
 		c2.gridy = 3;
-		op.add(destinationTextField,c2);
+		op.add(destinationComboBox,c2);
 		
 		
-		String[] destinationList = {"Sea", "Land", "Air"};
-		typeComboBox = new JComboBox(destinationList);
+		String[] priorityList = {"Sea", "Land", "Air"};
+		typeComboBox = new JComboBox(priorityList);
 		typeComboBox.addActionListener(this);
 		c2.gridx = 0;
 		c2.gridy = 4;
