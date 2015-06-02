@@ -10,7 +10,6 @@ public class TCUEvent extends Event {
 	private String destination;
 	private String origin;
 	private TransportType type;
-	private String date;
 	private int weightCost;
 	private int volumeCost;
 	private int maxWeight;
@@ -21,13 +20,12 @@ public class TCUEvent extends Event {
 
 
 
-	public TCUEvent(String company, String destination, String origin, TransportType type, String date, int weightCost, int volumeCost, int maxWeight, int maxVolume, int duration, int frequency, DayOfWeek dow) {
+	public TCUEvent(String company, String destination, String origin, TransportType type, DayOfWeek dow, int weightCost, int volumeCost, int maxWeight, int maxVolume, int duration, int frequency) {
 		super();
 		this.company = company;
 		this.destination = destination;
 		this.origin = origin;
 		this.type = type;
-		this.date = date;
 		this.weightCost = weightCost;
 		this.volumeCost = volumeCost;
 		this.maxWeight = maxWeight;
@@ -67,12 +65,6 @@ public class TCUEvent extends Event {
 	public void setType(TransportType type) {
 		this.type = type;
 	}
-	public String getDate() {
-		return date;
-	}
-	public void setDate(String date) {
-		this.date = date;
-	}
 	public int getWeightCost() {
 		return weightCost;
 	}
@@ -109,7 +101,6 @@ public class TCUEvent extends Event {
 	public void setFrequency(int frequency) {
 		this.frequency = frequency;
 	}
-
 	public DayOfWeek getDow() {
 		return dow;
 	}
