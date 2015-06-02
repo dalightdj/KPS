@@ -115,7 +115,7 @@ public class KPS {
 			}
 			else if(e instanceof TCUEvent){
 				costUpdate(((TCUEvent) e).getCompany(), ((TCUEvent) e).getDestination(), ((TCUEvent) e).getOrigin(), ((TCUEvent) e).getType(),
-						((TCUEvent) e).getDay(), ((TCUEvent) e).getWeightCost(), ((TCUEvent) e).getVolumeCost(), ((TCUEvent) e).getMaxWeight(),
+						((TCUEvent) e).getDow(), ((TCUEvent) e).getWeightCost(), ((TCUEvent) e).getVolumeCost(), ((TCUEvent) e).getMaxWeight(),
 						((TCUEvent) e).getMaxVolume(), ((TCUEvent) e).getDuration(), ((TCUEvent) e).getFrequency(),false);
 			}
 			//else if
@@ -180,6 +180,22 @@ public class KPS {
 		else {
 			return DayOfWeek.SUNDAY;
 		}
+	}
+
+	private double getExpenses(){
+		return expendetureTotal;
+	}
+
+	private double getRevenue(){
+		return revenueTotal;
+	}
+
+	private int getNoDeliveries(){
+		return deliveriesCount;
+	}
+
+	private int getNoEvents(){
+		return events.size();
 	}
 
 
