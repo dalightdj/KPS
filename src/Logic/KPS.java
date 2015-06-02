@@ -4,12 +4,14 @@ import java.util.ArrayList;
 
 import travelGraph.Path.DayOfWeek;
 import travelGraph.Path.TransportType;
+import travelGraph.Path;
 import travelGraph.TravelGraph;
 import travelGraph.TravelGraph.Priority;
 import Logger.Event;
 import Logger.Logger;
 import Logger.MDEvent;
 import Logger.TCUEvent;
+import Logger.TDEvent;
 
 public class KPS {
 
@@ -35,22 +37,45 @@ public class KPS {
 		travelGraph = new TravelGraph();
 	}
 
-	public void discontinueRoute(int reference){
+	/**
+	 * Deals with a discontinue transport event appropriately. (and creates the new TDEvent object/ writes the XML
+	 * if the given createNew boolean is true)
+	 * @param origin
+	 * @param destination
+	 * @param company
+	 * @param type
+	 * @param day
+	 * @param createNew
+	 */
+	public void discontinueRoute(String origin, String destination, String company, Path.TransportType type, DayOfWeek day, boolean createNew){
 		//XML event
 		//return a bool ?
 		// take out path from the GRAPH STRUCTURE with the given reference ?
+
+		//If a new object needs to be created, create an event object, add it to the arrayList and write it in XML using the Logger.
+		if(createNew){
+			TDEvent event = new TDEvent(company, destination, origin, type, day);
+			events.add(event);
+			logger.addEvent(event);
+		}
+
+		//Journey stuff !?!?!?!?!?
+
+		travelGraph.removePath(origin, destination, company, type, day);
+
+
 	}
 
 	/**
 	 *
 	 * Deals with a mail Delivery event appropriately (and creates the new MDEvent object
-	 * if given a createNew boolean as true
+	 * if given a createNew boolean as true)
 	 *
 	 * @param createNew Is this a new mailDelivery event being entered from the GUI. (always true for Ewan/Neal)
 	 */
 	public void mailDelivery(String date, String destination, String origin, int weight, int volume, Priority priority, boolean createNew){
 
-		//Create an event object, add it to the arrayList and write it in XML using the Logger.
+		//If a new object needs to be created, create an event object, add it to the arrayList and write it in XML using the Logger.
 		if(createNew){
 			MDEvent event = new MDEvent(date, destination, origin, priority, weight, volume);
 			events.add(event);
@@ -88,6 +113,12 @@ public class KPS {
 				mailDelivery(((MDEvent) e).getDate(), ((MDEvent) e).getDestination(), ((MDEvent) e).getOrigin(),
 						((MDEvent) e).getWeight(), ((MDEvent) e).getVolume(), ((MDEvent) e).getPriority(), false);
 			}
+			else if(e instanceof TCUEvent){
+				costUpdate(((TCUEvent) e).getCompany(), ((TCUEvent) e).getDestination(), ((TCUEvent) e).getOrigin(), ((TCUEvent) e).getType(),
+						((TCUEvent) e).getDay(), ((TCUEvent) e).getWeightCost(), ((TCUEvent) e).getVolumeCost(), ((TCUEvent) e).getMaxWeight(),
+						((TCUEvent) e).getMaxVolume(), ((TCUEvent) e).getDuration(), ((TCUEvent) e).getFrequency(),false);
+			}
+			//else if
 
 		}
 	}
@@ -99,20 +130,18 @@ public class KPS {
 		//change in the GRAPH STRUCTURE
 	}
 
-	public void costUpdate(String company, String destination, String origin, TransportType type, String date,
+	public void costUpdate(String company, String destination, String origin, TransportType type, DayOfWeek dow,
 			int weightCost, int volumeCost, int maxWeight, int maxVolume, int duration, int frequency, boolean createNew){
 
 		//Create an event object, add it to the arrayList and write it in XML using the Logger.
 		if(createNew){
-			TCUEvent event = new TCUEvent(company, destination, origin, type, date,
+			TCUEvent event = new TCUEvent(company, destination, origin, type, dow,
 					weightCost, volumeCost, maxWeight, maxVolume, duration, frequency);
 			events.add(event);
 			logger.addEvent(event);
 		}
 
-		travelGraph.updatePathPrice(origin, destination, company, priority, weightCost, volumeCost, getDay(date), frequency, duration);
-
-
+		travelGraph.updatePathPrice(origin, destination, company, type, weightCost, volumeCost, maxWeight, maxVolume, dow, frequency, duration);
 
 
 		//write XML
