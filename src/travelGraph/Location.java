@@ -27,15 +27,15 @@ public class Location implements Comparable<Location>{
 		this.city = name;
 	}
 	
-	protected void addPath(Path path){
+	public void addPath(Path path){
 		paths.add(path);
 	}
 	
-	protected void removePath(Path path){
+	public void removePath(Path path){
 		paths.remove(path);
 	}
 	
-	protected String getCity(){
+	public String getCity(){
 		return city;
 	}
 	
@@ -43,7 +43,7 @@ public class Location implements Comparable<Location>{
 	 * 
 	 * @return An unmodifiable list of all the paths.
 	 */
-	protected ArrayList<Path> getPaths(){
+	public ArrayList<Path> getPaths(){
 		return (ArrayList<Path>) Collections.unmodifiableList(paths);
 	}
 
@@ -87,7 +87,7 @@ public class Location implements Comparable<Location>{
 	 * @param fromLoc The Location from where the current optimal path comes from
 	 * @param fromPath The optimal Path
 	 */
-	protected void setFrom(Location fromLoc, Path fromPath){
+	public void setFrom(Location fromLoc, Path fromPath){
 		
 	}
 	
@@ -95,7 +95,7 @@ public class Location implements Comparable<Location>{
 	 * 
 	 * @return The Location from where the current optimal path comes from
 	 */
-	protected Location getFromLoc(){
+	public Location getFromLoc(){
 		return fromLoc;
 	}
 	

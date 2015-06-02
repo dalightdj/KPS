@@ -144,10 +144,10 @@ public class KPSFrame extends JFrame {
 
 
 	private void updateGUI() {
-		  totalRevenueDouble = KPSObject.
-		  totalExpenditureDouble = KPSObject.
-		  totalNumberOfEventsDouble = KPSObject.
-		  totalAmountOfMailDouble = KPSObject.
+		  totalRevenueDouble = kpsObject.getRevenue();
+		  totalExpenditureDouble = kpsObject.getExpenses();
+		  totalNumberOfEventsDouble = kpsObject.getNoEvents();
+		  totalAmountOfMailDouble = kpsObject.getNoDeliveries();
 	}
 
 

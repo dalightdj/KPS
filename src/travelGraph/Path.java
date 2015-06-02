@@ -65,7 +65,7 @@ public class Path {
 	 * Update 'price per gram'
 	 * @param price The new price per gram
 	 */
-	protected void updatePPG(float price){
+	public void updatePPG(float price){
 		ppGram = price;
 		updateCost();
 	}
@@ -74,7 +74,7 @@ public class Path {
 	 * Update 'price per centimeter cubed'
 	 * @param price
 	 */
-	protected void updatePPCC(float price){
+	public void updatePPCC(float price){
 		ppCmCubed = price;
 		updateCost();
 	}
@@ -96,7 +96,7 @@ public class Path {
 	 * @param duration The new duration of time it takes to travel from origin to destination in hours. 0< to keep the previous duration
 	 * @return The updated path
 	 */
-	protected Path update(float ppg, float ppcc, int maxWeight, int maxVol, int frequency, int duration){
+	public Path update(float ppg, float ppcc, int maxWeight, int maxVol, int frequency, int duration){
 		if(ppg<0) {this.ppGram = ppg;}
 		if(ppcc<0) {this.ppCmCubed = ppcc;}
 		if(maxWeight<0) {this.maxWeight = maxWeight;}
@@ -107,23 +107,23 @@ public class Path {
 		return this;
 	}
 	
-	protected Location getDestination(){
+	public Location getDestination(){
 		return dest;
 	}
 	
-	protected String getCompany(){
+	public String getCompany(){
 		return company;
 	}
 	
-	protected TransportType getTransportType(){
+	public TransportType getTransportType(){
 		return type;
 	}
 	
-	protected DayOfWeek getDay(){
+	public DayOfWeek getDay(){
 		return day;
 	}
 	
-	protected float getCost(){
+	public float getCost(){
 		return cost;
 	}
 }
