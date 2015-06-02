@@ -6,26 +6,25 @@ import travelGraph.Location;
 
 public class LocalDistributionCentre extends Location{
 
-	private String name;
 	private ArrayList<MailRecord> mailRecords;
-	
+
 	public LocalDistributionCentre(String city) {
 		super(city);
 		mailRecords = new ArrayList<MailRecord>();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public String getName(){
-		return name;
+		return getCity();
 	}
-	
+
 	public ArrayList<MailRecord> getAllRecords(){
 		return mailRecords;
 	}
-	
+
 	/**
-	 * Searches for a mail record with the given destination from this Local 
-	 * Distribution Centre. If it exists in the records, return that record 
+	 * Searches for a mail record with the given destination from this Local
+	 * Distribution Centre. If it exists in the records, return that record
 	 * otherwise return null.
 	 * @param destination, the place used to search the records
 	 * @return either the matching MailRecord object, or null.
@@ -35,7 +34,7 @@ public class LocalDistributionCentre extends Location{
 		for(MailRecord m:mailRecords){
 			if(m.getDestination().equals(destination)){
 				record = m;
-			}		
+			}
 		}
 		return record;
 	}
