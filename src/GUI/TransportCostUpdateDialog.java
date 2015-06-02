@@ -24,6 +24,9 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
+import travelGraph.Path.DayOfWeek;
+import travelGraph.Path.TransportType;
+import travelGraph.TravelGraph.Priority;
 import Logic.KPS;
 import Main.MainFrame;
 
@@ -332,6 +335,89 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
+		if(e.getSource() == submit) {
+		     if (weightTextField.getText().equals("") && volumeTextField.getText().equals("")) {
+					JOptionPane.showMessageDialog(this,"Please enter all details","Insufficient Details",JOptionPane.ERROR_MESSAGE);
+		     }
+		     else {
+		    	 try {
+		    	     Integer.parseInt(weightTextField.getText());
+		    	}
+		    	catch (NumberFormatException error) {
+					JOptionPane.showMessageDialog(this,"Please enter an integer for weight","Incorrect Details",JOptionPane.ERROR_MESSAGE);
+					return;
+		    	}
+		    	try {
+		    	     Integer.parseInt(volumeTextField.getText());
+		    	}
+		    	catch (NumberFormatException error) {
+					JOptionPane.showMessageDialog(this,"Please enter an integer for volume","Incorrect Details",JOptionPane.ERROR_MESSAGE);
+					return;
+		    	}
+
+		    	String companyString = copmanyTextField.getText();
+
+
+		    	String destination =  (String) destinationComboBox.getSelectedItem();
+		 		String origin = (String) fromComboBox.getSelectedItem();
+		 		String dateString = (String) daysComboBox.getSelectedItem();
+		 		
+		 		/*Check to make sure it's an int*/
+		 		int weight = Integer.parseInt(weightTextField.getText());
+		 		int volume = Integer.parseInt(volumeTextField.getText());
+		 		int maxWeight = Integer.parseInt(maxWeightTextField.getText());
+		 		int maxVolume = Integer.parseInt(maxVolumeTextField.getText());
+		 		int freq = Integer.parseInt(frequencyTextField.getText());
+		 		int dur = Integer.parseInt(durationTextField.getText());
+		 	
+		 		
+		 		String typeString = (String) typeComboBox.getSelectedItem();
+
+		 		TransportType typeEnum;
+		 		DayOfWeek dayEnum;
+		 		
+		 		/*Check for the priority*/
+		 		if(typeString.equals("Air")) {
+		 			typeEnum = TransportType.AIR;
+		 		}
+		 		else if(typeString.equals("Land")) {
+		 			typeEnum = TransportType.LAND;
+		 		}
+		 		else {
+		 			typeEnum = TransportType.SEA;
+		 		}
+		 		
+		 		/*Check for the day*/
+		 		if(dateString.equals("Monday")) {
+		 			dayEnum = DayOfWeek.MONDAY;
+		 		}
+		 		else if(dateString.equals("Tuesday")) {
+		 			dayEnum = DayOfWeek.TUESDAY;
+		 		}
+		 		else if(dateString.equals("Wednesday")) {
+		 			dayEnum = DayOfWeek.WEDNESDAY;
+		 		}
+		 		else if(dateString.equals("Thursday")) {
+		 			dayEnum = DayOfWeek.THURSDAY;
+		 		}
+		 		else if(dateString.equals("Friday")) {
+		 			dayEnum = DayOfWeek.FRIDAY;
+		 		}
+		 		else if(dateString.equals("Saturday")) {
+		 			dayEnum = DayOfWeek.SATURDAY;
+		 		}
+		 		else {
+		 			dayEnum = DayOfWeek.SUNDAY;
+		 		}
+		 		
+		 		kpsObject.costUpdate(companyString, destination, origin, typeEnum, dayEnum, weight, volume, maxWeight, maxVolume, dur, freq, true);
+		    	this.dispose();
+		     }
+		     
+		}
+		
+		
 		if(e.getSource() == cancel) {
 			this.dispose();
 		}

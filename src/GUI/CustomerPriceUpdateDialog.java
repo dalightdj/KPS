@@ -328,7 +328,6 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
 		 		}
 		 		
 		 		kpsObject.priceUpdate(destination, origin, priorityEnum, weight, volume,dayEnum, true);
-		    	//kpsObject.mailDelivery(dateString, destination, origin, weight, volume, priorityEnum, true);
 		    	this.dispose();
 		     }
 		     

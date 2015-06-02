@@ -55,7 +55,7 @@ public class KPSFrame extends JFrame {
 
 	public KPSFrame() {
 		/*Create new KPS Object and update GUI*/
-		kpsObject = new KPS();
+		//kpsObject = new KPS();
 
 		/*Initialize the layout and the insets*/
 		this.setLayout(new BorderLayout());
@@ -136,10 +136,10 @@ public class KPSFrame extends JFrame {
 
 
 	private void updateGUI() {
-		totalRevenueDouble = kpsObject.getRevenue();
-		totalExpenditureDouble = kpsObject.getExpenses();
-		totalNumberOfEventsDouble = kpsObject.getNoEvents();
-		totalAmountOfMailDouble = kpsObject.getNoDeliveries();
+		//totalRevenueDouble = kpsObject.getRevenue();
+		//totalExpenditureDouble = kpsObject.getExpenses();
+		//totalNumberOfEventsDouble = kpsObject.getNoEvents();
+		//totalAmountOfMailDouble = kpsObject.getNoDeliveries();
 
 		String revenueString = String.valueOf(totalRevenueDouble);
 		String expenditureString = String.valueOf(totalExpenditureDouble);
