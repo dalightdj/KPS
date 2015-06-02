@@ -336,10 +336,17 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource() == submit) {
-		     if (weightTextField.getText().equals("") && volumeTextField.getText().equals("")) {
+		     if (weightTextField.getText().equals("") && volumeTextField.getText().equals("") && maxWeightTextField.getText().equals("")
+		    		 && maxVolumeTextField.getText().equals("") && frequencyTextField.getText().equals("") && durationTextField.getText().equals("")) {
 					JOptionPane.showMessageDialog(this,"Please enter all details","Insufficient Details",JOptionPane.ERROR_MESSAGE);
 		     }
 		     else {
+		    	 /*Check that the input in the company text field is string only */
+		    	 if(!copmanyTextField.getText().matches("^[a-zA-Z]+$")) {
+						JOptionPane.showMessageDialog(this,"Please enter a company name (letters only)","Insufficient Details",JOptionPane.ERROR_MESSAGE);
+						return;
+			     }
+		    	 /* Parse the textfields to make sure only integers have been put in*/
 		    	 try {
 		    	     Integer.parseInt(weightTextField.getText());
 		    	}
@@ -354,7 +361,34 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 					JOptionPane.showMessageDialog(this,"Please enter an integer for volume","Incorrect Details",JOptionPane.ERROR_MESSAGE);
 					return;
 		    	}
-
+		    	try {
+		    	     Integer.parseInt(maxWeightTextField.getText());
+		    	}
+		    	catch (NumberFormatException error) {
+					JOptionPane.showMessageDialog(this,"Please enter an integer for max weight","Incorrect Details",JOptionPane.ERROR_MESSAGE);
+					return;
+		    	}
+		    	try {
+		    	     Integer.parseInt(maxVolumeTextField.getText());
+		    	}
+		    	catch (NumberFormatException error) {
+					JOptionPane.showMessageDialog(this,"Please enter an integer for max volume","Incorrect Details",JOptionPane.ERROR_MESSAGE);
+					return;
+		    	}
+		    	try {
+		    	     Integer.parseInt(frequencyTextField.getText());
+		    	}
+		    	catch (NumberFormatException error) {
+					JOptionPane.showMessageDialog(this,"Please enter an integer for frequency","Incorrect Details",JOptionPane.ERROR_MESSAGE);
+					return;
+		    	}
+		    	try {
+		    	     Integer.parseInt(durationTextField.getText());
+		    	}
+		    	catch (NumberFormatException error) {
+					JOptionPane.showMessageDialog(this,"Please enter an integer for duration","Incorrect Details",JOptionPane.ERROR_MESSAGE);
+					return;
+		    	}
 		    	String companyString = copmanyTextField.getText();
 
 		    	String destination =  (String) destinationComboBox.getSelectedItem();
