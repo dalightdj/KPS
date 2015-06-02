@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import Logic.KPS;
 import Main.MainFrame;
 
 public class KPSFrame extends JFrame {
@@ -44,9 +45,12 @@ public class KPSFrame extends JFrame {
 	private JLabel amountOfMailValue;
 	private JLabel criticalRoutesValue;
 
-
+	private KPS kpsObject;
 
 	public KPSFrame() {
+		/*Create new KPS Object and update GUI*/
+		kpsObject = new KPS();
+		updateGUI();
 
 		/*Initialize the layout and the insets*/
 		this.setLayout(new BorderLayout());
@@ -121,6 +125,21 @@ public class KPSFrame extends JFrame {
 		guiInformation.add(title,c);
 
 	}
+
+
+
+
+
+	private void updateGUI() {
+
+	}
+
+
+
+
+
+
+
 
 	/**
 	 * This is just a test method to run it directly
