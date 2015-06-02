@@ -118,6 +118,7 @@ public class KPS {
 						((TCUEvent) e).getDay(), ((TCUEvent) e).getWeightCost(), ((TCUEvent) e).getVolumeCost(), ((TCUEvent) e).getMaxWeight(),
 						((TCUEvent) e).getMaxVolume(), ((TCUEvent) e).getDuration(), ((TCUEvent) e).getFrequency(),false);
 			}
+			//else if
 
 		}
 	}
