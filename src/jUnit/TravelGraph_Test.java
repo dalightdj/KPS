@@ -4,11 +4,14 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class travelGraph_Test {
+import travelGraph.*;
+
+public class TravelGraph_Test {
 
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void testLocation() {
+		Location l = new Location("Location");
+		assertTrue("Location name compromised", l.getCity().equals("Location"));
 	}
 
 }
