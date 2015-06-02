@@ -45,7 +45,7 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 	private JLabel maxwWeightLabel;
 	private JLabel newVolumeCostLabel;
 	private JLabel maxVolumeLabel;
-	private JLabel dayOfDepartureLabel;
+	//private JLabel dayOfDepartureLabel;
 	private JLabel frequencyLabel;
 	private JLabel durationLabel;
 	private JLabel dayLabel;
@@ -68,7 +68,7 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 	private JTextField maxWeightTextField;
 	private JTextField maxVolumeTextField;
 	private JTextField volumeTextField;
-	private JTextField departureTextField;
+	//private JTextField departureTextField;
 	private JTextField frequencyTextField;
 	private JTextField durationTextField;
 
@@ -226,19 +226,19 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		c2.gridy = 7;
 		op.add(volumeLabelInfo,c2);
 
-		departureTextField = new JTextField(10);
-		c2.gridx = 0;
-		c2.gridy = 9;
-		op.add(departureTextField,c2);
+		//departureTextField = new JTextField(10);
+		//c2.gridx = 0;
+		//c2.gridy = 9;
+		//op.add(departureTextField,c2);
 
 		frequencyTextField = new JTextField(10);
 		c2.gridx = 0;
-		c2.gridy = 10;
+		c2.gridy = 9;
 		op.add(frequencyTextField,c2);
 
 		durationTextField = new JTextField(10);
 		c2.gridx = 0;
-		c2.gridy = 11;
+		c2.gridy = 10;
 		op.add(durationTextField,c2);
 
 
@@ -314,20 +314,20 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		c.gridy = 8;
 		labelPanel.add(maxVolumeLabel,c);
 
-		dayOfDepartureLabel = new JLabel("Day of Departure: ");
-		c.gridx = 0;
-		c.gridy = 9;
-		labelPanel.add(dayOfDepartureLabel,c);
+		//dayOfDepartureLabel = new JLabel("Day of Departure: ");
+		//c.gridx = 0;
+		//c.gridy = 9;
+		//labelPanel.add(dayOfDepartureLabel,c);
 
 		frequencyLabel = new JLabel("Frequency: ");
 		c.gridx = 0;
-		c.gridy = 10;
+		c.gridy = 9;
 		labelPanel.add(frequencyLabel,c);
 
 
 		durationLabel = new JLabel("Duration of Trip: ");
 		c.gridx = 0;
-		c.gridy = 11;
+		c.gridy = 10;
 		labelPanel.add(durationLabel,c);
 
 	}
