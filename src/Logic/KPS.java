@@ -182,19 +182,19 @@ public class KPS {
 		}
 	}
 
-	private double getExpenses(){
+	public double getExpenses(){
 		return expendetureTotal;
 	}
 
-	private double getRevenue(){
+	public double getRevenue(){
 		return revenueTotal;
 	}
 
-	private int getNoDeliveries(){
+	public int getNoDeliveries(){
 		return deliveriesCount;
 	}
 
-	private int getNoEvents(){
+	public int getNoEvents(){
 		return events.size();
 	}
 
