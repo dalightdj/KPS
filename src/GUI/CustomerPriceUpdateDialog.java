@@ -11,6 +11,9 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -18,11 +21,14 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
+import travelGraph.Path.DayOfWeek;
+import travelGraph.TravelGraph.Priority;
 import Logic.KPS;
 import Main.MainFrame;
 
@@ -256,6 +262,80 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
+		if(e.getSource() == submit) {
+		     if (weightTextField.getText().equals("") && volumeTextField.getText().equals("")) {
+					JOptionPane.showMessageDialog(this,"Please enter all details","Insufficient Details",JOptionPane.ERROR_MESSAGE);
+		     }
+		     else {
+		    	 try {
+		    	     Integer.parseInt(weightTextField.getText());
+		    	}
+		    	catch (NumberFormatException error) {
+					JOptionPane.showMessageDialog(this,"Please enter an integer for weight","Incorrect Details",JOptionPane.ERROR_MESSAGE);
+					return;
+		    	}
+		    	try {
+		    	     Integer.parseInt(volumeTextField.getText());
+		    	}
+		    	catch (NumberFormatException error) {
+					JOptionPane.showMessageDialog(this,"Please enter an integer for volume","Incorrect Details",JOptionPane.ERROR_MESSAGE);
+					return;
+		    	}
+
+		 		String destination =  (String) destinationComboBox.getSelectedItem();
+		 		String origin = (String) fromComboBox.getSelectedItem();
+		 		String dateString = (String) daysComboBox.getSelectedItem();
+		 		
+		 		/*Check to make sure it's an int*/
+		 		int weight = Integer.parseInt(weightTextField.getText());
+		 		int volume = Integer.parseInt(volumeTextField.getText());
+
+		 		String priority = (String) priorityComboBox.getSelectedItem();
+
+		 		Priority priorityEnum;
+		 		DayOfWeek dayEnum;
+		 		
+		 		/*Check for the priority*/
+		 		if(priority.equals("Air")) {
+		 			 priorityEnum = Priority.AIR;
+		 		}
+		 		else {
+		 			priorityEnum = Priority.STANDARD;
+		 		}
+		 		
+		 		/*Check for the day*/
+		 		if(dateString.equals("Monday")) {
+		 			dayEnum = DayOfWeek.MONDAY;
+		 		}
+		 		else if(dateString.equals("Tuesday")) {
+		 			dayEnum = DayOfWeek.TUESDAY;
+		 		}
+		 		else if(dateString.equals("Wednesday")) {
+		 			dayEnum = DayOfWeek.WEDNESDAY;
+		 		}
+		 		else if(dateString.equals("Thursday")) {
+		 			dayEnum = DayOfWeek.THURSDAY;
+		 		}
+		 		else if(dateString.equals("Friday")) {
+		 			dayEnum = DayOfWeek.FRIDAY;
+		 		}
+		 		else if(dateString.equals("Saturday")) {
+		 			dayEnum = DayOfWeek.SATURDAY;
+		 		}
+		 		else {
+		 			dayEnum = DayOfWeek.SUNDAY;
+		 		}
+		 		
+		 		kpsObject.priceUpdate(destination, origin, priorityEnum, weight, volume,dayEnum, true);
+		    	//kpsObject.mailDelivery(dateString, destination, origin, weight, volume, priorityEnum, true);
+		    	this.dispose();
+		     }
+		     
+		}
+		
+
+		
 		if(e.getSource() == cancel) {
 			this.dispose();
 		}
