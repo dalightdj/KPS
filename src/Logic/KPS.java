@@ -1,5 +1,6 @@
 package Logic;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import travelGraph.Path.DayOfWeek;
@@ -105,6 +106,7 @@ public class KPS {
 
 	public void loadEvents(){
 		if(logger.readXML() == null){
+			File xmlFile = new File("eventsData.xml");
 			return;
 		}
 		events = logger.readXML();
@@ -118,7 +120,9 @@ public class KPS {
 						((TCUEvent) e).getDow(), ((TCUEvent) e).getWeightCost(), ((TCUEvent) e).getVolumeCost(), ((TCUEvent) e).getMaxWeight(),
 						((TCUEvent) e).getMaxVolume(), ((TCUEvent) e).getDuration(), ((TCUEvent) e).getFrequency(),false);
 			}
-			//else if
+			else if(e instanceof TDEvent){
+				discontinueRoute(((TDEvent)e).getOrigin(), ((TDEvent)e).getDestination(), ((TDEvent)e).getCompany(), ((TDEvent)e).getType(), ((TDEvent)e).getDow(), false);
+			}
 
 		}
 	}
