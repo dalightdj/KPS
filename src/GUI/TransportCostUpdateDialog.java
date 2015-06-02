@@ -329,7 +329,6 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		c.gridx = 0;
 		c.gridy = 10;
 		labelPanel.add(durationLabel,c);
-
 	}
 
 
@@ -416,12 +415,9 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		     }
 		     
 		}
-		
-		
 		if(e.getSource() == cancel) {
 			this.dispose();
 		}
-		//JOptionPane.showMessageDialog(this,"Please fill in all details","Invalid Details",JOptionPane.ERROR_MESSAGE);
 	}
 
 	/**

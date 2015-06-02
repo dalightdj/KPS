@@ -49,7 +49,7 @@ public class KPSFrame extends JFrame {
 
 	private double totalRevenueDouble;
 	private double totalExpenditureDouble;
-	private double totalNumberOfEventsDouble;
+	private int totalNumberOfEventsDouble;
 	private double totalAmountOfMailDouble;
 
 
@@ -135,7 +135,7 @@ public class KPSFrame extends JFrame {
 
 
 
-	private void updateGUI() {
+	public void updateGUI() {
 		totalRevenueDouble = kpsObject.getRevenue();
 		totalExpenditureDouble = kpsObject.getExpenses();
 		totalNumberOfEventsDouble = kpsObject.getNoEvents();
