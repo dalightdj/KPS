@@ -50,7 +50,7 @@ public class KPSFrame extends JFrame {
 	private double totalRevenueDouble;
 	private double totalExpenditureDouble;
 	private int totalNumberOfEventsDouble;
-	private double totalAmountOfMailDouble;
+	private int totalAmountOfMailDouble;
 
 
 	public KPSFrame() {
