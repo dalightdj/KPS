@@ -55,9 +55,7 @@ public class KPSFrame extends JFrame {
 
 	public KPSFrame() {
 		/*Create new KPS Object and update GUI*/
-		//kpsObject = new KPS();
-		//updateGUI();
-		totalRevenueDouble = 0.1; //remove this later when we can actualyl get real values
+		kpsObject = new KPS();
 
 		/*Initialize the layout and the insets*/
 		this.setLayout(new BorderLayout());
@@ -76,7 +74,8 @@ public class KPSFrame extends JFrame {
  		guiInformation.setBorder(BorderFactory.createLineBorder(Color.black));
  		this.add(guiInformation,BorderLayout.CENTER);
 
- 		setupGuiInformationLabels();
+ 		setupGuiInformationLabels(); //initialise the labels
+ 		updateGUI(); //update the labels
 
 		this.setPreferredSize(new Dimension(800,400));
 		buttonsPanel.setPreferredSize(new Dimension(220,this.getHeight()));
@@ -87,6 +86,7 @@ public class KPSFrame extends JFrame {
 		JOptionPane.showMessageDialog(this, "Welcome to Kelburn Postal Service!", "Welcome", JOptionPane.INFORMATION_MESSAGE); //Welcome the user (maybe remove this as it can be annoying)
 	}
 
+
 	private void setupGuiInformationLabels() {
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(0,10,30,0); //top, left, bottom, right padding (in that order)
@@ -94,20 +94,12 @@ public class KPSFrame extends JFrame {
 
 		title = new JLabel("<html><b><u><font size = 5 color=BLACK>KELBURN POSTAL SERVICE</b></u></html>");
 
-		String revenueString = String.valueOf(totalRevenueDouble);
-		String expenditureString = String.valueOf(totalExpenditureDouble);
-		String numOfEventsString = String.valueOf(totalNumberOfEventsDouble);
-		String numOfMailsString = String.valueOf(totalAmountOfMailDouble);
+		totalRevenue = new JLabel();
+		totalExpenditure = new JLabel();
+		totalNumberOfEvents = new JLabel();
+		amountOfMail = new JLabel();
+		criticalRoutes = new JLabel();
 
-		totalRevenue = new JLabel("<html><b><font size = 5 color=White>Total Revenue:  <font color = 'yellow'>$ "+revenueString+"</b></html>");
-
-		totalExpenditure = new JLabel("<html><b><font size = 5 color=White>Total Expenditure:</b></html>");
-
-		totalNumberOfEvents = new JLabel("<html><b><font size = 5 color=White>Total Number of Events:</b></html>");
-
-		amountOfMail = new JLabel("<html><b><font size = 5 color=White>Amount of Mail:</b></html>");
-
-		criticalRoutes = new JLabel("<html><b><font size = 5 color=White>Critical Routes:</b></html>");
 		//criticalRoutes.setBorder(BorderFactory.createLineBorder(Color.red));
 
 		c.weightx = 1.0;
@@ -144,10 +136,22 @@ public class KPSFrame extends JFrame {
 
 
 	private void updateGUI() {
-		  totalRevenueDouble = kpsObject.getRevenue();
-		  totalExpenditureDouble = kpsObject.getExpenses();
-		  totalNumberOfEventsDouble = kpsObject.getNoEvents();
-		  totalAmountOfMailDouble = kpsObject.getNoDeliveries();
+		totalRevenueDouble = kpsObject.getRevenue();
+		totalExpenditureDouble = kpsObject.getExpenses();
+		totalNumberOfEventsDouble = kpsObject.getNoEvents();
+		totalAmountOfMailDouble = kpsObject.getNoDeliveries();
+
+		String revenueString = String.valueOf(totalRevenueDouble);
+		String expenditureString = String.valueOf(totalExpenditureDouble);
+		String numOfEventsString = String.valueOf(totalNumberOfEventsDouble);
+		String numOfMailsString = String.valueOf(totalAmountOfMailDouble);
+
+		totalRevenue.setText("<html><b><font size = 5 color=White>Total Revenue:  <font color = 'yellow'>$ "+revenueString+"</b></html>");
+		totalExpenditure.setText("<html><b><font size = 5 color=White>Total Expenditure: <font color = 'yellow'>$ "+expenditureString+"</b></html>");
+		totalNumberOfEvents.setText("<html><b><font size = 5 color=White>Total Number of Events: <font color = 'yellow'>$ "+numOfEventsString+"</b></html>");
+		amountOfMail.setText("<html><b><font size = 5 color=White>Amount of Mail: <font color = 'yellow'>$ "+numOfMailsString+"</b></html>");
+
+			//criticalRoutes = new JLabel("<html><b><font size = 5 color=White>Critical Routes: <font color = 'yellow'>$ "+revenueString+"</b></html>");
 	}
 
 
