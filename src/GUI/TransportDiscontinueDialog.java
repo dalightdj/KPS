@@ -11,6 +11,9 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -18,10 +21,15 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import travelGraph.Path;
+import travelGraph.Path.DayOfWeek;
+import travelGraph.Path.TransportType;
+import travelGraph.TravelGraph.Priority;
 import Logic.KPS;
 import Main.MainFrame;
 
@@ -228,9 +236,64 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == submit) {
+		     if (companyTextField.getText().equals("")) {
+					JOptionPane.showMessageDialog(this,"Please enter all details","Insufficient Details",JOptionPane.ERROR_MESSAGE);
+		     }
+		     else {
+		    	String companyString = companyTextField.getText();
+
+		 		String destination =  (String) destinationComboBox.getSelectedItem();
+		 		String origin = (String) fromComboBox.getSelectedItem();
+		 		String dateString = (String) daysComboBox.getSelectedItem();
+		 		String typeString = (String) typeComboBox.getSelectedItem();
+		 		String priority = (String) typeComboBox.getSelectedItem();
+
+		 		TransportType typeEnum;
+		 		DayOfWeek dayEnum;
+		 		
+		 		/*Check for the priority*/
+		 		if(typeString.equals("Air")) {
+		 			typeEnum = TransportType.AIR;
+		 		}
+		 		else if(typeString.equals("Land")) {
+		 			typeEnum = TransportType.LAND;
+		 		}
+		 		else {
+		 			typeEnum = TransportType.SEA;
+		 		}
+		 		
+		 		/*Check for the day*/
+		 		if(dateString.equals("Monday")) {
+		 			dayEnum = DayOfWeek.MONDAY;
+		 		}
+		 		else if(dateString.equals("Tuesday")) {
+		 			dayEnum = DayOfWeek.TUESDAY;
+		 		}
+		 		else if(dateString.equals("Wednesday")) {
+		 			dayEnum = DayOfWeek.WEDNESDAY;
+		 		}
+		 		else if(dateString.equals("Thursday")) {
+		 			dayEnum = DayOfWeek.THURSDAY;
+		 		}
+		 		else if(dateString.equals("Friday")) {
+		 			dayEnum = DayOfWeek.FRIDAY;
+		 		}
+		 		else if(dateString.equals("Saturday")) {
+		 			dayEnum = DayOfWeek.SATURDAY;
+		 		}
+		 		else {
+		 			dayEnum = DayOfWeek.SUNDAY;
+		 		}
+		 		kpsObject.discontinueRoute(origin, destination, companyString, typeEnum, dayEnum, true);
+		    	frame.updateGUI();
+		    	this.dispose();
+		     }
+		}
 		if(e.getSource() == cancel) {
 			this.dispose();
 		}
 	}
+	
 
 }

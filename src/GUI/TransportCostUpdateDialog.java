@@ -357,7 +357,6 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 
 		    	String companyString = copmanyTextField.getText();
 
-
 		    	String destination =  (String) destinationComboBox.getSelectedItem();
 		 		String origin = (String) fromComboBox.getSelectedItem();
 		 		String dateString = (String) daysComboBox.getSelectedItem();
@@ -411,7 +410,8 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		 		}
 		 		
 		 		kpsObject.costUpdate(companyString, destination, origin, typeEnum, dayEnum, weight, volume, maxWeight, maxVolume, dur, freq, true);
-		    	this.dispose();
+		    	 frame.updateGUI();
+		 		this.dispose();
 		     }
 		     
 		}

@@ -328,6 +328,7 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
 		 		}
 		 		
 		 		kpsObject.priceUpdate(destination, origin, priorityEnum, weight, volume,dayEnum, true);
+		    	 frame.updateGUI();
 		    	this.dispose();
 		     }
 		     
