@@ -33,6 +33,17 @@ public class Journey {
 //		this.averagePrice = averagePrice;
 	}
 
+	public Double getPrice(int weight, int volume){
+		double price = weightPrice*weight + volumePrice*volume;
+		price = Math.round(price * 100);
+		return price/100;
+	}
+
+//	public boolean checkJourney(String destination, String origin, Priority priority, ArrayList<Path> paths, DayOfWeek dow){
+//		if(this.destination.equals(destination) && this.origin.equals(origin) && this.priority.equals(priority)
+//				&& this.usedPaths.equals(o))
+//	}
+
 	public String getDestination() {
 		return destination;
 	}
