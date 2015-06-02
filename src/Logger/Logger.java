@@ -194,11 +194,17 @@ public class Logger {
 
 	public ArrayList<Event> readXML(){
 
+		
+		
 		ArrayList<Event> events = new ArrayList<Event>();
 
 		SAXBuilder saxBuilder = new SAXBuilder();
-		File xmlFile = new File("eventsData.xml");
-
+		File xmlFile = new File("eventsData.XML");
+		
+		if (xmlFile.exists()) {
+			return new ArrayList<Event>();
+		}
+		
 		try {
 			Document doc = (Document) saxBuilder.build(xmlFile);
 			Element rootElement = doc.getRootElement();
@@ -345,13 +351,13 @@ public class Logger {
 	/*
 	public static void main(String[] args) {
 		Logger logger = new Logger();
-		TDEvent tdEvent = new TDEvent("NX Post", "Japan", "New Zealand", "something");
-		MDEvent mdEvent = new MDEvent("Monday", "England", "New Zealand", "International Air", 10, 14);
-		TCUEvent tcuEvent = new TCUEvent("company y", "England", "New Zealand", "Air", "Sunday", 100, 123, 200, 200, 12, 321);
-		CPUEvent cpuEvent = new CPUEvent("India", "New Zealand", "International Air", 34, 43);
-		logger.addEvent(tdEvent);
-		logger.addEvent(cpuEvent);
-		logger.addEvent(mdEvent);
+		//TDEvent tdEvent = new  TDEvent("ddddd", "ddddd", "ddddddd", TransportType.AIR, DayOfWeek.FRIDAY);
+		//MDEvent mdEvent = new MDEvent("Monday", "England", "New Zealand", "International Air", 10, 14);
+		TCUEvent tcuEvent = new TCUEvent("ddsfd", "dfsdf", "dsfsdf", TransportType.AIR, DayOfWeek.FRIDAY, 12, 12, 12, 12, 12, 12);
+		//CPUEvent cpuEvent = new CPUEvent("India", "New Zealand", "International Air", 34, 43);
+		//logger.addEvent(tdEvent);
+		//logger.addEvent(cpuEvent);
+		//logger.addEvent(mdEvent);
 		logger.addEvent(tcuEvent);
 		ArrayList<Event> e = logger.readXML();
 		System.out.println("sda");

@@ -23,7 +23,7 @@ public class TDEvent extends Event {
 	public TDEvent(String company, String destination, String origin, TransportType type, DayOfWeek dow) {
 		super();
 		this.company = company;
-		this.company = company;
+		this.destination = destination;
 		this.origin = origin;
 		this.type = type;
 		this.dow = dow;
