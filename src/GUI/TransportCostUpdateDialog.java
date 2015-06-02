@@ -31,7 +31,7 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 	/*The two buttons submit and cancel*/
 	private JButton submit;
 	private JButton cancel;
-	
+
 	/*All the labels*/
 	private JLabel companyLabel;
 	private JLabel destinationLabel;
@@ -46,16 +46,16 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 	private JLabel durationLabel;
 	private JLabel dayLabel;
 
-	
+
 	/*The three panels on this Dialog*/
 	private JPanel labelPanel;
 	private JPanel buttonPanel;
 	private JPanel optionsPanel;
 	private JPanel mainPanel;
 	private JPanel underLyingPanel;
-	
+
 	/*All the options for the form*/
-	private JComboBox daysComboBox; 
+	private JComboBox daysComboBox;
 	private JComboBox destinationComboBox;
 	private JComboBox fromComboBox;
 	private JComboBox typeComboBox;
@@ -67,38 +67,38 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 	private JTextField departureTextField;
 	private JTextField frequencyTextField;
 	private JTextField durationTextField;
-	
+
 	private JLabel weightLabelInfo;
 	private JLabel maxWeightLabelInfo;
 	private JLabel volumeLabelInfo;
-	
+
 	private BufferedImage frameIcon;
 
 	Border raisedbevel = BorderFactory.createRaisedBevelBorder();
 	Border loweredbevel = BorderFactory.createLoweredBevelBorder();
-	
+
 	private KPSFrame frame;
-	
+
 	public TransportCostUpdateDialog(KPSFrame frame) {
 		super(frame,true);
 		this.frame = frame;
 		setResizable(false);
-		setBounds(0, 0, 500, 500);
+		setBounds(0, 0, 600, 500);
         this.setLocationRelativeTo(frame); //sets position relative to the whole window
-		
+
 		/*Initialize the layout and the insets*/
 		this.setLayout(new BorderLayout());
 
 		/*Initialize the underlying panel and layout*/
         underLyingPanel = new JPanel();
 		underLyingPanel.setLayout(new BorderLayout());
-		
+
 		/*Set the dialog's icon*/
 		frameIcon = MainFrame.load(MainFrame.ASSETS + "frameIcon2.png");
-		ImageIcon icon = new ImageIcon(frameIcon); 
+		ImageIcon icon = new ImageIcon(frameIcon);
 		this.setIconImage(icon.getImage());
-        
-        
+
+
 		/*This is the panel with all the labels*/
 		labelPanel = new JPanel();
 		//labelPanel.setBorder(BorderFactory.createLineBorder(Color.red)); //just for checking the positioning, can remove later
@@ -110,17 +110,17 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		c.weighty = 1.0;
 		setupLabels(labelPanel, c); //method that will setup all the labels
  		//this.add(labelPanel, BorderLayout.WEST);
-		
+
  		/*This panel is for the buttons submit and cancel*/
  		buttonPanel = new JPanel();
  		buttonPanel.setLayout(new FlowLayout(FlowLayout.TRAILING)); //sets buttons to bottom right of panel
- 		//buttonPanel.setBorder(BorderFactory.createLineBorder(Color.black)); 
+ 		//buttonPanel.setBorder(BorderFactory.createLineBorder(Color.black));
  		buttonPanel.setPreferredSize(new Dimension(this.getWidth(),40));
  		buttonPanelSetup(buttonPanel); //method that will setup the two buttons
  		this.add(buttonPanel, BorderLayout.SOUTH);
- 		
+
  		/*This panel is for the form to fill out*/
- 		optionsPanel = new JPanel();	
+ 		optionsPanel = new JPanel();
  		//optionsPanel.setBorder(BorderFactory.createLineBorder(Color.green)); //just for checking the positioning, can remove later
  		optionsPanel.setPreferredSize(new Dimension(this.getWidth(),80));
  		optionsPanel.setLayout(new GridBagLayout());
@@ -131,7 +131,7 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		c2.weighty = 1.0;
  		setupOptions(optionsPanel, c2);
  		//this.add(optionsPanel, BorderLayout.CENTER);
- 			
+
  		/*Main panel that holds the options panel and the labels panel*/
  		mainPanel = new JPanel();
  		mainPanel.setLayout(new BorderLayout());
@@ -141,20 +141,20 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
  		mainPanel.setBorder(title);
  		underLyingPanel.add(mainPanel,BorderLayout.CENTER);
  		underLyingPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 20, 20)); //this sets up the padding
- 		
+
  		/*Add the main panel to the underlying panel and make this dialog visible*/
-		this.getRootPane().setDefaultButton(submit); 
+		this.getRootPane().setDefaultButton(submit);
  		this.add(underLyingPanel,BorderLayout.CENTER);
-		this.setVisible(true);		
+		this.setVisible(true);
 	}
-	
-	
+
+
 	/**
-	 * This method adds all the options into the JComboBoxes 
+	 * This method adds all the options into the JComboBoxes
 	 * and adds them to the panel
-	 * 
+	 *
 	 * @param op - the options panel that these JComboBoxes will be added onto
-	 * @param c2 - the GridBagConstraints to use for positioning 
+	 * @param c2 - the GridBagConstraints to use for positioning
 	 */
 	private void setupOptions(JPanel op, GridBagConstraints c2) {
 		String[] daysList = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
@@ -163,101 +163,101 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		c2.gridx = 0;
 		c2.gridy = 0;
 		op.add(daysComboBox,c2);
-		
+
 		copmanyTextField = new JTextField(10);
 		c2.gridx = 0;
 		c2.gridy = 1;
 		op.add(copmanyTextField,c2);
-		
+
 		String[] fromList = {"Auckland", "Hamilton", "Rotorua", "Palmerston North", "Wellington", "Christchurch", "Dunedin"};
 		fromComboBox = new JComboBox(fromList);
 		fromComboBox.addActionListener(this);
 		c2.gridx = 0;
 		c2.gridy = 2;
 		op.add(fromComboBox,c2);
-		
+
 		String[] destinationList = {"Wellington", "Hamilton", "Auckland"};
 		destinationComboBox = new JComboBox(destinationList);
 		destinationComboBox.addActionListener(this);
 		c2.gridx = 0;
 		c2.gridy = 3;
 		op.add(destinationComboBox,c2);
-		
+
 		String[] typeList = {"Sea", "Air", "Land"};
 		typeComboBox = new JComboBox(typeList);
 		typeComboBox.addActionListener(this);
 		c2.gridx = 0;
 		c2.gridy = 4;
-		op.add(typeComboBox,c2);	
-				
+		op.add(typeComboBox,c2);
+
 		weightTextField = new JTextField(10);
 		c2.gridx = 0;
 		c2.gridy = 5;
 		op.add(weightTextField,c2);
-		
+
 		maxWeightTextField = new JTextField(10);
 		c2.gridx = 0;
 		c2.gridy = 6;
 		op.add(maxWeightTextField,c2);
-		
+
 		weightLabelInfo = new JLabel("(Per Gram)");
 		c2.gridx = 1;
 		c2.gridy = 5;
 		op.add(weightLabelInfo,c2);
-		
+
 		volumeTextField = new JTextField(10);
 		c2.gridx = 0;
 		c2.gridy = 7;
 		op.add(volumeTextField,c2);
-		
+
 		maxVolumeTextField = new JTextField(10);
 		c2.gridx = 0;
 		c2.gridy = 8;
 		op.add(maxVolumeTextField,c2);
-		
+
 		volumeLabelInfo = new JLabel("(Per Cubic Centimeter)");
 		c2.gridx = 1;
 		c2.gridy = 7;
 		op.add(volumeLabelInfo,c2);
-		
+
 		departureTextField = new JTextField(10);
 		c2.gridx = 0;
 		c2.gridy = 9;
 		op.add(departureTextField,c2);
-		
+
 		frequencyTextField = new JTextField(10);
 		c2.gridx = 0;
 		c2.gridy = 10;
 		op.add(frequencyTextField,c2);
-		
+
 		durationTextField = new JTextField(10);
 		c2.gridx = 0;
 		c2.gridy = 11;
 		op.add(durationTextField,c2);
-		
-		
+
+
 	}
 
 	/**
-	 * This method adds the two buttons 'submit' and 'cancel' 
+	 * This method adds the two buttons 'submit' and 'cancel'
 	 * onto the buttonPanel
-	 * 
+	 *
 	 * @param bp - the ButtonsPanel that buttons will be placed on
 	 */
 	private void buttonPanelSetup(JPanel bp) {
 		submit = new JButton("Submit");
 		bp.add(submit);
 		submit.addActionListener(this);
-		
+
 		cancel = new JButton("Cancel");
 		bp.add(cancel);
 		cancel.addActionListener(this);
 	}
 
-	
+
 	/**
 	 * Add the labels onto the labelPanel
-	 * 
+	 *
 	 * @param labelPanel - The panel that these labels will be placed on
 	 * @param c - The GridBagConstraints to use for positioning
 	 */
@@ -266,59 +266,59 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		c.gridx = 0;
 		c.gridy = 0;
 		labelPanel.add(dayLabel,c);
-		
+
 		companyLabel = new JLabel("Company: ");
 		c.gridx = 0;
 		c.gridy = 1;
 		labelPanel.add(companyLabel,c);
-		
+
 		fromLabel = new JLabel("Origin: ");
 		c.gridx = 0;
 		c.gridy = 2;
 		labelPanel.add(fromLabel,c);
-		
+
 		destinationLabel = new JLabel("Destination: ");
 		c.gridx = 0;
 		c.gridy = 3;
 		labelPanel.add(destinationLabel,c);
-		
-		
+
+
 		typeLabel = new JLabel("Type: ");
 		c.gridx = 0;
 		c.gridy = 4;
-		labelPanel.add(typeLabel,c);	
-		
+		labelPanel.add(typeLabel,c);
+
 		newWeightCostLabel = new JLabel("Weight Cost: ");
 		c.gridx = 0;
 		c.gridy = 5;
 		labelPanel.add(newWeightCostLabel,c);
-		
+
 		maxwWeightLabel = new JLabel("Max Weight: ");
 		c.gridx = 0;
 		c.gridy = 6;
 		labelPanel.add(maxwWeightLabel,c);
-		
+
 		newVolumeCostLabel = new JLabel("Volume Cost: ");
 		c.gridx = 0;
 		c.gridy = 7;
 		labelPanel.add(newVolumeCostLabel,c);
-	
+
 		maxVolumeLabel = new JLabel("Max Volume: ");
 		c.gridx = 0;
 		c.gridy = 8;
 		labelPanel.add(maxVolumeLabel,c);
-		
+
 		dayOfDepartureLabel = new JLabel("Day of Departure: ");
 		c.gridx = 0;
 		c.gridy = 9;
 		labelPanel.add(dayOfDepartureLabel,c);
-		
+
 		frequencyLabel = new JLabel("Frequency: ");
 		c.gridx = 0;
 		c.gridy = 10;
 		labelPanel.add(frequencyLabel,c);
-		
-		
+
+
 		durationLabel = new JLabel("Duration of Trip: ");
 		c.gridx = 0;
 		c.gridy = 11;
@@ -334,7 +334,7 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		}
 		//JOptionPane.showMessageDialog(this,"Please fill in all details","Invalid Details",JOptionPane.ERROR_MESSAGE);
 	}
-	
+
 	/**
 	 * This is just for quickly testing the layout of this
 	 * dialog without having to run the whole thing from log in screen.
@@ -343,5 +343,5 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 	public static void main(String[] args) {
 		new TransportCostUpdateDialog(new KPSFrame());
 	}
-	
+
 }

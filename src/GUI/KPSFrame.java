@@ -23,10 +23,10 @@ import Main.MainFrame;
 
 public class KPSFrame extends JFrame {
 
-	
+
 	private ButtonPanel buttonsPanel;
 	private JPanel guiInformation;
-	
+
 	private BufferedImage frameIcon;
 
 	/*Labels for the GUI information*/
@@ -44,30 +44,30 @@ public class KPSFrame extends JFrame {
 	private JLabel amountOfMailValue;
 	private JLabel criticalRoutesValue;
 
-	
-	
+
+
 	public KPSFrame() {
-		
+
 		/*Initialize the layout and the insets*/
 		this.setLayout(new BorderLayout());
 		this.setTitle("Kelburn Postal Serivce");
 
 		/*Set the Frames icon*/
 		frameIcon = MainFrame.load(MainFrame.ASSETS + "frameIcon2.png");
-		ImageIcon icon = new ImageIcon(frameIcon); 
+		ImageIcon icon = new ImageIcon(frameIcon);
 		this.setIconImage(icon.getImage());
-		
+
 		buttonsPanel = new ButtonPanel(this);
  		this.add(buttonsPanel, BorderLayout.WEST);
-		
+
  		guiInformation = new JPanel();
  		guiInformation.setLayout(new GridBagLayout());
  		guiInformation.setBorder(BorderFactory.createLineBorder(Color.red));
  		this.add(guiInformation,BorderLayout.CENTER);
- 			
+
  		setupGuiInformationLabels();
- 		
-		this.setPreferredSize(new Dimension(700,600));
+
+		this.setPreferredSize(new Dimension(800,400));
 		buttonsPanel.setPreferredSize(new Dimension(220,this.getHeight()));
 		this.setResizable(true);
 		this.pack();
@@ -75,51 +75,51 @@ public class KPSFrame extends JFrame {
 		this.setVisible(true);
 		JOptionPane.showMessageDialog(this, "Welcome to Kelburn Postal Service!", "Welcome", JOptionPane.INFORMATION_MESSAGE); //Welcome the user (maybe remove this as it can be annoying)
 	}
-	
+
 	private void setupGuiInformationLabels() {
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(0,-50,30,50); //top, left, bottom, right padding (in that order)
 		c.fill = GridBagConstraints.HORIZONTAL;
-	
+
 		title = new JLabel("<html><b><u><font size = 5 color=BLACK>KELBURN POSTAL SERVICE</b></u></html>");
 
 		totalRevenue = new JLabel("<html><b><font size = 5 color=White>Total Revenue:</b></html>");
-		
+
 		totalExpenditure = new JLabel("<html><b><font size = 5 color=White>Total Expenditure:</b></html>");
 
 		totalNumberOfEvents = new JLabel("<html><b><font size = 5 color=White>Total Number of Events:</b></html>");
 
 		amountOfMail = new JLabel("<html><b><font size = 5 color=White>Amount of Mail:</b></html>");
-				
+
 		criticalRoutes = new JLabel("<html><b><font size = 5 color=White>Critical Routes:</b></html>");
-		//criticalRoutes.setBorder(BorderFactory.createLineBorder(Color.red));			
-		
+		//criticalRoutes.setBorder(BorderFactory.createLineBorder(Color.red));
+
 		c.weightx = 1.0;
-		
+
 		c.gridx = 0;
 		c.gridy = 1;
 		guiInformation.add(totalRevenue,c);
-		
+
 		c.gridx = 0;
 		c.gridy = 2;
 		guiInformation.add(totalExpenditure,c);
-		
+
 		c.gridx = 0;
 		c.gridy = 3;
 		guiInformation.add(totalNumberOfEvents,c);
-		
+
 		c.gridx = 0;
 		c.gridy = 4;
 		guiInformation.add(amountOfMail,c);
-		
+
 		c.gridx = 0;
 		c.gridy = 5;
 		guiInformation.add(criticalRoutes,c);
-				
+
 		c.gridx = 1;
 		c.gridy = 0;
 		guiInformation.add(title,c);
-		
+
 	}
 
 	/**
