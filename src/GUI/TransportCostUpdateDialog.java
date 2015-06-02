@@ -24,6 +24,7 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
+import Logic.KPS;
 import Main.MainFrame;
 
 public class TransportCostUpdateDialog extends JDialog implements ActionListener {
@@ -78,9 +79,11 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 	Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 
 	private KPSFrame frame;
+	private KPS kpsObject;
 
-	public TransportCostUpdateDialog(KPSFrame frame) {
+	public TransportCostUpdateDialog(KPSFrame frame, KPS kpsObject) {
 		super(frame,true);
+		this.kpsObject = kpsObject;
 		this.frame = frame;
 		setResizable(false);
 		setBounds(0, 0, 600, 500);
@@ -341,7 +344,7 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		new TransportCostUpdateDialog(new KPSFrame());
+		//new TransportCostUpdateDialog(new KPSFrame());
 	}
 
 }

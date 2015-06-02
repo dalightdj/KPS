@@ -68,7 +68,7 @@ public class KPSFrame extends JFrame {
 		ImageIcon icon = new ImageIcon(frameIcon);
 		this.setIconImage(icon.getImage());
 
-		buttonsPanel = new ButtonPanel(this);
+		buttonsPanel = new ButtonPanel(this, kpsObject);
  		this.add(buttonsPanel, BorderLayout.WEST);
 
  		guiInformation = new JPanel();
@@ -149,7 +149,6 @@ public class KPSFrame extends JFrame {
 		  totalNumberOfEventsDouble = KPSObject.
 		  totalAmountOfMailDouble = KPSObject.
 	}
-
 
 
 
