@@ -199,9 +199,9 @@ public class Logger {
 		ArrayList<Event> events = new ArrayList<Event>();
 
 		SAXBuilder saxBuilder = new SAXBuilder();
-		File xmlFile = new File("eventsData.XML");
+		File xmlFile = new File("eventsData.xml");
 		
-		if (xmlFile.exists()) {
+		if (!xmlFile.exists()) {
 			return new ArrayList<Event>();
 		}
 		
