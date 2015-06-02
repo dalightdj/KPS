@@ -8,6 +8,7 @@ import travelGraph.Path.TransportType;
 import travelGraph.Path;
 import travelGraph.TravelGraph;
 import travelGraph.TravelGraph.Priority;
+import Logger.CPUEvent;
 import Logger.Event;
 import Logger.Logger;
 import Logger.MDEvent;
@@ -27,6 +28,7 @@ public class KPS {
 	//private graph sructure???
 
 	public KPS(){
+		travelGraph = new TravelGraph();
 		revenueTotal = 0.0;
 		expendetureTotal = 0.0;
 		deliveriesCount = 0;
@@ -35,7 +37,6 @@ public class KPS {
 		journeys = new ArrayList<Journey>();
 		logger = new Logger(); //Does not affect the XML file.
 		loadEvents(); //WILL BE NULL AT THE START UNLESS WE HAVE A DEFAULT XML FILE
-		travelGraph = new TravelGraph();
 	}
 
 	/**
@@ -101,12 +102,19 @@ public class KPS {
 				}
 			}
 		}
+
+//		for(Journey journey: journeys){
+//			if(journey.)
+//		}
+
+
 		//TODO: make boolean ?
 	}
 
 	public void loadEvents(){
-		if(logger.readXML() == null){
+		if(logger.readXML().size() == 0){
 			File xmlFile = new File("eventsData.xml");
+
 			return;
 		}
 		events = logger.readXML();
@@ -128,10 +136,18 @@ public class KPS {
 	}
 
 
-	public void priceUpdate(){
+	public void priceUpdate(String destination, String origin, Priority priority, int weightPrice, int volumePrice, DayOfWeek dow, boolean createNew){
 		//write XML
 		//return bool ?
 		//change in the GRAPH STRUCTURE
+		if(createNew){
+			CPUEvent event = new CPUEvent(origin, destination, priority, weightPrice, volumePrice, dow);
+			events.add(event);
+			logger.addEvent(event);
+		}
+		Journey j = new Journey(destination, origin, priority, weightPrice, volumePrice,travelGraph.getRoute(origin, destination, priority), dow);
+
+
 	}
 
 	public void costUpdate(String company, String destination, String origin, TransportType type, DayOfWeek dow,
