@@ -13,20 +13,25 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Logic.KPS;
+
 public class ButtonPanel extends JPanel implements ActionListener {
-	
+
 	private KPSFrame frame;
-	
+
 	private JButton mailDelivery;
 	private JButton customerPriceUpdate;
 	private JButton transportCostUpdate;
 	private JButton transportDiscontinue;
 
-	public ButtonPanel(KPSFrame frame) {
+	private KPS kpsObject;
+
+	public ButtonPanel(KPSFrame frame, KPS kpsObject) {
+		this.kpsObject = kpsObject;
 		this.frame = frame;
 		this.setPreferredSize(new Dimension(150,0));
 		this.setBorder(BorderFactory.createLineBorder(Color.black)); //just for checking the positioning, can remove later
-		
+
 		/*Initialize the layout and the insets*/
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -38,40 +43,40 @@ public class ButtonPanel extends JPanel implements ActionListener {
 		c.gridy = 0;
 		this.add(mailDelivery,c);
 		mailDelivery.addActionListener(this);
-		
+
 		customerPriceUpdate = new JButton("Customer Price Update");
 		c.gridx = 0;
 		c.gridy = 1;
 		this.add(customerPriceUpdate,c);
 		customerPriceUpdate.addActionListener(this);
-		
+
 		transportCostUpdate = new JButton("Transport Cost Update");
 		c.gridx = 0;
 		c.gridy = 2;
 		this.add(transportCostUpdate,c);
 		transportCostUpdate.addActionListener(this);
-		
-		transportDiscontinue = new JButton("Transport Discontinued");
+
+		transportDiscontinue = new JButton("Discontinue Transport");
 		c.gridx = 0;
 		c.gridy = 3;
 		this.add(transportDiscontinue,c);
 		transportDiscontinue.addActionListener(this);
-		
+
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == mailDelivery) {
-			new MailDialog(frame);
+			new MailDialog(frame, kpsObject);
 		}
 		if(e.getSource() == customerPriceUpdate) {
-			new CustomerPriceUpdateDialog(frame);
+			new CustomerPriceUpdateDialog(frame, kpsObject);
 		}
 		if(e.getSource() == transportCostUpdate) {
-			new TransportCostUpdateDialog(frame);
+			new TransportCostUpdateDialog(frame, kpsObject);
 		}
 		if(e.getSource() == transportDiscontinue) {
-			new TransportDiscontinueDialog(frame);
+			new TransportDiscontinueDialog(frame, kpsObject);
 		}
 	}
 }

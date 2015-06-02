@@ -23,6 +23,7 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
+import Logic.KPS;
 import Main.MainFrame;
 
 public class CustomerPriceUpdateDialog extends JDialog implements ActionListener {
@@ -64,9 +65,11 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
 	Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 
 	private KPSFrame frame;
+	private KPS kpsObject;
 
-	public CustomerPriceUpdateDialog(KPSFrame frame) {
+	public CustomerPriceUpdateDialog(KPSFrame frame, KPS kpsObject2) {
 		super(frame,true);
+		this.kpsObject = kpsObject;
 		this.frame = frame;
 		setResizable(false);
 		setBounds(0, 0, 600, 330);
@@ -264,6 +267,6 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		new CustomerPriceUpdateDialog(new KPSFrame());
+		//new CustomerPriceUpdateDialog(new KPSFrame());
 	}
 }

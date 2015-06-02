@@ -25,6 +25,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
+import Logic.KPS;
 import Main.MainFrame;
 
 
@@ -64,8 +65,11 @@ public class MailDialog extends JDialog implements ActionListener {
 	Border raisedbevel = BorderFactory.createRaisedBevelBorder();
 	Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 
-	public MailDialog(KPSFrame frame) {
+	private KPS kpsObject;
+
+	public MailDialog(KPSFrame frame, KPS kpsObject) {
 		super(frame,true);
+		this.kpsObject = kpsObject;
 		this.frame = frame;
 		setResizable(false);
 		setBounds(0, 0, 600, 330);
