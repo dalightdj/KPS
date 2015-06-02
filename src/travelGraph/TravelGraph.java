@@ -2,7 +2,9 @@ package travelGraph;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
+import java.util.Queue;
 
 import travelGraph.Path.DayOfWeek;
 import travelGraph.Path.TransportType;
@@ -120,18 +122,18 @@ public class TravelGraph {
 			ArrayList<Path> airPaths = new ArrayList<Path>();//used for standard priority to hold Air paths, just in case there are no Land or Sea paths
 			boolean foundAPath = false;//used for standard priority, if this is true then we dont have to look through airpaths
 			for(Path p : from.getPaths()){
-				
+
 				//if the path doesnt match air priority then we dont really care about it
 				if(airPriority && p.getTransportType()!=TransportType.AIR){
 					continue;
 				}
-				
+
 				//if the path doesnt match standard priority then add the path to the airpaths and we'll check it later
 				if(!airPriority && p.getTransportType()==TransportType.AIR){
 					airPaths.add(p);
 					continue;
 				}
-				
+
 				foundAPath = true;
 				Location to = p.getDestination();
 				if(!to.isVisited()){
@@ -145,7 +147,7 @@ public class TravelGraph {
 					}
 				}
 			}
-			
+
 			//if standard priority and no standard path was found then find the best air path
 			if(!foundAPath){
 				double bestWeight = Double.POSITIVE_INFINITY;
@@ -218,6 +220,34 @@ public class TravelGraph {
 		}
 
 		return false;
+	}
+
+
+	public ArrayList<Location> getPossibleLocations(Location origin, TransportType type){
+		ArrayList<Location> locs = new ArrayList<Location>();
+
+		Queue<Location> queue = new LinkedList<Location>();
+
+		//reset all Location visited fields
+		for(Location l : locations){
+			l.setVisited(false);
+		}
+		
+		while(!queue.isEmpty()){
+			Location from = queue.poll();
+			from.setVisited(true);
+
+			for(Path p : from.getPaths()){
+				
+				//If its the correct type of path then add it
+				if(p.getTransportType()==type && !locs.contains(p.getDestination())){
+					queue.offer(p.getDestination());
+					locs.add(p.getDestination());
+				}
+			}
+		}
+		
+		return locs;
 	}
 
 
