@@ -47,10 +47,17 @@ public class KPSFrame extends JFrame {
 
 	private KPS kpsObject;
 
+	private double totalRevenueDouble;
+	private double totalExpenditureDouble;
+	private double totalNumberOfEventsDouble;
+	private double totalAmountOfMailDouble;
+
+
 	public KPSFrame() {
 		/*Create new KPS Object and update GUI*/
-		kpsObject = new KPS();
-		updateGUI();
+		//kpsObject = new KPS();
+		//updateGUI();
+		totalRevenueDouble = 0.1; //remove this later when we can actualyl get real values
 
 		/*Initialize the layout and the insets*/
 		this.setLayout(new BorderLayout());
@@ -66,14 +73,14 @@ public class KPSFrame extends JFrame {
 
  		guiInformation = new JPanel();
  		guiInformation.setLayout(new GridBagLayout());
- 		guiInformation.setBorder(BorderFactory.createLineBorder(Color.red));
+ 		guiInformation.setBorder(BorderFactory.createLineBorder(Color.black));
  		this.add(guiInformation,BorderLayout.CENTER);
 
  		setupGuiInformationLabels();
 
 		this.setPreferredSize(new Dimension(800,400));
 		buttonsPanel.setPreferredSize(new Dimension(220,this.getHeight()));
-		this.setResizable(true);
+		this.setResizable(false);
 		this.pack();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
@@ -82,12 +89,17 @@ public class KPSFrame extends JFrame {
 
 	private void setupGuiInformationLabels() {
 		GridBagConstraints c = new GridBagConstraints();
-		c.insets = new Insets(0,-50,30,50); //top, left, bottom, right padding (in that order)
+		c.insets = new Insets(0,10,30,0); //top, left, bottom, right padding (in that order)
 		c.fill = GridBagConstraints.HORIZONTAL;
 
 		title = new JLabel("<html><b><u><font size = 5 color=BLACK>KELBURN POSTAL SERVICE</b></u></html>");
 
-		totalRevenue = new JLabel("<html><b><font size = 5 color=White>Total Revenue:</b></html>");
+		String revenueString = String.valueOf(totalRevenueDouble);
+		String expenditureString = String.valueOf(totalExpenditureDouble);
+		String numOfEventsString = String.valueOf(totalNumberOfEventsDouble);
+		String numOfMailsString = String.valueOf(totalAmountOfMailDouble);
+
+		totalRevenue = new JLabel("<html><b><font size = 5 color=White>Total Revenue:  <font color = 'yellow'>$ "+revenueString+"</b></html>");
 
 		totalExpenditure = new JLabel("<html><b><font size = 5 color=White>Total Expenditure:</b></html>");
 
@@ -122,6 +134,7 @@ public class KPSFrame extends JFrame {
 
 		c.gridx = 1;
 		c.gridy = 0;
+		c.insets = new Insets(0,-140,30,70); //top, left, bottom, right padding (in that order)
 		guiInformation.add(title,c);
 
 	}
@@ -131,7 +144,10 @@ public class KPSFrame extends JFrame {
 
 
 	private void updateGUI() {
-
+		  totalRevenueDouble = KPSObject.
+		  totalExpenditureDouble = KPSObject.
+		  totalNumberOfEventsDouble = KPSObject.
+		  totalAmountOfMailDouble = KPSObject.
 	}
 
 
