@@ -11,6 +11,9 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -18,6 +21,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
@@ -25,6 +29,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
+import travelGraph.TravelGraph;
+import travelGraph.TravelGraph.Priority;
 import Logic.KPS;
 import Main.MainFrame;
 
@@ -245,14 +251,58 @@ public class MailDialog extends JDialog implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == submit) {
+		     if (weightTextField.getText().equals("") && volumeTextField.getText().equals("")) {
+					JOptionPane.showMessageDialog(this,"Please enter all details","Insufficient Details",JOptionPane.ERROR_MESSAGE);
+		     }
+		     else {
+		    	 try {
+		    	     Integer.parseInt(weightTextField.getText());
+		    	}
+		    	catch (NumberFormatException error) {
+					JOptionPane.showMessageDialog(this,"Please enter an integer for weight","Incorrect Details",JOptionPane.ERROR_MESSAGE);
+					return;
+		    	}
+		    	try {
+		    	     Integer.parseInt(volumeTextField.getText());
+		    	}
+		    	catch (NumberFormatException error) {
+					JOptionPane.showMessageDialog(this,"Please enter an integer for volume","Incorrect Details",JOptionPane.ERROR_MESSAGE);
+					return;
+		    	}
+
+		    	 //	public void mailDelivery(String date, String destination, String origin, int weight, int volume, Priority priority, boolean createNew){
+		 		DateFormat dateFormat = new SimpleDateFormat("EEE HH:mm");
+		 		Date date = new Date();
+		 		String dateString = (dateFormat.format(date));
+
+		 		String destination =  (String) destinationComboBox.getSelectedItem();
+		 		String origin = (String) fromComboBox.getSelectedItem();
+
+		 		/*Check to make sure it's an int*/
+		 		int weight = Integer.parseInt(weightTextField.getText());
+		 		int volume = Integer.parseInt(volumeTextField.getText());
+
+		 		String priority = (String) priorityComboBox.getSelectedItem();
+
+		 		Priority priorityEnum;
+		 		if(priority.equals("Air")) {
+		 			 priorityEnum = Priority.AIR;
+		 		}
+		 		else {
+		 			priorityEnum = Priority.STANDARD;
+		 		}
+
+		    	 kpsObject.mailDelivery(dateString, destination, origin, weight, volume, priorityEnum, true);
+		     }
+		}
+
+
+
 		if(e.getSource() == cancel) {
 			this.dispose();
 		}
 
-		// is submit use this bit of code to send the current time
-		//DateFormat dateFormat = new SimpleDateFormat("EEE HH:mm");
-		//Date date = new Date();
-		//String dateString = (dateFormat.format(date));
 	}
 
 }
