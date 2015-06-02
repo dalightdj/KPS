@@ -245,14 +245,14 @@ public class Logger {
 					TCUEvent tcuEvent = new TCUEvent(ele.getChildText("company"), 
 							ele.getChildText("destination"), 
 							ele.getChildText("origin"), 
-							getType(ele.getChildText("type")), 
+							getType(ele.getChildText("type")),
+							getDow(ele.getChildText("dow")),
 							Integer.parseInt(ele.getChildText("weightCost")), 
 									Integer.parseInt(ele.getChildText("volumeCost")), 
 									Integer.parseInt(ele.getChildText("maxWeight")), 
 									Integer.parseInt(ele.getChildText("maxVolume")), 
 									Integer.parseInt(ele.getChildText("duration")), 
-									Integer.parseInt(ele.getChildText("frequency")),
-									getDow(ele.getChildText("dow")));
+									Integer.parseInt(ele.getChildText("frequency")));
 					
 					events.add(tcuEvent);
 				default:
