@@ -148,7 +148,7 @@ public class KPSFrame extends JFrame {
 
 		totalRevenue.setText("<html><b><font size = 5 color=White>Total Revenue:  <font color = 'yellow'>$ "+revenueString+"</b></html>");
 		totalExpenditure.setText("<html><b><font size = 5 color=White>Total Expenditure: <font color = 'yellow'>$ "+expenditureString+"</b></html>");
-		totalNumberOfEvents.setText("<html><b><font size = 5 color=White>Total Number of Events: <font color = 'yellow'>$ "+numOfEventsString+"</b></html>");
+		totalNumberOfEvents.setText("<html><b><font size = 5 color=White>Total Number of Events: <font color = 'yellow'> "+numOfEventsString+"</b></html>");
 		amountOfMail.setText("<html><b><font size = 5 color=White>Amount of Mail: <font color = 'yellow'>$ "+numOfMailsString+"</b></html>");
 
 			//criticalRoutes = new JLabel("<html><b><font size = 5 color=White>Critical Routes: <font color = 'yellow'>$ "+revenueString+"</b></html>");
