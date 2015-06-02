@@ -73,7 +73,7 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
 	private KPSFrame frame;
 	private KPS kpsObject;
 
-	public CustomerPriceUpdateDialog(KPSFrame frame, KPS kpsObject2) {
+	public CustomerPriceUpdateDialog(KPSFrame frame, KPS kpsObject) {
 		super(frame,true);
 		this.kpsObject = kpsObject;
 		this.frame = frame;
