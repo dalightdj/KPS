@@ -60,6 +60,16 @@ public class Path {
 		updateCost();
 	}
 	
+	/**
+	 * Calculates the cost of a package delivery on this path
+	 * @param weight The weight of the package in grams
+	 * @param volume The volume of the package in cubic centimeters
+	 * @return The cost to deliver a package with the given weight and volume on this path
+	 */
+	public float calcCost(int weight, int volume){
+		return (weight*ppGram) + (volume*ppCmCubed);
+	}
+	
 	
 	/**
 	 * Update 'price per gram'
