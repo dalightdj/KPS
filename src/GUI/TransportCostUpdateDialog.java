@@ -348,14 +348,14 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 			     }
 		    	 /* Parse the textfields to make sure only integers have been put in*/
 		    	 try {
-		    	     Double.parseDouble(weightTextField.getText());
+		    	     Float.parseFloat(weightTextField.getText());
 		    	}
 		    	catch (NumberFormatException error) {
 					JOptionPane.showMessageDialog(this,"Please enter an integer for weight","Incorrect Details",JOptionPane.ERROR_MESSAGE);
 					return;
 		    	}
 		    	try {
-		    		Double.parseDouble(volumeTextField.getText());
+		    		Float.parseFloat(volumeTextField.getText());
 		    	}
 		    	catch (NumberFormatException error) {
 					JOptionPane.showMessageDialog(this,"Please enter an integer for volume","Incorrect Details",JOptionPane.ERROR_MESSAGE);
@@ -397,8 +397,8 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 
 
 		 		/*Check to make sure it's an int*/
-		 		double weight = Double.parseDouble(weightTextField.getText());
-		 		double volume = Double.parseDouble(volumeTextField.getText());
+		 		float weight = Float.parseFloat(weightTextField.getText());
+		 		float volume = Float.parseFloat(volumeTextField.getText());
 		 		int maxWeight = Integer.parseInt(maxWeightTextField.getText());
 		 		int maxVolume = Integer.parseInt(maxVolumeTextField.getText());
 		 		int freq = Integer.parseInt(frequencyTextField.getText());

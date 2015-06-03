@@ -269,14 +269,14 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
 		     }
 		     else {
 		    	 try {
-		    		 Double.parseDouble(weightTextField.getText());
+		    		 Float.parseFloat(weightTextField.getText());
 		    	}
 		    	catch (NumberFormatException error) {
 					JOptionPane.showMessageDialog(this,"Please enter an integer for weight","Incorrect Details",JOptionPane.ERROR_MESSAGE);
 					return;
 		    	}
 		    	try {
-		    	     Double.parseDouble(volumeTextField.getText());
+		    		Float.parseFloat(volumeTextField.getText());
 		    	}
 		    	catch (NumberFormatException error) {
 					JOptionPane.showMessageDialog(this,"Please enter an integer for volume","Incorrect Details",JOptionPane.ERROR_MESSAGE);
@@ -288,8 +288,8 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
 		 		String dateString = (String) daysComboBox.getSelectedItem();
 
 		 		/*Check to make sure it's an int*/
-		 		double weight = Double.parseDouble(weightTextField.getText());
-		 		double volume = Double.parseDouble(volumeTextField.getText());
+		 		float weight = Float.parseFloat(weightTextField.getText());
+		 		float volume = Float.parseFloat(volumeTextField.getText());
 
 		 		if(weight <= 0) {
 					JOptionPane.showMessageDialog(this,"Please enter a positive integer for weight","Incorrect Details",JOptionPane.ERROR_MESSAGE);
