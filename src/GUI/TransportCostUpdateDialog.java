@@ -334,7 +334,7 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+
 		if(e.getSource() == submit) {
 		     if (weightTextField.getText().equals("") && volumeTextField.getText().equals("") && maxWeightTextField.getText().equals("")
 		    		 && maxVolumeTextField.getText().equals("") && frequencyTextField.getText().equals("") && durationTextField.getText().equals("")) {
@@ -394,7 +394,10 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		    	String destination =  (String) destinationComboBox.getSelectedItem();
 		 		String origin = (String) fromComboBox.getSelectedItem();
 		 		String dateString = (String) daysComboBox.getSelectedItem();
-		 		
+
+
+		 		//TODO: make cost of volume and weight double not int
+
 		 		/*Check to make sure it's an int*/
 		 		int weight = Integer.parseInt(weightTextField.getText());
 		 		int volume = Integer.parseInt(volumeTextField.getText());
@@ -402,13 +405,36 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		 		int maxVolume = Integer.parseInt(maxVolumeTextField.getText());
 		 		int freq = Integer.parseInt(frequencyTextField.getText());
 		 		int dur = Integer.parseInt(durationTextField.getText());
-		 	
-		 		
+
+		 		if(weight <= 0) {
+					JOptionPane.showMessageDialog(this,"Please enter a positive integer for weight","Incorrect Details",JOptionPane.ERROR_MESSAGE);
+					return;
+		 		}
+		 		if(volume <= 0) {
+					JOptionPane.showMessageDialog(this,"Please enter a positive integer for volume","Incorrect Details",JOptionPane.ERROR_MESSAGE);
+					return;
+		 		}
+		 		if(maxWeight <= 0) {
+					JOptionPane.showMessageDialog(this,"Please enter a positive integer for max weight","Incorrect Details",JOptionPane.ERROR_MESSAGE);
+					return;
+		 		}
+		 		if(maxVolume <= 0) {
+					JOptionPane.showMessageDialog(this,"Please enter a positive integer for max volume","Incorrect Details",JOptionPane.ERROR_MESSAGE);
+					return;
+		 		}
+		 		if(freq <= 0) {
+					JOptionPane.showMessageDialog(this,"Please enter a positive integer for frequency","Incorrect Details",JOptionPane.ERROR_MESSAGE);
+					return;
+		 		}
+		 		if(dur <= 0) {
+					JOptionPane.showMessageDialog(this,"Please enter a positive integer for duration","Incorrect Details",JOptionPane.ERROR_MESSAGE);
+					return;
+		 		}
 		 		String typeString = (String) typeComboBox.getSelectedItem();
 
 		 		TransportType typeEnum;
 		 		DayOfWeek dayEnum;
-		 		
+
 		 		/*Check for the priority*/
 		 		if(typeString.equals("Air")) {
 		 			typeEnum = TransportType.AIR;
@@ -419,7 +445,7 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		 		else {
 		 			typeEnum = TransportType.SEA;
 		 		}
-		 		
+
 		 		/*Check for the day*/
 		 		if(dateString.equals("Monday")) {
 		 			dayEnum = DayOfWeek.MONDAY;
@@ -442,12 +468,12 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		 		else {
 		 			dayEnum = DayOfWeek.SUNDAY;
 		 		}
-		 		
+
 		 		kpsObject.costUpdate(companyString, destination, origin, typeEnum, dayEnum, weight, volume, maxWeight, maxVolume, dur, freq, true);
-		    	 frame.updateGUI();
+		    	frame.updateGUI();
 		 		this.dispose();
 		     }
-		     
+
 		}
 		if(e.getSource() == cancel) {
 			this.dispose();
