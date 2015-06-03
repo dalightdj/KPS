@@ -39,6 +39,12 @@ public class Journey {
 		return price/100;
 	}
 
+	public Double getCost(int weight, int volume){
+		for(Path p: usedPaths){
+			p.getCostToKPS(weight, volume);
+		}
+	}
+
 //	public boolean checkJourney(String destination, String origin, Priority priority, ArrayList<Path> paths, DayOfWeek dow){
 //		if(this.destination.equals(destination) && this.origin.equals(origin) && this.priority.equals(priority)
 //				&& this.usedPaths.equals(o))
@@ -52,6 +58,12 @@ public class Journey {
 	}
 	public Priority getPriority() {
 		return priority;
+	}
+	public DayOfWeek getDow(){
+		return dow;
+	}
+	public ArrayList<Path> getPaths(){
+		return usedPaths;
 	}
 //	public double getAverageDeliveryTime() {
 //		return averageDeliveryTime;

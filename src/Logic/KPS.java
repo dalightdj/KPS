@@ -3,6 +3,7 @@ package Logic;
 import java.io.File;
 import java.util.ArrayList;
 
+import travelGraph.Location;
 import travelGraph.Path.DayOfWeek;
 import travelGraph.Path.TransportType;
 import travelGraph.Path;
@@ -75,7 +76,18 @@ public class KPS {
 	 *
 	 * @param createNew Is this a new mailDelivery event being entered from the GUI. (always true for Ewan/Neal)
 	 */
-	public void mailDelivery(String date, String destination, String origin, int weight, int volume, Priority priority, boolean createNew){
+	public boolean mailDelivery(String date, String destination, String origin, int weight, int volume, Priority priority, boolean createNew){
+
+		//Checks if the given origin/destination/day/priority given relates to a journey offered by KPS.
+		//If it does, adjust the total revenue and expendeture accordingly. Else return false.
+		Journey usedJourney = getJourney(origin, destination, priority, getDay(date));
+		if(usedJourney == null){
+			return false;
+		}
+		else{
+			expendetureTotal += usedJourney.getCost(weight, volume);
+			revenueTotal += usedJourney.getPrice(weight, volume);
+		}
 
 		//If a new object needs to be created, create an event object, add it to the arrayList and write it in XML using the Logger.
 		if(createNew){
@@ -90,6 +102,7 @@ public class KPS {
 				MailRecord mr = ldc.getRecord(destination);
 				mr.incrementCount();mr.incrementVolume(volume);mr.incrementWeight(weight);
 				recordFound = true;
+				return true;
 			}
 		}
 		//Or create a MailRecord if one doesn't exist for this journey
@@ -99,13 +112,13 @@ public class KPS {
 					MailRecord rec = new MailRecord(destination);
 					rec.incrementCount();rec.incrementVolume(volume);rec.incrementWeight(weight);
 					ldc.getAllRecords().add(rec);
+					return true;
 				}
 			}
 		}
 
-//		for(Journey journey: journeys){
-//			if(journey.)
-//		}
+		//Should never reach this return statement (as it either updates or creates a new mailRecord if the journey exists.
+		return false;
 
 
 		//TODO: make boolean ?
@@ -135,7 +148,7 @@ public class KPS {
 	}
 
 
-	public void priceUpdate(String destination, String origin, Priority priority, int weightPrice, int volumePrice, DayOfWeek dow, boolean createNew){
+	public void priceUpdate(String destination, String origin, Priority priority, Double weightPrice, Double volumePrice, DayOfWeek dow, boolean createNew){
 		//write XML
 		//return bool ?
 		//change in the GRAPH STRUCTURE
@@ -150,7 +163,7 @@ public class KPS {
 	}
 
 	public void costUpdate(String company, String destination, String origin, TransportType type, DayOfWeek dow,
-			int weightCost, int volumeCost, int maxWeight, int maxVolume, int duration, int frequency, boolean createNew){
+			float weightCost, float volumeCost, int maxWeight, int maxVolume, int duration, int frequency, boolean createNew){
 
 		//Create an event object, add it to the arrayList and write it in XML using the Logger.
 		if(createNew){
@@ -200,6 +213,19 @@ public class KPS {
 			return DayOfWeek.SUNDAY;
 		}
 	}
+
+	private Journey getJourney(String origin, String destination, Priority priority, DayOfWeek dow){
+		Journey result = null;
+		for(Journey j:journeys){
+			if(j.getOrigin().equals(origin) && j.getDestination().equals(destination) &&
+					j.getPriority().equals(priority) && j.getDow().equals(dow)){
+				result = j;
+			}
+		}
+		return result;
+	}
+
+
 
 	public double getExpenses(){
 		return expendetureTotal;
