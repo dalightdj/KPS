@@ -262,21 +262,21 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+
 		if(e.getSource() == submit) {
 		     if (weightTextField.getText().equals("") && volumeTextField.getText().equals("")) {
 					JOptionPane.showMessageDialog(this,"Please enter all details","Insufficient Details",JOptionPane.ERROR_MESSAGE);
 		     }
 		     else {
 		    	 try {
-		    	     Integer.parseInt(weightTextField.getText());
+		    		 Double.parseDouble(weightTextField.getText());
 		    	}
 		    	catch (NumberFormatException error) {
 					JOptionPane.showMessageDialog(this,"Please enter an integer for weight","Incorrect Details",JOptionPane.ERROR_MESSAGE);
 					return;
 		    	}
 		    	try {
-		    	     Integer.parseInt(volumeTextField.getText());
+		    	     Double.parseDouble(volumeTextField.getText());
 		    	}
 		    	catch (NumberFormatException error) {
 					JOptionPane.showMessageDialog(this,"Please enter an integer for volume","Incorrect Details",JOptionPane.ERROR_MESSAGE);
@@ -286,16 +286,25 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
 		 		String destination =  (String) destinationComboBox.getSelectedItem();
 		 		String origin = (String) fromComboBox.getSelectedItem();
 		 		String dateString = (String) daysComboBox.getSelectedItem();
-		 		
+
 		 		/*Check to make sure it's an int*/
-		 		int weight = Integer.parseInt(weightTextField.getText());
-		 		int volume = Integer.parseInt(volumeTextField.getText());
+		 		double weight = Double.parseDouble(weightTextField.getText());
+		 		double volume = Double.parseDouble(volumeTextField.getText());
+
+		 		if(weight <= 0) {
+					JOptionPane.showMessageDialog(this,"Please enter a positive integer for weight","Incorrect Details",JOptionPane.ERROR_MESSAGE);
+					return;
+		 		}
+		 		if(volume <= 0) {
+					JOptionPane.showMessageDialog(this,"Please enter a positive integer for volume","Incorrect Details",JOptionPane.ERROR_MESSAGE);
+					return;
+		 		}
 
 		 		String priority = (String) priorityComboBox.getSelectedItem();
 
 		 		Priority priorityEnum;
 		 		DayOfWeek dayEnum;
-		 		
+
 		 		/*Check for the priority*/
 		 		if(priority.equals("Air")) {
 		 			 priorityEnum = Priority.AIR;
@@ -303,7 +312,7 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
 		 		else {
 		 			priorityEnum = Priority.STANDARD;
 		 		}
-		 		
+
 		 		/*Check for the day*/
 		 		if(dateString.equals("Monday")) {
 		 			dayEnum = DayOfWeek.MONDAY;
@@ -326,16 +335,16 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
 		 		else {
 		 			dayEnum = DayOfWeek.SUNDAY;
 		 		}
-		 		
-		 		kpsObject.priceUpdate(destination, origin, priorityEnum, weight, volume,dayEnum, true);
+
+		 		//kpsObject.priceUpdate(destination, origin, priorityEnum, weight, volume,dayEnum, true);
 		    	 frame.updateGUI();
 		    	this.dispose();
 		     }
-		     
-		}
-		
 
-		
+		}
+
+
+
 		if(e.getSource() == cancel) {
 			this.dispose();
 		}
