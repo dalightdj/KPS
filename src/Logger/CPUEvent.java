@@ -9,17 +9,17 @@ public class CPUEvent extends Event {
 	private String destination;
 	private String origin;
 	private Priority priority;
-	private int weightCost;
-	private int volumeCost;
+	private float weightPrice;
+	private float volumePrice;
 	private DayOfWeek dow;
 
 
-	public CPUEvent(String destination, String origin, Priority priority, int weightCost, int volumeCost, DayOfWeek dow) {
+	public CPUEvent(String destination, String origin, Priority priority, float weightCost, float volumeCost, DayOfWeek dow) {
 		this.destination = destination;
 		this.origin = origin;
 		this.priority = priority;
-		this.weightCost = weightCost;
-		this.volumeCost = volumeCost;
+		this.weightPrice = weightCost;
+		this.volumePrice = volumeCost;
 		this.dow = dow;
 	}
 
@@ -54,23 +54,23 @@ public class CPUEvent extends Event {
 	}
 
 
-	public int getWeightCost() {
-		return weightCost;
+	public float getWeightPrice() {
+		return weightPrice;
 	}
 
 
-	public void setWeightCost(int weightCost) {
-		this.weightCost = weightCost;
+	public void setWeightPrice(int weightPrice) {
+		this.weightPrice = weightPrice;
 	}
 
 
-	public int getVolumeCost() {
-		return volumeCost;
+	public float getVolumePrice() {
+		return volumePrice;
 	}
 
 
-	public void setVolumeCost(int volumeCost) {
-		this.volumeCost = volumeCost;
+	public void setVolumePrice(int volumePrice) {
+		this.volumePrice = volumePrice;
 	}
 
 
