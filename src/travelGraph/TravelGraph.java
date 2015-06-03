@@ -226,10 +226,10 @@ public class TravelGraph {
 	/**
 	 * Gets all Locations accessible from a Location using only an identified TransportType
 	 * @param origin Name of origin
-	 * @param type The type of transport i.e. Air, Land or Sea
-	 * @return A list of all the possible Locations accessible from the origin using the given TransportType
+	 * @param priority Air will only search through paths that provide Air TransportType. Standard will search through all navigable paths
+	 * @return A list of all the possible Locations accessible from the origin using the given priority
 	 */
-	public ArrayList<Location> getPossibleLocations(Location origin, TransportType type){
+	public ArrayList<Location> allReachableLocations(Location origin, Priority priority){
 		ArrayList<Location> locs = new ArrayList<Location>();
 
 		Queue<Location> queue = new LinkedList<Location>();
@@ -245,10 +245,13 @@ public class TravelGraph {
 
 			for(Path p : from.getPaths()){
 				
-				//If its the correct type of path then add it
-				if(p.getTransportType()==type && !locs.contains(p.getDestination())){
-					queue.offer(p.getDestination());
-					locs.add(p.getDestination());
+				//If its the correct type of path
+				if((priority==Priority.AIR && p.getTransportType()==TransportType.AIR) || (priority==Priority.STANDARD)){
+					//and the path's destination isn't already in the list of reachable Locations 
+					if(!locs.contains(p.getDestination())){
+						queue.offer(p.getDestination());
+						locs.add(p.getDestination());
+					}					
 				}
 			}
 		}
