@@ -294,10 +294,11 @@ public class MailDialog extends JDialog implements ActionListener {
 		 		}
 
 		    	 kpsObject.mailDelivery(dateString, destination, origin, weight, volume, priorityEnum, true);
+		    	 frame.updateGUI();
+		    	 this.dispose();
 		     }
+		     
 		}
-
-
 
 		if(e.getSource() == cancel) {
 			this.dispose();

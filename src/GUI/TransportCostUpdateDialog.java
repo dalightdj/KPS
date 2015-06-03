@@ -24,6 +24,9 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
+import travelGraph.Path.DayOfWeek;
+import travelGraph.Path.TransportType;
+import travelGraph.TravelGraph.Priority;
 import Logic.KPS;
 import Main.MainFrame;
 
@@ -42,7 +45,7 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 	private JLabel maxwWeightLabel;
 	private JLabel newVolumeCostLabel;
 	private JLabel maxVolumeLabel;
-	private JLabel dayOfDepartureLabel;
+	//private JLabel dayOfDepartureLabel;
 	private JLabel frequencyLabel;
 	private JLabel durationLabel;
 	private JLabel dayLabel;
@@ -65,7 +68,7 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 	private JTextField maxWeightTextField;
 	private JTextField maxVolumeTextField;
 	private JTextField volumeTextField;
-	private JTextField departureTextField;
+	//private JTextField departureTextField;
 	private JTextField frequencyTextField;
 	private JTextField durationTextField;
 
@@ -223,19 +226,19 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		c2.gridy = 7;
 		op.add(volumeLabelInfo,c2);
 
-		departureTextField = new JTextField(10);
-		c2.gridx = 0;
-		c2.gridy = 9;
-		op.add(departureTextField,c2);
+		//departureTextField = new JTextField(10);
+		//c2.gridx = 0;
+		//c2.gridy = 9;
+		//op.add(departureTextField,c2);
 
 		frequencyTextField = new JTextField(10);
 		c2.gridx = 0;
-		c2.gridy = 10;
+		c2.gridy = 9;
 		op.add(frequencyTextField,c2);
 
 		durationTextField = new JTextField(10);
 		c2.gridx = 0;
-		c2.gridy = 11;
+		c2.gridy = 10;
 		op.add(durationTextField,c2);
 
 
@@ -311,31 +314,144 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		c.gridy = 8;
 		labelPanel.add(maxVolumeLabel,c);
 
-		dayOfDepartureLabel = new JLabel("Day of Departure: ");
-		c.gridx = 0;
-		c.gridy = 9;
-		labelPanel.add(dayOfDepartureLabel,c);
+		//dayOfDepartureLabel = new JLabel("Day of Departure: ");
+		//c.gridx = 0;
+		//c.gridy = 9;
+		//labelPanel.add(dayOfDepartureLabel,c);
 
 		frequencyLabel = new JLabel("Frequency: ");
 		c.gridx = 0;
-		c.gridy = 10;
+		c.gridy = 9;
 		labelPanel.add(frequencyLabel,c);
 
 
 		durationLabel = new JLabel("Duration of Trip: ");
 		c.gridx = 0;
-		c.gridy = 11;
+		c.gridy = 10;
 		labelPanel.add(durationLabel,c);
-
 	}
 
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
+		if(e.getSource() == submit) {
+		     if (weightTextField.getText().equals("") && volumeTextField.getText().equals("") && maxWeightTextField.getText().equals("")
+		    		 && maxVolumeTextField.getText().equals("") && frequencyTextField.getText().equals("") && durationTextField.getText().equals("")) {
+					JOptionPane.showMessageDialog(this,"Please enter all details","Insufficient Details",JOptionPane.ERROR_MESSAGE);
+		     }
+		     else {
+		    	 /*Check that the input in the company text field is string only */
+		    	 if(!copmanyTextField.getText().matches("^[a-zA-Z]+$")) {
+						JOptionPane.showMessageDialog(this,"Please enter a company name (letters only)","Insufficient Details",JOptionPane.ERROR_MESSAGE);
+						return;
+			     }
+		    	 /* Parse the textfields to make sure only integers have been put in*/
+		    	 try {
+		    	     Integer.parseInt(weightTextField.getText());
+		    	}
+		    	catch (NumberFormatException error) {
+					JOptionPane.showMessageDialog(this,"Please enter an integer for weight","Incorrect Details",JOptionPane.ERROR_MESSAGE);
+					return;
+		    	}
+		    	try {
+		    	     Integer.parseInt(volumeTextField.getText());
+		    	}
+		    	catch (NumberFormatException error) {
+					JOptionPane.showMessageDialog(this,"Please enter an integer for volume","Incorrect Details",JOptionPane.ERROR_MESSAGE);
+					return;
+		    	}
+		    	try {
+		    	     Integer.parseInt(maxWeightTextField.getText());
+		    	}
+		    	catch (NumberFormatException error) {
+					JOptionPane.showMessageDialog(this,"Please enter an integer for max weight","Incorrect Details",JOptionPane.ERROR_MESSAGE);
+					return;
+		    	}
+		    	try {
+		    	     Integer.parseInt(maxVolumeTextField.getText());
+		    	}
+		    	catch (NumberFormatException error) {
+					JOptionPane.showMessageDialog(this,"Please enter an integer for max volume","Incorrect Details",JOptionPane.ERROR_MESSAGE);
+					return;
+		    	}
+		    	try {
+		    	     Integer.parseInt(frequencyTextField.getText());
+		    	}
+		    	catch (NumberFormatException error) {
+					JOptionPane.showMessageDialog(this,"Please enter an integer for frequency","Incorrect Details",JOptionPane.ERROR_MESSAGE);
+					return;
+		    	}
+		    	try {
+		    	     Integer.parseInt(durationTextField.getText());
+		    	}
+		    	catch (NumberFormatException error) {
+					JOptionPane.showMessageDialog(this,"Please enter an integer for duration","Incorrect Details",JOptionPane.ERROR_MESSAGE);
+					return;
+		    	}
+		    	String companyString = copmanyTextField.getText();
+
+		    	String destination =  (String) destinationComboBox.getSelectedItem();
+		 		String origin = (String) fromComboBox.getSelectedItem();
+		 		String dateString = (String) daysComboBox.getSelectedItem();
+		 		
+		 		/*Check to make sure it's an int*/
+		 		int weight = Integer.parseInt(weightTextField.getText());
+		 		int volume = Integer.parseInt(volumeTextField.getText());
+		 		int maxWeight = Integer.parseInt(maxWeightTextField.getText());
+		 		int maxVolume = Integer.parseInt(maxVolumeTextField.getText());
+		 		int freq = Integer.parseInt(frequencyTextField.getText());
+		 		int dur = Integer.parseInt(durationTextField.getText());
+		 	
+		 		
+		 		String typeString = (String) typeComboBox.getSelectedItem();
+
+		 		TransportType typeEnum;
+		 		DayOfWeek dayEnum;
+		 		
+		 		/*Check for the priority*/
+		 		if(typeString.equals("Air")) {
+		 			typeEnum = TransportType.AIR;
+		 		}
+		 		else if(typeString.equals("Land")) {
+		 			typeEnum = TransportType.LAND;
+		 		}
+		 		else {
+		 			typeEnum = TransportType.SEA;
+		 		}
+		 		
+		 		/*Check for the day*/
+		 		if(dateString.equals("Monday")) {
+		 			dayEnum = DayOfWeek.MONDAY;
+		 		}
+		 		else if(dateString.equals("Tuesday")) {
+		 			dayEnum = DayOfWeek.TUESDAY;
+		 		}
+		 		else if(dateString.equals("Wednesday")) {
+		 			dayEnum = DayOfWeek.WEDNESDAY;
+		 		}
+		 		else if(dateString.equals("Thursday")) {
+		 			dayEnum = DayOfWeek.THURSDAY;
+		 		}
+		 		else if(dateString.equals("Friday")) {
+		 			dayEnum = DayOfWeek.FRIDAY;
+		 		}
+		 		else if(dateString.equals("Saturday")) {
+		 			dayEnum = DayOfWeek.SATURDAY;
+		 		}
+		 		else {
+		 			dayEnum = DayOfWeek.SUNDAY;
+		 		}
+		 		
+		 		kpsObject.costUpdate(companyString, destination, origin, typeEnum, dayEnum, weight, volume, maxWeight, maxVolume, dur, freq, true);
+		    	 frame.updateGUI();
+		 		this.dispose();
+		     }
+		     
+		}
 		if(e.getSource() == cancel) {
 			this.dispose();
 		}
-		//JOptionPane.showMessageDialog(this,"Please fill in all details","Invalid Details",JOptionPane.ERROR_MESSAGE);
 	}
 
 	/**
