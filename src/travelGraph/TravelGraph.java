@@ -223,6 +223,12 @@ public class TravelGraph {
 	}
 
 
+	/**
+	 * Gets all Locations accessible from a Location using only an identified TransportType
+	 * @param origin Name of origin
+	 * @param type The type of transport i.e. Air, Land or Sea
+	 * @return A list of all the possible Locations accessible from the origin using the given TransportType
+	 */
 	public ArrayList<Location> getPossibleLocations(Location origin, TransportType type){
 		ArrayList<Location> locs = new ArrayList<Location>();
 
