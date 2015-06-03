@@ -10,8 +10,8 @@ public class Journey {
 	private String destination;
 	private String origin;
 	private Priority priority;
-	private Double weightPrice;
-	private Double volumePrice;
+	private float weightPrice;
+	private float volumePrice;
 	private ArrayList<Path> usedPaths;
 	private DayOfWeek dow;
 //	private double averageDeliveryTime;
@@ -21,7 +21,7 @@ public class Journey {
 //	private int count;
 
 	public Journey(String destination, String origin, Priority priority,
-			double weightPrice, double volumePrice, ArrayList<Path> usedPaths, DayOfWeek dow) {
+			float weightPrice, float volumePrice, ArrayList<Path> usedPaths, DayOfWeek dow) {
 		this.destination = destination;
 		this.origin = origin;
 		this.priority = priority;
@@ -39,10 +39,12 @@ public class Journey {
 		return price/100;
 	}
 
-	public Double getCost(int weight, int volume){
+	public float getCost(int weight, int volume){
+		float total = 0;
 		for(Path p: usedPaths){
-			p.getCostToKPS(weight, volume);
+			total += p.calcCost(weight, volume);
 		}
+		return total;
 	}
 
 //	public boolean checkJourney(String destination, String origin, Priority priority, ArrayList<Path> paths, DayOfWeek dow){

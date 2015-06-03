@@ -1,35 +1,35 @@
 package Logic;
 
 public class MailRecord {
-	private double totalWeight;
-	private double totalVolume;
+	private float totalWeight;
+	private float totalVolume;
 	private int totalCount;
 	private String destination;
-	
+
 	public MailRecord (String destination){
 		this.destination = destination;
-		totalWeight=0.0;
-		totalVolume=0.0;
+		totalWeight=0;
+		totalVolume=0;
 		totalCount=0;
 	}
-	
-	public void incrementWeight(double w){
+
+	public void incrementWeight(float w){
 		totalWeight += w;
 	}
 	public void incrementCount(){
 		totalCount++;
 	}
-	public void incrementVolume(double v){
+	public void incrementVolume(float v){
 		totalWeight += v;
 	}
-	
+
 	public String getDestination(){
 		return destination;
 	}
-	public double getTotalWeight(){
+	public float getTotalWeight(){
 		return totalWeight;
 	}
-	public double getTotalVolume(){
+	public float getTotalVolume(){
 		return totalVolume;
 	}
 	public int getTotalCount(){

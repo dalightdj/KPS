@@ -148,7 +148,7 @@ public class KPS {
 	}
 
 
-	public void priceUpdate(String destination, String origin, Priority priority, Double weightPrice, Double volumePrice, DayOfWeek dow, boolean createNew){
+	public void priceUpdate(String destination, String origin, Priority priority, float weightPrice, float volumePrice, DayOfWeek dow, boolean createNew){
 		//write XML
 		//return bool ?
 		//change in the GRAPH STRUCTURE
