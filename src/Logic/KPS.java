@@ -113,8 +113,7 @@ public class KPS {
 
 	public void loadEvents(){
 		if(logger.readXML().size() == 0){
-			File xmlFile = new File("eventsData.xml");
-
+			//File xmlFile = new File("eventsData.xml");
 			return;
 		}
 		events = logger.readXML();
