@@ -133,8 +133,8 @@ public class Logger {
 		CPUEvent cpuEvent = (CPUEvent) event;
 
 		Element cpuNode = new Element("CPUEvent");
-		cpuNode.addContent(new Element("origin").setText(cpuEvent.getDesFrom()));
-		cpuNode.addContent(new Element("destination").setText(cpuEvent.getDesTo()));
+		cpuNode.addContent(new Element("origin").setText(cpuEvent.getDestination()));
+		cpuNode.addContent(new Element("destination").setText(cpuEvent.getOrigin()));
 		cpuNode.addContent(new Element("priority").setText(cpuEvent.getPriority().toString()));
 		cpuNode.addContent(new Element("weightPrice").setText(Float.toString(cpuEvent.getWeightPrice())));
 		cpuNode.addContent(new Element("volumePrice").setText(Float.toString(cpuEvent.getVolumePrice())));
