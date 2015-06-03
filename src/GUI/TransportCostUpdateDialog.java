@@ -348,14 +348,14 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 			     }
 		    	 /* Parse the textfields to make sure only integers have been put in*/
 		    	 try {
-		    	     Integer.parseInt(weightTextField.getText());
+		    	     Double.parseDouble(weightTextField.getText());
 		    	}
 		    	catch (NumberFormatException error) {
 					JOptionPane.showMessageDialog(this,"Please enter an integer for weight","Incorrect Details",JOptionPane.ERROR_MESSAGE);
 					return;
 		    	}
 		    	try {
-		    	     Integer.parseInt(volumeTextField.getText());
+		    		Double.parseDouble(volumeTextField.getText());
 		    	}
 		    	catch (NumberFormatException error) {
 					JOptionPane.showMessageDialog(this,"Please enter an integer for volume","Incorrect Details",JOptionPane.ERROR_MESSAGE);
@@ -396,22 +396,20 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		 		String dateString = (String) daysComboBox.getSelectedItem();
 
 
-		 		//TODO: make cost of volume and weight double not int
-
 		 		/*Check to make sure it's an int*/
-		 		int weight = Integer.parseInt(weightTextField.getText());
-		 		int volume = Integer.parseInt(volumeTextField.getText());
+		 		double weight = Double.parseDouble(weightTextField.getText());
+		 		double volume = Double.parseDouble(volumeTextField.getText());
 		 		int maxWeight = Integer.parseInt(maxWeightTextField.getText());
 		 		int maxVolume = Integer.parseInt(maxVolumeTextField.getText());
 		 		int freq = Integer.parseInt(frequencyTextField.getText());
 		 		int dur = Integer.parseInt(durationTextField.getText());
 
-		 		if(weight <= 0) {
-					JOptionPane.showMessageDialog(this,"Please enter a positive integer for weight","Incorrect Details",JOptionPane.ERROR_MESSAGE);
+		 		if(weight < 0) {
+					JOptionPane.showMessageDialog(this,"Please enter a positive number for weight","Incorrect Details",JOptionPane.ERROR_MESSAGE);
 					return;
 		 		}
-		 		if(volume <= 0) {
-					JOptionPane.showMessageDialog(this,"Please enter a positive integer for volume","Incorrect Details",JOptionPane.ERROR_MESSAGE);
+		 		if(volume < 0) {
+					JOptionPane.showMessageDialog(this,"Please enter a positive number for volume","Incorrect Details",JOptionPane.ERROR_MESSAGE);
 					return;
 		 		}
 		 		if(maxWeight <= 0) {
@@ -469,7 +467,7 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		 			dayEnum = DayOfWeek.SUNDAY;
 		 		}
 
-		 		kpsObject.costUpdate(companyString, destination, origin, typeEnum, dayEnum, weight, volume, maxWeight, maxVolume, dur, freq, true);
+		 		//kpsObject.costUpdate(companyString, destination, origin, typeEnum, dayEnum, weight, volume, maxWeight, maxVolume, dur, freq, true);
 		    	frame.updateGUI();
 		 		this.dispose();
 		     }

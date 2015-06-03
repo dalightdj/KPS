@@ -269,14 +269,14 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
 		     }
 		     else {
 		    	 try {
-		    	     Integer.parseInt(weightTextField.getText());
+		    		 Double.parseDouble(weightTextField.getText());
 		    	}
 		    	catch (NumberFormatException error) {
 					JOptionPane.showMessageDialog(this,"Please enter an integer for weight","Incorrect Details",JOptionPane.ERROR_MESSAGE);
 					return;
 		    	}
 		    	try {
-		    	     Integer.parseInt(volumeTextField.getText());
+		    	     Double.parseDouble(volumeTextField.getText());
 		    	}
 		    	catch (NumberFormatException error) {
 					JOptionPane.showMessageDialog(this,"Please enter an integer for volume","Incorrect Details",JOptionPane.ERROR_MESSAGE);
@@ -288,8 +288,8 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
 		 		String dateString = (String) daysComboBox.getSelectedItem();
 
 		 		/*Check to make sure it's an int*/
-		 		int weight = Integer.parseInt(weightTextField.getText());
-		 		int volume = Integer.parseInt(volumeTextField.getText());
+		 		double weight = Double.parseDouble(weightTextField.getText());
+		 		double volume = Double.parseDouble(volumeTextField.getText());
 
 		 		if(weight <= 0) {
 					JOptionPane.showMessageDialog(this,"Please enter a positive integer for weight","Incorrect Details",JOptionPane.ERROR_MESSAGE);
@@ -336,7 +336,7 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
 		 			dayEnum = DayOfWeek.SUNDAY;
 		 		}
 
-		 		kpsObject.priceUpdate(destination, origin, priorityEnum, weight, volume,dayEnum, true);
+		 		//kpsObject.priceUpdate(destination, origin, priorityEnum, weight, volume,dayEnum, true);
 		    	 frame.updateGUI();
 		    	this.dispose();
 		     }
