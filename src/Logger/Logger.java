@@ -136,8 +136,8 @@ public class Logger {
 		cpuNode.addContent(new Element("origin").setText(cpuEvent.getDesFrom()));
 		cpuNode.addContent(new Element("destination").setText(cpuEvent.getDesTo()));
 		cpuNode.addContent(new Element("priority").setText(cpuEvent.getPriority().toString()));
-		cpuNode.addContent(new Element("weightCost").setText(Integer.toString(cpuEvent.getWeightCost())));
-		cpuNode.addContent(new Element("volumeCost").setText(Integer.toString(cpuEvent.getVolumeCost())));
+		cpuNode.addContent(new Element("weightPrice").setText(Float.toString(cpuEvent.getWeightPrice())));
+		cpuNode.addContent(new Element("volumePrice").setText(Float.toString(cpuEvent.getVolumePrice())));
 		cpuNode.addContent(new Element("dow").setText(cpuEvent.getDow().toString()));
 
 		parentElement.addContent(cpuNode);				
@@ -159,8 +159,8 @@ public class Logger {
 		tcuNode.addContent(new Element("origin").setText(tcuEvent.getOrigin()));
 		tcuNode.addContent(new Element("destination").setText(tcuEvent.getDestination()));
 		tcuNode.addContent(new Element("type").setText(tcuEvent.getType().toString()));
-		tcuNode.addContent(new Element("weightCost").setText(Integer.toString(tcuEvent.getWeightCost())));
-		tcuNode.addContent(new Element("volumeCost").setText(Integer.toString(tcuEvent.getVolumeCost())));
+		tcuNode.addContent(new Element("weightCost").setText(Float.toString(tcuEvent.getWeightCost())));
+		tcuNode.addContent(new Element("volumeCost").setText(Float.toString(tcuEvent.getVolumeCost())));
 		tcuNode.addContent(new Element("dow").setText(tcuEvent.getDow().toString()));
 		tcuNode.addContent(new Element("maxWeight").setText(Integer.toString(tcuEvent.getMaxWeight())));
 		tcuNode.addContent(new Element("maxVolume").setText(Integer.toString(tcuEvent.getMaxVolume())));
@@ -241,8 +241,8 @@ public class Logger {
 					CPUEvent cpuEvent = new CPUEvent(ele.getChildText("destination"), 
 							ele.getChildText("origin"), 
 							getPriority(ele.getChildText("priority")), 
-							Integer.parseInt(ele.getChildText("weightCost")), 
-							Integer.parseInt(ele.getChildText("volumeCost")),
+							Float.parseFloat(ele.getChildText("weightPrice")), 
+							Float.parseFloat(ele.getChildText("volumePrice")),
 							getDow(ele.getChildText("dow")));
 					
 					events.add(cpuEvent);
@@ -253,12 +253,12 @@ public class Logger {
 							ele.getChildText("origin"), 
 							getType(ele.getChildText("type")),
 							getDow(ele.getChildText("dow")),
-							Integer.parseInt(ele.getChildText("weightCost")), 
-									Integer.parseInt(ele.getChildText("volumeCost")), 
-									Integer.parseInt(ele.getChildText("maxWeight")), 
-									Integer.parseInt(ele.getChildText("maxVolume")), 
-									Integer.parseInt(ele.getChildText("duration")), 
-									Integer.parseInt(ele.getChildText("frequency")));
+							Float.parseFloat(ele.getChildText("weightCost")), 
+							Float.parseFloat(ele.getChildText("volumeCost")), 
+							Integer.parseInt(ele.getChildText("maxWeight")), 
+							Integer.parseInt(ele.getChildText("maxVolume")), 
+							Integer.parseInt(ele.getChildText("duration")), 
+							Integer.parseInt(ele.getChildText("frequency")));
 					
 					events.add(tcuEvent);
 				default:
