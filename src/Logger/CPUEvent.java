@@ -24,22 +24,22 @@ public class CPUEvent extends Event {
 	}
 
 
-	public String getDesTo() {
+	public String getDestination() {
 		return destination;
 	}
 
 
-	public void setDesTo(String destination) {
+	public void setDestination(String destination) {
 		this.destination = destination;
 	}
 
 
-	public String getDesFrom() {
+	public String getOrigin() {
 		return origin;
 	}
 
 
-	public void setDesFrom(String origin) {
+	public void setOrigin(String origin) {
 		this.origin = origin;
 	}
 
