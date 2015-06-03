@@ -106,7 +106,7 @@ public class Logger {
 	 * @param parentElement
 	 * @param event
 	 */
-	public void addTDEvent(Element parentElement, Event event){
+	private void addTDEvent(Element parentElement, Event event){
 
 
 		TDEvent tdEvent = (TDEvent) event;
@@ -128,7 +128,7 @@ public class Logger {
 	 * @param parentElement
 	 * @param event
 	 */
-	public void addCPUEvent(Element parentElement, Event event){
+	private void addCPUEvent(Element parentElement, Event event){
 
 		CPUEvent cpuEvent = (CPUEvent) event;
 
@@ -150,7 +150,7 @@ public class Logger {
 	 * @param parentElement
 	 * @param event
 	 */
-	public void addTCUEvent(Element parentElement, Event event){
+	private void addTCUEvent(Element parentElement, Event event){
 
 		TCUEvent tcuEvent = (TCUEvent) event;
 
@@ -176,7 +176,7 @@ public class Logger {
 	 * @param parentElement
 	 * @param event
 	 */
-	public void addMDEvent(Element parentElement, Event event){
+	private void addMDEvent(Element parentElement, Event event){
 
 		MDEvent mdEvent = (MDEvent) event;
 
