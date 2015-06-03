@@ -14,12 +14,12 @@ public class CPUEvent extends Event {
 	private DayOfWeek dow;
 
 
-	public CPUEvent(String destination, String origin, Priority priority, float weightCost, float volumeCost, DayOfWeek dow) {
+	public CPUEvent(String destination, String origin, Priority priority, float weightPrice, float volumePrice, DayOfWeek dow) {
 		this.destination = destination;
 		this.origin = origin;
 		this.priority = priority;
-		this.weightPrice = weightCost;
-		this.volumePrice = volumeCost;
+		this.weightPrice = weightPrice;
+		this.volumePrice = volumePrice;
 		this.dow = dow;
 	}
 
