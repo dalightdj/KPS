@@ -467,7 +467,7 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		 			dayEnum = DayOfWeek.SUNDAY;
 		 		}
 
-		 		//kpsObject.costUpdate(companyString, destination, origin, typeEnum, dayEnum, weight, volume, maxWeight, maxVolume, dur, freq, true);
+		 		kpsObject.costUpdate(companyString, destination, origin, typeEnum, dayEnum, weight, volume, maxWeight, maxVolume, dur, freq, true);
 		    	frame.updateGUI();
 		 		this.dispose();
 		     }

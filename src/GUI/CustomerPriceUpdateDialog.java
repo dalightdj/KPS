@@ -336,7 +336,7 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
 		 			dayEnum = DayOfWeek.SUNDAY;
 		 		}
 
-		 		//kpsObject.priceUpdate(destination, origin, priorityEnum, weight, volume,dayEnum, true);
+		 		kpsObject.priceUpdate(destination, origin, priorityEnum, weight, volume,dayEnum, true);
 		    	 frame.updateGUI();
 		    	this.dispose();
 		     }
