@@ -113,10 +113,11 @@ public class KPSFrame extends JFrame {
 
 		c.weightx = 1.0;
 
+		
 		c.gridx = 0;
 		c.gridy = 1;
 		guiInformation.add(totalRevenue,c);
-
+		
 		c.gridx = 0;
 		c.gridy = 2;
 		guiInformation.add(totalExpenditure,c);

@@ -39,7 +39,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
 		this.kpsObject = kpsObject;
 		this.frame = frame;
 		this.setPreferredSize(new Dimension(150,0));
-		this.setBorder(BorderFactory.createLoweredBevelBorder()); //just for checking the positioning, can remove later
+		this.setBorder(BorderFactory.createLoweredBevelBorder());//set border for this panel
 
 		/*Initialize the layout and the insets*/
 		this.setLayout(new GridBagLayout());

@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 import Logger.Event;
 import Logger.MDEvent;
@@ -79,12 +80,13 @@ public class EventsFrame extends JFrame implements ActionListener {
 		
 		mainPanel = new JPanel();
 		mainPanel.setLayout(new GridBagLayout());
-		mainPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+		mainPanel.setBorder(BorderFactory.createLoweredBevelBorder());
+		mainPanel.setBackground(new Color(25,25,25));
  		this.add(mainPanel,BorderLayout.CENTER);
 		
 		buttons = new JPanel();
 		buttons.setLayout(new GridBagLayout());
-		buttons.setBorder(BorderFactory.createLineBorder(Color.black));
+		buttons.setBorder(BorderFactory.createLoweredBevelBorder()); 
  		this.add(buttons,BorderLayout.WEST);
  		
  		/*Set up the buttons for the buttons panel*/
@@ -94,7 +96,7 @@ public class EventsFrame extends JFrame implements ActionListener {
 		/*Set up the labels for the event information*/
 		setupLabels();
 		updateGUI();
-		
+				
 		this.setResizable(false);
 		this.pack();
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -132,18 +134,18 @@ public class EventsFrame extends JFrame implements ActionListener {
 	}
 
 	private void setupMDLabels() {
-		day.setText("<html><b><font size = 5 color=White>Date :  <font color = 'yellow'> "+dayString+"</b></html>");
-		origin.setText("<html><b><font size = 5 color=White>Origin :  <font color = 'yellow'> "+originString+"</b></html>");
-		destination.setText("<html><b><font size = 5 color=White>Destination : <font color = 'yellow'> "+destinationString+"</b></html>");
-		priority.setText("<html><b><font size = 5 color=White>Priority : <font color = 'yellow'> "+priorityString+"</b></html>");
-		weight.setText("<html><b><font size = 5 color=White>Weight : <font color = 'yellow'> "+weightString+"</b></html>");
-		volume.setText("<html><b><font size = 5 color=White>Volume : <font color = 'yellow'> "+volumeString+"</b></html>");
+		day.setText("<html><b><font size = 5 color=White>  Date :  <font color = 'yellow'> "+dayString+"</b></html>");
+		origin.setText("<html><b><font size = 5 color=White>  Origin :  <font color = 'yellow'> "+originString+"</b></html>");
+		destination.setText("<html><b><font size = 5 color=White>  Destination : <font color = 'yellow'> "+destinationString+"</b></html>");
+		priority.setText("<html><b><font size = 5 color=White>  Priority : <font color = 'yellow'> "+priorityString+"</b></html>");
+		weight.setText("<html><b><font size = 5 color=White>  Weight : <font color = 'yellow'> "+weightString+"</b></html>");
+		volume.setText("<html><b><font size = 5 color=White>  Volume : <font color = 'yellow'> "+volumeString+"</b></html>");
 	}
 
 	private void setupLabels() {
 		GridBagConstraints c = new GridBagConstraints();
 		mainPanel.setLayout(new GridBagLayout());
-		c.insets = new Insets(0,10,10,0); //top, left, bottom, right padding (in that order)
+		c.insets = new Insets(0,10,0,10); //top, left, bottom, right padding (in that order)
 		c.fill = GridBagConstraints.HORIZONTAL;
 		
 		/*Initialize all labels*/
@@ -158,6 +160,31 @@ public class EventsFrame extends JFrame implements ActionListener {
 
 		c.weightx = 1.0;
 		
+		day.setBackground(Color.BLACK);
+		day.setOpaque(true);
+		day.setBorder(new EmptyBorder(0,10,0,0));
+		
+		origin.setBackground(new Color(44, 44, 44));
+		origin.setOpaque(true);
+		origin.setBorder(new EmptyBorder(0,10,0,0));
+
+		destination.setBackground(Color.BLACK);
+		destination.setOpaque(true);
+		destination.setBorder(new EmptyBorder(0,10,0,0));
+
+		priority.setBackground(new Color(44, 44, 44));
+		priority.setOpaque(true);
+		priority.setBorder(new EmptyBorder(0,10,0,0));
+
+		weight.setBackground(Color.BLACK);
+		weight.setOpaque(true);
+		weight.setBorder(new EmptyBorder(0,10,0,0));
+
+		volume.setBackground(new Color(44, 44, 44));
+		volume.setOpaque(true);
+		volume.setBorder(new EmptyBorder(0,10,0,0));
+
+
 		c.gridx = 0;
 		c.gridy = 2;
 		mainPanel.add(day,c);
@@ -182,6 +209,7 @@ public class EventsFrame extends JFrame implements ActionListener {
 		c.gridy = 7;
 		mainPanel.add(volume,c);
 		
+		c.insets = new Insets(0,10,10,10); 
 		c.gridx = 0;
 		c.gridy = 0;
 		mainPanel.add(title,c);
