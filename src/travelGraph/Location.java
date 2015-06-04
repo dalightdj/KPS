@@ -41,7 +41,7 @@ public class Location implements Comparable<Location>{
 	
 	/**
 	 * 
-	 * @return An unmodifiable list of all the paths.
+	 * @return An unmodifiable list of all the outgoing paths.
 	 */
 	public ArrayList<Path> getPaths(){
 		return (ArrayList<Path>) Collections.unmodifiableList(paths);
@@ -65,19 +65,28 @@ public class Location implements Comparable<Location>{
 	/**
 	 * 
 	 * @param distance Optimal distance from origin to this Location
+	 * @return Returns false if the given distance is not smaller than the current smallest distance
 	 */
-	public void setDistance(double distance){
-		this.distance = distance;
+	public boolean setDistance(double distance){
+		if(distance<this.distance){
+			this.distance = distance;
+			return true;
+		}
+		return false;		
 	}
 	
 	/**
 	 * 
-	 * @param visited Whether or not this Location has been visited by the Dijkstra search algorithm
+	 * @param visited Whether or not this Location has been visited by a search algorithm
 	 */
 	public void setVisited(boolean visited){
 		this.visited = visited;
 	}
 	
+	/**
+	 * 
+	 * @return Whether or not this Location has been visited by a search algorithm
+	 */
 	public boolean isVisited(){
 		return visited;
 	}
@@ -88,7 +97,8 @@ public class Location implements Comparable<Location>{
 	 * @param fromPath The optimal Path
 	 */
 	public void setFrom(Location fromLoc, Path fromPath){
-		
+		this.fromLoc = fromLoc;
+		this.fromPath = fromPath;
 	}
 	
 	/**

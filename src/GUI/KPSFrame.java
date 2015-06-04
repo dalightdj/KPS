@@ -52,8 +52,10 @@ public class KPSFrame extends JFrame {
 	private int totalNumberOfEventsDouble;
 	private int totalAmountOfMailDouble;
 
+	private boolean isManager;
 
-	public KPSFrame() {
+	public KPSFrame(boolean isManager) {
+		this.isManager = isManager;
 		/*Create new KPS Object and update GUI*/
 		kpsObject = new KPS();
 
@@ -156,15 +158,19 @@ public class KPSFrame extends JFrame {
 
 
 
+	public KPS getKpsObject() {
+		return this.kpsObject;
+	}
 
-
-
+	public boolean getIsManager() {
+		return this.isManager;
+	}
 
 	/**
 	 * This is just a test method to run it directly
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		new KPSFrame();
+		new KPSFrame(true);
 	}
 }

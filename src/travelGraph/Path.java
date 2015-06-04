@@ -64,12 +64,23 @@ public class Path {
 	 * Calculates the cost of a package delivery on this path
 	 * @param weight The weight of the package in grams
 	 * @param volume The volume of the package in cubic centimeters
-	 * @return The cost to deliver a package with the given weight and volume on this path
+	 * @return The cost to deliver a package with the given weight and volume on this path. Returns -1 if it the given weight or volume exceeds the maximum weight or volume allowed on this path
+	 * @throws OverweightException If the weight is greater than the maximum possible weight for this Path
+	 * @throws ExceededVolumeException  If the volume is greater than the maximum possible volume for this Path
 	 */
-	public float calcCost(int weight, int volume){
+	public float calcCost(int weight, int volume) throws OverweightException, ExceededVolumeException{
+		if(weight>maxWeight) throw new OverweightException();
+		if(volume>maxVolume) throw new  ExceededVolumeException();
 		return (weight*ppGram) + (volume*ppCmCubed);
 	}
 	
+	public class OverweightException extends Exception{
+		
+	}
+	
+	public class ExceededVolumeException extends Exception{
+		
+	}
 	
 	/**
 	 * Update 'price per gram'
@@ -133,7 +144,15 @@ public class Path {
 		return day;
 	}
 	
-	public float getCost(){
+	/**
+	 * 
+	 * @return The weight of this Path. For Dijkstra's algorithm
+	 */
+	public float getWeight(){
 		return cost;
+	}
+	
+	public Location getOrigin(){
+		return origin;
 	}
 }

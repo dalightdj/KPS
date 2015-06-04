@@ -1,4 +1,4 @@
-package jUnit;
+package jUnitTests;
 
 import static org.junit.Assert.*;
 

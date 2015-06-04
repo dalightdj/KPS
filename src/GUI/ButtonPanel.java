@@ -23,6 +23,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
 	private JButton customerPriceUpdate;
 	private JButton transportCostUpdate;
 	private JButton transportDiscontinue;
+	private JButton viewEvents;
 
 	private KPS kpsObject;
 
@@ -61,6 +62,17 @@ public class ButtonPanel extends JPanel implements ActionListener {
 		c.gridy = 3;
 		this.add(transportDiscontinue,c);
 		transportDiscontinue.addActionListener(this);
+		
+		viewEvents = new JButton("View Event History");
+		c.gridx = 0;
+		c.gridy = 4;
+		this.add(viewEvents,c);
+		viewEvents.addActionListener(this);
+		viewEvents.setEnabled(false);
+		
+		if(frame.getIsManager()) {
+			viewEvents.setEnabled(true);
+		}
 
 	}
 
@@ -77,6 +89,9 @@ public class ButtonPanel extends JPanel implements ActionListener {
 		}
 		if(e.getSource() == transportDiscontinue) {
 			new TransportDiscontinueDialog(frame, kpsObject);
+		}
+		if(e.getSource() == viewEvents) {
+			new EventsFrame(frame);
 		}
 	}
 }
