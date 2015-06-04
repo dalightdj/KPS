@@ -245,6 +245,10 @@ public class KPS {
 		return events.size();
 	}
 
+	public ArrayList<Event> getEvents() {
+		return events;
+	}
+	
 	public TravelGraph getTravelGraph() {
 		return travelGraph;
 	}

@@ -9,6 +9,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -17,6 +18,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Logger.Event;
+import Logger.MDEvent;
 import Logic.KPS;
 import Main.MainFrame;
 
@@ -42,10 +45,16 @@ public class EventsFrame extends JFrame implements ActionListener {
 
 	private KPS kpsObject;
 	
+	private ArrayList<Event> events;
+	private MDEvent currentEvent; //keep track of the current Event observed
+	private int eventCount = 0; //keep track of which event we're on (in the list events)
+	
 	public EventsFrame(KPSFrame frame) {
 		
 		this.frame = frame;
 		this.kpsObject = frame.getKpsObject();
+        this.setLocationRelativeTo(frame); //sets position relative to the frame 
+
 		
 		this.setLayout(new BorderLayout());
 		this.setTitle("Kelburn Postal Serivce Event History");
@@ -83,31 +92,25 @@ public class EventsFrame extends JFrame implements ActionListener {
 	}
 
 	private void updateGUI() {
-
-
+		this.events = kpsObject.getEvents(); //get latest events every time it this GUI updates
+		
+		currentEvent = (MDEvent) events.get(eventCount);
+		
 		//TODO: retrieve values using kpsObject (initialised in constructor) from events data xml or what ever the methods are in KPS class
-		//String dayString = String.valueOf(totalRevenueDouble);
-		//String originString = String.valueOf(totalExpenditureDouble);
-		//String destinationString = String.valueOf(totalNumberOfEventsDouble);
-		//String priorityString = String.valueOf(totalAmountOfMailDouble);
-		//String weightString = String.valueOf(totalAmountOfMailDouble);
-		//String volumeString = String.valueOf(totalAmountOfMailDouble);
+		String dayString = currentEvent.getDate();
+		String originString = currentEvent.getOrigin();
+		String destinationString = currentEvent.getDestination();
+		String priorityString = currentEvent.getPriority().toString();
+		String weightString = String.valueOf(currentEvent.getWeight());
+		String volumeString = String.valueOf(currentEvent.getVolume());
 
 		//TODO: Comment this out once the values have been retrieved above
-		//day.setText("<html><b><font size = 5 color=White>Date :  <font color = 'yellow'> "+dayString+"</b></html>");
-		//origin.setText("<html><b><font size = 5 color=White>Origin :  <font color = 'yellow'>$ "+originString+"</b></html>");
-		//destination.setText("<html><b><font size = 5 color=White>Destination : <font color = 'yellow'>$ "+destinationString+"</b></html>");
-		//priority.setText("<html><b><font size = 5 color=White>Priority : <font color = 'yellow'> "+priorityString+"</b></html>");
-		//weight.setText("<html><b><font size = 5 color=White>Weight : <font color = 'yellow'> "+weightString+"</b></html>");
-		//volume.setText("<html><b><font size = 5 color=White>Volume : <font color = 'yellow'> "+volumeString+"</b></html>");
-
-		//TODO:REMOVE all of this once the two top TODO's are completed
-		day.setText("<html><b><font size = 5 color=White>Date :  </b></html>");
-		origin.setText("<html><b><font size = 5 color=White>Origin :  </b></html>");
-		destination.setText("<html><b><font size = 5 color=White>Destination :</b></html>");
-		priority.setText("<html><b><font size = 5 color=White>Priority : </b></html>");
-		weight.setText("<html><b><font size = 5 color=White>Weight : </b></html>");
-		volume.setText("<html><b><font size = 5 color=White>Volume : </b></html>");
+		day.setText("<html><b><font size = 5 color=White>Date :  <font color = 'yellow'> "+dayString+"</b></html>");
+		origin.setText("<html><b><font size = 5 color=White>Origin :  <font color = 'yellow'>$ "+originString+"</b></html>");
+		destination.setText("<html><b><font size = 5 color=White>Destination : <font color = 'yellow'>$ "+destinationString+"</b></html>");
+		priority.setText("<html><b><font size = 5 color=White>Priority : <font color = 'yellow'> "+priorityString+"</b></html>");
+		weight.setText("<html><b><font size = 5 color=White>Weight : <font color = 'yellow'> "+weightString+"</b></html>");
+		volume.setText("<html><b><font size = 5 color=White>Volume : <font color = 'yellow'> "+volumeString+"</b></html>");
 		
 	}
 
@@ -173,8 +176,20 @@ public class EventsFrame extends JFrame implements ActionListener {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == nextEvent) {
+			eventCount++;
+			updateGUI();
+		}
+		else if(e.getSource() == prevEvent) {
+			if(eventCount ==0) { //check if eventCount is 0 so that we don't get out of bounds exception
+				return;
+			}
+			else {
+				eventCount--;
+				updateGUI();
+			}
+		}
 	}
 	
 }

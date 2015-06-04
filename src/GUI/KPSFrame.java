@@ -8,6 +8,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 
 import javax.swing.BorderFactory;
@@ -55,6 +56,11 @@ public class KPSFrame extends JFrame {
 	private boolean isManager;
 
 	public KPSFrame(boolean isManager) {
+		
+		/*Center this frame on monitor*/
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+		
 		this.isManager = isManager;
 		/*Create new KPS Object and update GUI*/
 		kpsObject = new KPS();
