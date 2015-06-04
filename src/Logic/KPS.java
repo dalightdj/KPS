@@ -40,6 +40,34 @@ public class KPS {
 		loadEvents(); //WILL BE NULL AT THE START UNLESS WE HAVE A DEFAULT XML FILE
 	}
 
+	public void loadEvents(){
+		if(logger.readXML().size() == 0){
+			//File xmlFile = new File("eventsData.xml");
+			return;
+		}
+		events = logger.readXML();
+		for (Event e:events){
+			if(e instanceof MDEvent ){
+				mailDelivery(((MDEvent) e).getDate(), ((MDEvent) e).getDestination(), ((MDEvent) e).getOrigin(),
+						((MDEvent) e).getWeight(), ((MDEvent) e).getVolume(), ((MDEvent) e).getPriority(), false);
+			}
+			else if(e instanceof TCUEvent){
+				costUpdate(((TCUEvent) e).getCompany(), ((TCUEvent) e).getDestination(), ((TCUEvent) e).getOrigin(), ((TCUEvent) e).getType(),
+						((TCUEvent) e).getDow(), ((TCUEvent) e).getWeightCost(), ((TCUEvent) e).getVolumeCost(), ((TCUEvent) e).getMaxWeight(),
+						((TCUEvent) e).getMaxVolume(), ((TCUEvent) e).getDuration(), ((TCUEvent) e).getFrequency(),false);
+			}
+			else if(e instanceof TDEvent){
+				discontinueRoute(((TDEvent)e).getOrigin(), ((TDEvent)e).getDestination(), ((TDEvent)e).getCompany(), ((TDEvent)e).getType(),
+						((TDEvent)e).getDow(), false);
+			}
+			else{
+				priceUpdate(((CPUEvent)e).getDesTo(), ((CPUEvent)e).getDesFrom(), ((CPUEvent)e).getPriority(), ((CPUEvent)e).getWeightPrice(),
+						((CPUEvent)e).getVolumePrice(), ((CPUEvent)e).getDow(), false);
+			}
+
+		}
+	}
+
 	/**
 	 * Deals with a discontinue transport event appropriately. (and creates the new TDEvent object/ writes the XML
 	 * if the given createNew boolean is true)
@@ -51,22 +79,45 @@ public class KPS {
 	 * @param createNew
 	 */
 	public void discontinueRoute(String origin, String destination, String company, Path.TransportType type, DayOfWeek day, boolean createNew){
-		//XML event
-		//return a bool ?
+
+		// return a bool ?
 		// take out path from the GRAPH STRUCTURE with the given reference ?
 
-		//If a new object needs to be created, create an event object, add it to the arrayList and write it in XML using the Logger.
+		//If a new XML needs to be created, create it. Also add a new TD event to the array of events
+		TDEvent event = new TDEvent(company, destination, origin, type, day);
+		events.add(event);
 		if(createNew){
-			TDEvent event = new TDEvent(company, destination, origin, type, day);
-			events.add(event);
 			logger.addEvent(event);
 		}
 
 		//Journey stuff !?!?!?!?!?
 
+		for(Journey j:journeys){
+			if(j.checkPath(origin, destination, company, type, day)){
+				journeys.remove(j);
+			}
+		}
+
 		travelGraph.removePath(origin, destination, company, type, day);
+	}
+
+	public void costUpdate(String company, String destination, String origin, TransportType type, DayOfWeek dow,
+			float weightCost, float volumeCost, int maxWeight, int maxVolume, int duration, int frequency, boolean createNew){
+
+		//If a new XML needs to be created, create it. Also add a new CU event to the array of events
+		TCUEvent event = new TCUEvent(company, destination, origin, type, dow,
+				weightCost, volumeCost, maxWeight, maxVolume, duration, frequency);
+		events.add(event);
+		if(createNew){
+			logger.addEvent(event);
+		}
+
+		travelGraph.updatePathPrice(origin, destination, company, type, weightCost, volumeCost, maxWeight, maxVolume, dow, frequency, duration);
 
 
+		//write XML
+		//make boolean
+		//update JOURNEY ? ??
 	}
 
 	/**
@@ -89,10 +140,10 @@ public class KPS {
 			revenueTotal += usedJourney.getPrice(weight, volume);
 		}
 
-		//If a new object needs to be created, create an event object, add it to the arrayList and write it in XML using the Logger.
+		//If a new XML needs to be created, create it. Also add a new MD event to the array of events
+		MDEvent event = new MDEvent(date, destination, origin, priority, weight, volume);
+		events.add(event);
 		if(createNew){
-			MDEvent event = new MDEvent(date, destination, origin, priority, weight, volume);
-			events.add(event);
 			logger.addEvent(event);
 		}
 		//Update appropriate MailRecord
@@ -124,30 +175,18 @@ public class KPS {
 		//TODO: make boolean ?
 	}
 
-	public void loadEvents(){
-		if(logger.readXML().size() == 0){
-			//File xmlFile = new File("eventsData.xml");
-			return;
-		}
-		events = logger.readXML();
-		for (Event e:events){
-			if(e instanceof MDEvent ){
-				mailDelivery(((MDEvent) e).getDate(), ((MDEvent) e).getDestination(), ((MDEvent) e).getOrigin(),
-						((MDEvent) e).getWeight(), ((MDEvent) e).getVolume(), ((MDEvent) e).getPriority(), false);
-			}
-			else if(e instanceof TCUEvent){
-				costUpdate(((TCUEvent) e).getCompany(), ((TCUEvent) e).getDestination(), ((TCUEvent) e).getOrigin(), ((TCUEvent) e).getType(),
-						((TCUEvent) e).getDow(), ((TCUEvent) e).getWeightCost(), ((TCUEvent) e).getVolumeCost(), ((TCUEvent) e).getMaxWeight(),
-						((TCUEvent) e).getMaxVolume(), ((TCUEvent) e).getDuration(), ((TCUEvent) e).getFrequency(),false);
-			}
-			else if(e instanceof TDEvent){
-				discontinueRoute(((TDEvent)e).getOrigin(), ((TDEvent)e).getDestination(), ((TDEvent)e).getCompany(), ((TDEvent)e).getType(), ((TDEvent)e).getDow(), false);
-			}
 
-		}
-	}
-
-
+	/**
+	 * Updates the Journey class that it corresponds to, if it doesn't exist create a new Journey class.
+	 * Also cretes the event and
+	 * @param destination of the journey being updated
+	 * @param origin of the journey being updated
+	 * @param priority of the journey being updated
+	 * @param weightPrice the new price of weight per gram
+	 * @param volumePrice the new price of volume per cm^3
+	 * @param dow the day of week of the journey being updated
+	 * @param createNew weather to create a new XML item or not (if it is brand new entered via GUI)
+	 */
 	public void priceUpdate(String destination, String origin, Priority priority, float weightPrice, float volumePrice, DayOfWeek dow, boolean createNew){
 		//write XML
 		//return bool ?
@@ -157,29 +196,25 @@ public class KPS {
 			events.add(event);
 			logger.addEvent(event);
 		}
-		Journey j = new Journey(destination, origin, priority, weightPrice, volumePrice,travelGraph.getRoute(origin, destination, priority), dow);
 
-
-	}
-
-	public void costUpdate(String company, String destination, String origin, TransportType type, DayOfWeek dow,
-			float weightCost, float volumeCost, int maxWeight, int maxVolume, int duration, int frequency, boolean createNew){
-
-		//Create an event object, add it to the arrayList and write it in XML using the Logger.
-		if(createNew){
-			TCUEvent event = new TCUEvent(company, destination, origin, type, dow,
-					weightCost, volumeCost, maxWeight, maxVolume, duration, frequency);
-			events.add(event);
-			logger.addEvent(event);
+		//checks if the Journey exists, if so update it, otherwise create a new Journey object.
+		Journey jrny = getJourney(origin,destination,priority, dow);
+		if(jrny==null){
+			Journey j = new Journey(destination, origin, priority, weightPrice, volumePrice,travelGraph.getRoute(origin, destination, priority), dow);
 		}
+		else{
+			for(Journey j:journeys){
 
-		travelGraph.updatePathPrice(origin, destination, company, type, weightCost, volumeCost, maxWeight, maxVolume, dow, frequency, duration);
-
-
-		//write XML
-		//make boolean
-		//update JOURNEY ? ??
+				if(jrny==j){
+					j.setVolumePrice(volumePrice);
+					j.setWeightPrice(weightPrice);
+					return;
+				}
+			}
+		}
 	}
+
+
 
 	/**Takes in the date String of format "EEE HH:mm" and returns the day as type enum DayOfWeek.
 	 *

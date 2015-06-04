@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import travelGraph.Path;
 import travelGraph.Path.DayOfWeek;
+import travelGraph.Path.TransportType;
 import travelGraph.TravelGraph.Priority;
 
 public class Journey {
@@ -47,6 +48,16 @@ public class Journey {
 		return total;
 	}
 
+	public boolean checkPath(String origin, String destination, String commpany, TransportType type, DayOfWeek dow){
+		for(Path p: usedPaths){
+			if(p.getOrigin().getCity.equals(origin) && p.getDestination().getCity().equals(destination) && p.getCompany().equals(commpany) &&
+					p.getTransportType()==type && p.getDay().equals(dow)){
+				return true;
+			}
+		}
+		return false;
+	}
+
 //	public boolean checkJourney(String destination, String origin, Priority priority, ArrayList<Path> paths, DayOfWeek dow){
 //		if(this.destination.equals(destination) && this.origin.equals(origin) && this.priority.equals(priority)
 //				&& this.usedPaths.equals(o))
@@ -66,6 +77,12 @@ public class Journey {
 	}
 	public ArrayList<Path> getPaths(){
 		return usedPaths;
+	}
+	public void setWeightPrice(float wp){
+		weightPrice = wp;
+	}
+	public void setVolumePrice(float vp){
+		volumePrice = vp;
 	}
 //	public double getAverageDeliveryTime() {
 //		return averageDeliveryTime;
