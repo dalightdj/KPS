@@ -28,6 +28,8 @@ public class KPS {
 	private TravelGraph travelGraph;
 	//private graph sructure???
 
+
+
 	public KPS(){
 		travelGraph = new TravelGraph();
 		revenueTotal = 0.0;
@@ -243,5 +245,7 @@ public class KPS {
 		return events.size();
 	}
 
-
+	public TravelGraph getTravelGraph() {
+		return travelGraph;
+	}
 }
