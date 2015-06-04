@@ -137,8 +137,8 @@ public class EventsFrame extends JFrame implements ActionListener {
 
 	private void setupMDLabels() {
 		day.setText("<html><b><font size = 5 color=White>Date :  <font color = 'yellow'> "+dayString+"</b></html>");
-		origin.setText("<html><b><font size = 5 color=White>Origin :  <font color = 'yellow'>$ "+originString+"</b></html>");
-		destination.setText("<html><b><font size = 5 color=White>Destination : <font color = 'yellow'>$ "+destinationString+"</b></html>");
+		origin.setText("<html><b><font size = 5 color=White>Origin :  <font color = 'yellow'> "+originString+"</b></html>");
+		destination.setText("<html><b><font size = 5 color=White>Destination : <font color = 'yellow'> "+destinationString+"</b></html>");
 		priority.setText("<html><b><font size = 5 color=White>Priority : <font color = 'yellow'> "+priorityString+"</b></html>");
 		weight.setText("<html><b><font size = 5 color=White>Weight : <font color = 'yellow'> "+weightString+"</b></html>");
 		volume.setText("<html><b><font size = 5 color=White>Volume : <font color = 'yellow'> "+volumeString+"</b></html>");
