@@ -137,7 +137,7 @@ public class TravelGraph {
 				foundAPath = true;
 				Location to = p.getDestination();
 				if(!to.isVisited()){
-					double weight = p.getCost();
+					double weight = p.getWeight();
 					double weightPlusPath = weight + from.getDistance();
 					if(weightPlusPath < to.getDistance()){
 						queue.remove(to);//remove it so it can be updated and the re-added, this ensures that the queue's priorities are always up to date. does nothing if the Location isn't in the queue
@@ -155,7 +155,7 @@ public class TravelGraph {
 				for(Path p : airPaths){
 					Location to = p.getDestination();
 					if(!to.isVisited()){
-						double weight = p.getCost();
+						double weight = p.getWeight();
 						double weightPlusPath = weight + from.getDistance();
 						if(weightPlusPath < to.getDistance()){
 							bestWeight = weightPlusPath;
