@@ -106,7 +106,7 @@ public class Logger {
 	 * @param parentElement
 	 * @param event
 	 */
-	public void addTDEvent(Element parentElement, Event event){
+	private void addTDEvent(Element parentElement, Event event){
 
 
 		TDEvent tdEvent = (TDEvent) event;
@@ -128,13 +128,13 @@ public class Logger {
 	 * @param parentElement
 	 * @param event
 	 */
-	public void addCPUEvent(Element parentElement, Event event){
+	private void addCPUEvent(Element parentElement, Event event){
 
 		CPUEvent cpuEvent = (CPUEvent) event;
 
 		Element cpuNode = new Element("CPUEvent");
-		cpuNode.addContent(new Element("origin").setText(cpuEvent.getDesFrom()));
-		cpuNode.addContent(new Element("destination").setText(cpuEvent.getDesTo()));
+		cpuNode.addContent(new Element("origin").setText(cpuEvent.getOrigin()));
+		cpuNode.addContent(new Element("destination").setText(cpuEvent.getDestination()));
 		cpuNode.addContent(new Element("priority").setText(cpuEvent.getPriority().toString()));
 		cpuNode.addContent(new Element("weightPrice").setText(Float.toString(cpuEvent.getWeightPrice())));
 		cpuNode.addContent(new Element("volumePrice").setText(Float.toString(cpuEvent.getVolumePrice())));
@@ -150,7 +150,7 @@ public class Logger {
 	 * @param parentElement
 	 * @param event
 	 */
-	public void addTCUEvent(Element parentElement, Event event){
+	private void addTCUEvent(Element parentElement, Event event){
 
 		TCUEvent tcuEvent = (TCUEvent) event;
 
@@ -176,7 +176,7 @@ public class Logger {
 	 * @param parentElement
 	 * @param event
 	 */
-	public void addMDEvent(Element parentElement, Event event){
+	private void addMDEvent(Element parentElement, Event event){
 
 		MDEvent mdEvent = (MDEvent) event;
 

@@ -14,32 +14,32 @@ public class CPUEvent extends Event {
 	private DayOfWeek dow;
 
 
-	public CPUEvent(String destination, String origin, Priority priority, float weightCost, float volumeCost, DayOfWeek dow) {
+	public CPUEvent(String destination, String origin, Priority priority, float weightPrice, float volumePrice, DayOfWeek dow) {
 		this.destination = destination;
 		this.origin = origin;
 		this.priority = priority;
-		this.weightPrice = weightCost;
-		this.volumePrice = volumeCost;
+		this.weightPrice = weightPrice;
+		this.volumePrice = volumePrice;
 		this.dow = dow;
 	}
 
 
-	public String getDesTo() {
+	public String getDestination() {
 		return destination;
 	}
 
 
-	public void setDesTo(String destination) {
+	public void setDestination(String destination) {
 		this.destination = destination;
 	}
 
 
-	public String getDesFrom() {
+	public String getOrigin() {
 		return origin;
 	}
 
 
-	public void setDesFrom(String origin) {
+	public void setOrigin(String origin) {
 		this.origin = origin;
 	}
 
