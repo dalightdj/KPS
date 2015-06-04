@@ -3,9 +3,13 @@ package Logger;
 import travelGraph.Path.DayOfWeek;
 import travelGraph.Path.TransportType;
 
+/**
+ * This file represents a Transport Cost Update event
+ * @author rahulnaidu
+ *
+ */
 public class TCUEvent extends Event {
 	
-	private static final String eventType = "TransportCostUpdate";
 	private String company;
 	private String destination;
 	private String origin;
@@ -36,11 +40,6 @@ public class TCUEvent extends Event {
 	}
 	
 	
-	
-	public static String getEventtype() {
-		return eventType;
-	}
-
 	public String getCompany() {
 		return company;
 	}
