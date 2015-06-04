@@ -20,6 +20,8 @@ import javax.swing.JPanel;
 
 import Logger.Event;
 import Logger.MDEvent;
+import Logger.TCUEvent;
+import Logger.TDEvent;
 import Logic.KPS;
 import Main.MainFrame;
 
@@ -46,7 +48,6 @@ public class EventsFrame extends JFrame implements ActionListener {
 	private KPS kpsObject;
 	
 	private ArrayList<Event> events;
-	private MDEvent currentEvent; //keep track of the current Event observed
 	private int eventCount = 0; //keep track of which event we're on (in the list events)
 	
 	public EventsFrame(KPSFrame frame) {
@@ -94,15 +95,31 @@ public class EventsFrame extends JFrame implements ActionListener {
 	private void updateGUI() {
 		this.events = kpsObject.getEvents(); //get latest events every time it this GUI updates
 		
-		currentEvent = (MDEvent) events.get(eventCount);
+		String dayString = "";
+		String originString ="";
+		String destinationString = "";
+		String priorityString = "";
+		String weightString = "";
+		String volumeString = "";
+		
+		if(events.get(eventCount) instanceof MDEvent) {
+			MDEvent currentEvent =  (MDEvent) events.get(eventCount);
+			dayString = currentEvent.getDate();
+			originString = currentEvent.getOrigin();
+			destinationString = currentEvent.getDestination();
+			priorityString = currentEvent.getPriority().toString();
+			weightString = String.valueOf(currentEvent.getWeight());
+			volumeString = String.valueOf(currentEvent.getVolume());
+		}
+		else if(events.get(eventCount) instanceof TCUEvent) {
+			TCUEvent currentEvent = (TCUEvent) events.get(eventCount);
+		}
+		if(events.get(eventCount) instanceof TDEvent) {
+			TDEvent currentEvent = (TDEvent) events.get(eventCount);
+		}
 		
 		//TODO: retrieve values using kpsObject (initialised in constructor) from events data xml or what ever the methods are in KPS class
-		String dayString = currentEvent.getDate();
-		String originString = currentEvent.getOrigin();
-		String destinationString = currentEvent.getDestination();
-		String priorityString = currentEvent.getPriority().toString();
-		String weightString = String.valueOf(currentEvent.getWeight());
-		String volumeString = String.valueOf(currentEvent.getVolume());
+
 
 		//TODO: Comment this out once the values have been retrieved above
 		day.setText("<html><b><font size = 5 color=White>Date :  <font color = 'yellow'> "+dayString+"</b></html>");
@@ -111,7 +128,6 @@ public class EventsFrame extends JFrame implements ActionListener {
 		priority.setText("<html><b><font size = 5 color=White>Priority : <font color = 'yellow'> "+priorityString+"</b></html>");
 		weight.setText("<html><b><font size = 5 color=White>Weight : <font color = 'yellow'> "+weightString+"</b></html>");
 		volume.setText("<html><b><font size = 5 color=White>Volume : <font color = 'yellow'> "+volumeString+"</b></html>");
-		
 	}
 
 	private void setupLabels() {
@@ -178,14 +194,21 @@ public class EventsFrame extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == nextEvent) {
-			eventCount++;
-			updateGUI();
+			if(++eventCount == events.size()) { //make sure we don't increase past the size of events list
+				//System.out.println("attempting to go out of events list size"); //testing
+				return;
+			}
+			else {
+				eventCount++;
+				updateGUI();
+			}
 		}
 		else if(e.getSource() == prevEvent) {
 			if(eventCount ==0) { //check if eventCount is 0 so that we don't get out of bounds exception
 				return;
 			}
 			else {
+				//System.out.println("attempting to go below events list size"); //testing
 				eventCount--;
 				updateGUI();
 			}

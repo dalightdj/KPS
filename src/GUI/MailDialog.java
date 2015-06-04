@@ -215,12 +215,18 @@ public class MailDialog extends JDialog implements ActionListener {
 			allLocations.add(cityName.getCity());
 			System.out.println(cityName.getCity());
 		}
-		destinationComboBox = new JComboBox(allLocations.toArray()); //convert list to array and give to combobox
+		//destinationComboBox = new JComboBox(allLocations.toArray()); //convert list to array and give to combobox
 		destinationComboBox.addActionListener(this);
 		c2.gridx = 0;
 		c2.gridy = 2;
-		op.add(destinationComboBox,c2);
+		//op.add(destinationComboBox,c2); //TODO add this in later
 
+		//TODO:REMOVE THIS WHEN THE PART ABOVE IS FIXED
+		String[] fromList = {"Auckland", "Hamilton", "Rotorua", "Palmerston North", "Wellington", "Christchurch", "Dunedin"};
+		destinationComboBox = new JComboBox(fromList); //convert list to array and give to combobox
+		c2.gridx = 0;
+		c2.gridy = 2;
+		op.add(destinationComboBox,c2);
 
 		weightTextField = new JTextField(10);
 		c2.gridx = 0;
