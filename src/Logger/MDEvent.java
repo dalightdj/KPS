@@ -2,9 +2,13 @@ package Logger;
 
 import travelGraph.TravelGraph.Priority;
 
+/**
+ * This class represents a Mail Delivery event 
+ * @author rahulnaidu
+ *
+ */
 public class MDEvent extends Event {
 	
-	private static final String eventType = "MailDelivery";
 	private String date;
 	private String destination;
 	private String origin;
