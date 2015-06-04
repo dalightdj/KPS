@@ -64,9 +64,12 @@ public class Path {
 	 * Calculates the cost of a package delivery on this path
 	 * @param weight The weight of the package in grams
 	 * @param volume The volume of the package in cubic centimeters
-	 * @return The cost to deliver a package with the given weight and volume on this path
+	 * @return The cost to deliver a package with the given weight and volume on this path. Returns -1 if it the given weight or volume exceeds the maximum weight or volume allowed on this path
 	 */
 	public float calcCost(int weight, int volume){
+		if(weight>maxWeight || volume>maxVolume){
+			return -1.0f;
+		}
 		return (weight*ppGram) + (volume*ppCmCubed);
 	}
 	
@@ -133,7 +136,11 @@ public class Path {
 		return day;
 	}
 	
-	public float getCost(){
+	/**
+	 * 
+	 * @return The weight of this Path. For Dijkstra's algorithm
+	 */
+	public float getWeight(){
 		return cost;
 	}
 }
