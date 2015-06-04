@@ -44,7 +44,17 @@ public class EventsFrame extends JFrame implements ActionListener {
 	private JLabel day;
 	private JLabel weight;
 	private JLabel volume;
+	private JLabel title;
+	private JLabel typeTitle;
 
+	/*Information for the labels*/
+	private String dayString = "";
+	private String originString ="";
+	private String destinationString = "";
+	private String priorityString = "";
+	private String weightString = "";
+	private String volumeString = "";
+	
 	private KPS kpsObject;
 	
 	private ArrayList<Event> events;
@@ -87,7 +97,7 @@ public class EventsFrame extends JFrame implements ActionListener {
 		
 		this.setResizable(false);
 		this.pack();
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setVisible(true);
  		
 	}
@@ -95,14 +105,9 @@ public class EventsFrame extends JFrame implements ActionListener {
 	private void updateGUI() {
 		this.events = kpsObject.getEvents(); //get latest events every time it this GUI updates
 		
-		String dayString = "";
-		String originString ="";
-		String destinationString = "";
-		String priorityString = "";
-		String weightString = "";
-		String volumeString = "";
 		
 		if(events.get(eventCount) instanceof MDEvent) {
+			
 			MDEvent currentEvent =  (MDEvent) events.get(eventCount);
 			dayString = currentEvent.getDate();
 			originString = currentEvent.getOrigin();
@@ -110,6 +115,7 @@ public class EventsFrame extends JFrame implements ActionListener {
 			priorityString = currentEvent.getPriority().toString();
 			weightString = String.valueOf(currentEvent.getWeight());
 			volumeString = String.valueOf(currentEvent.getVolume());
+			setupMDLabels();
 		}
 		else if(events.get(eventCount) instanceof TCUEvent) {
 			TCUEvent currentEvent = (TCUEvent) events.get(eventCount);
@@ -120,8 +126,16 @@ public class EventsFrame extends JFrame implements ActionListener {
 		
 		//TODO: retrieve values using kpsObject (initialised in constructor) from events data xml or what ever the methods are in KPS class
 
+		//typeTitle.setText("<html><b><u><font size = 5 color=BLACK>Event Number: <font color = 'yellow'> asd</b></u></html>");
+
+		title.setText("<html><b><font size = 5 color=BLACK>Event Number: <font color = 'yellow'> "+eventCount+"</b></html>");
+		typeTitle.setText("<html><b><font size = 5 color=BLACK>Event Type:<font color = yellow size = 5> asd</b></html>");
 
 		//TODO: Comment this out once the values have been retrieved above
+
+	}
+
+	private void setupMDLabels() {
 		day.setText("<html><b><font size = 5 color=White>Date :  <font color = 'yellow'> "+dayString+"</b></html>");
 		origin.setText("<html><b><font size = 5 color=White>Origin :  <font color = 'yellow'>$ "+originString+"</b></html>");
 		destination.setText("<html><b><font size = 5 color=White>Destination : <font color = 'yellow'>$ "+destinationString+"</b></html>");
@@ -133,42 +147,52 @@ public class EventsFrame extends JFrame implements ActionListener {
 	private void setupLabels() {
 		GridBagConstraints c = new GridBagConstraints();
 		mainPanel.setLayout(new GridBagLayout());
-		c.insets = new Insets(0,10,30,0); //top, left, bottom, right padding (in that order)
+		c.insets = new Insets(0,10,10,0); //top, left, bottom, right padding (in that order)
 		c.fill = GridBagConstraints.HORIZONTAL;
 		
+		/*Initialize all labels*/
 		origin = new JLabel();
 		destination = new JLabel();
 		priority = new JLabel();
 		day = new JLabel();
 		weight = new JLabel();
 		volume = new JLabel();
+		title = new JLabel();
+		typeTitle = new JLabel();
 
 		c.weightx = 1.0;
-
+		
 		c.gridx = 0;
-		c.gridy = 1;
+		c.gridy = 2;
 		mainPanel.add(day,c);
 
 		c.gridx = 0;
-		c.gridy = 2;
+		c.gridy = 3;
 		mainPanel.add(origin,c);
 
 		c.gridx = 0;
-		c.gridy = 3;
+		c.gridy = 4;
 		mainPanel.add(destination,c);
 
 		c.gridx = 0;
-		c.gridy = 4;
+		c.gridy = 5;
 		mainPanel.add(priority,c);
 
 		c.gridx = 0;
-		c.gridy = 5;
+		c.gridy = 6;
 		mainPanel.add(weight,c);
 		
 		c.gridx = 0;
-		c.gridy = 6;
+		c.gridy = 7;
 		mainPanel.add(volume,c);
 		
+		c.gridx = 0;
+		c.gridy = 0;
+		mainPanel.add(title,c);
+		
+		c.gridx = 0;
+		c.gridy = 1;
+		mainPanel.add(typeTitle,c);
 	}
 
 	private void setupButtons() {
