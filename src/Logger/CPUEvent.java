@@ -78,10 +78,6 @@ public class CPUEvent extends Event {
 	}
 
 
-	public static String getEventtype() {
-		return eventType;
-	}
-
 	public DayOfWeek getDow() {
 		return dow;
 	}

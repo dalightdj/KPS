@@ -87,12 +87,6 @@ public class MDEvent extends Event {
 		this.volume = volume;
 	}
 
-
-	public static String getEventtype() {
-		return eventType;
-	}
-
-	
 	
 	
 }

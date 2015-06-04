@@ -61,10 +61,6 @@ public class TDEvent extends Event {
 	public void setType(TransportType type) {
 		this.type = type;
 	}
-
-	public static String getEventtype() {
-		return eventType;
-	}
 	
 	public DayOfWeek getDow() {
 		return dow;
