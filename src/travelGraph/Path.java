@@ -151,4 +151,8 @@ public class Path {
 	public float getWeight(){
 		return cost;
 	}
+	
+	public Location getOrigin(){
+		return origin;
+	}
 }
