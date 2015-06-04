@@ -65,14 +65,22 @@ public class Path {
 	 * @param weight The weight of the package in grams
 	 * @param volume The volume of the package in cubic centimeters
 	 * @return The cost to deliver a package with the given weight and volume on this path. Returns -1 if it the given weight or volume exceeds the maximum weight or volume allowed on this path
+	 * @throws OverweightException If the weight is greater than the maximum possible weight for this Path
+	 * @throws ExceededVolumeException  If the volume is greater than the maximum possible volume for this Path
 	 */
-	public float calcCost(int weight, int volume){
-		if(weight>maxWeight || volume>maxVolume){
-			return -1.0f;
-		}
+	public float calcCost(int weight, int volume) throws OverweightException, ExceededVolumeException{
+		if(weight>maxWeight) throw new OverweightException();
+		if(volume>maxVolume) throw new  ExceededVolumeException();
 		return (weight*ppGram) + (volume*ppCmCubed);
 	}
 	
+	public class OverweightException extends Exception{
+		
+	}
+	
+	public class ExceededVolumeException extends Exception{
+		
+	}
 	
 	/**
 	 * Update 'price per gram'
