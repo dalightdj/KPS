@@ -17,7 +17,12 @@ import travelGraph.TravelGraph.Priority;
 
 
 
-
+/**
+ * This class is in charge of adding Events to a xml file and also reading Events from 
+ * that xml file
+ * @author rahulnaidu
+ *
+ */
 public class Logger {
 
 
@@ -192,6 +197,10 @@ public class Logger {
 
 	}
 
+	/**
+	 * This method reads in the xml file that contains all the events and returns a arraylist of the events
+	 * @return ArrayList<Event>
+	 */
 	public ArrayList<Event> readXML(){
 
 		
@@ -283,7 +292,11 @@ public class Logger {
 
 	}
 	
-	
+	/**
+	 * This returns the right Priority enum given the String representation of it 
+	 * @param priority
+	 * @return Priority
+	 */
 	public Priority getPriority(String priority){
 		
 		Priority p = null;
@@ -297,7 +310,11 @@ public class Logger {
 		return p;	
 	}
 	
-	
+	/**
+	 * Returns the correct TransporType enum given the String representation of it
+	 * @param type
+	 * @return TransportType
+	 */
 	public TransportType getType(String type){
 		
 		TransportType t = null;
@@ -317,6 +334,11 @@ public class Logger {
 		
 	}
 	
+	/**
+	 * Return the correct DayOfWeek given the String representation of it 
+	 * @param dow
+	 * @return TransportType
+	 */
 	public DayOfWeek getDow(String dow){
 		
 		DayOfWeek d = null;
@@ -345,22 +367,5 @@ public class Logger {
 		return d;
 		
 	}
-	
-	
-
-	/*
-	public static void main(String[] args) {
-		Logger logger = new Logger();
-		//TDEvent tdEvent = new  TDEvent("ddddd", "ddddd", "ddddddd", TransportType.AIR, DayOfWeek.FRIDAY);
-		//MDEvent mdEvent = new MDEvent("Monday", "England", "New Zealand", "International Air", 10, 14);
-		TCUEvent tcuEvent = new TCUEvent("ddsfd", "dfsdf", "dsfsdf", TransportType.AIR, DayOfWeek.FRIDAY, 12, 12, 12, 12, 12, 12);
-		//CPUEvent cpuEvent = new CPUEvent("India", "New Zealand", "International Air", 34, 43);
-		//logger.addEvent(tdEvent);
-		//logger.addEvent(cpuEvent);
-		//logger.addEvent(mdEvent);
-		logger.addEvent(tcuEvent);
-		ArrayList<Event> e = logger.readXML();
-		System.out.println("sda");
-	}*/
 
 }

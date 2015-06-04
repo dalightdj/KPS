@@ -3,9 +3,13 @@ package Logger;
 import travelGraph.Path.DayOfWeek;
 import travelGraph.TravelGraph.Priority;
 
+/**
+ * This is class is used to represent a customer price update event
+ * @author rahulnaidu
+ *
+ */
 public class CPUEvent extends Event {
 	
-	private static final String eventType = "CustomerPriceUpdate";
 	private String destination;
 	private String origin;
 	private Priority priority;
