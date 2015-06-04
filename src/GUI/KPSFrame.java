@@ -78,8 +78,9 @@ public class KPSFrame extends JFrame {
  		this.add(buttonsPanel, BorderLayout.WEST);
 
  		guiInformation = new JPanel();
+ 		guiInformation.setBackground(Color.BLACK);
  		guiInformation.setLayout(new GridBagLayout());
- 		guiInformation.setBorder(BorderFactory.createLineBorder(Color.black));
+ 		guiInformation.setBorder(BorderFactory.createLoweredBevelBorder());
  		this.add(guiInformation,BorderLayout.CENTER);
 
  		setupGuiInformationLabels(); //initialise the labels
