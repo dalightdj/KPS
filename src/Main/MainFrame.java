@@ -177,7 +177,11 @@ public class MainFrame extends JFrame implements ActionListener {
 	 public void login() {
 			if(username.getText().equals("admin") && password.getText().equals("admin")) {
 				this.dispose();
-				new KPSFrame();
+				new KPSFrame(false);
+			}
+			else if(username.getText().equals("manager") && password.getText().equals("manager")) {
+				this.dispose();
+				new KPSFrame(true);
 			}
 			else {
 				JOptionPane.showMessageDialog(this,"Please re-enter your log in details","Invalid Login Details",JOptionPane.ERROR_MESSAGE);
