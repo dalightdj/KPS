@@ -40,11 +40,6 @@ public class TCUEvent extends Event {
 	}
 	
 	
-	
-	public static String getEventtype() {
-		return eventType;
-	}
-
 	public String getCompany() {
 		return company;
 	}
