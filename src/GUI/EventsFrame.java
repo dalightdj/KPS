@@ -124,14 +124,10 @@ public class EventsFrame extends JFrame implements ActionListener {
 			TDEvent currentEvent = (TDEvent) events.get(eventCount);
 		}
 		
-		//TODO: retrieve values using kpsObject (initialised in constructor) from events data xml or what ever the methods are in KPS class
-
-		//typeTitle.setText("<html><b><u><font size = 5 color=BLACK>Event Number: <font color = 'yellow'> asd</b></u></html>");
-
-		title.setText("<html><b><font size = 5 color=BLACK>Event Number: <font color = 'yellow'> "+eventCount+"</b></html>");
+		int tempEventCount = eventCount + 1; //this is just for increasing 1 so first event doesn't show as "Event Number: 0"
+		title.setText("<html><b><font size = 5 color=BLACK>Event Number: <font color = 'yellow'> "+tempEventCount+"</b></html>");
 		typeTitle.setText("<html><b><font size = 5 color=BLACK>Event Type:<font color = yellow size = 5> asd</b></html>");
 
-		//TODO: Comment this out once the values have been retrieved above
 
 	}
 
