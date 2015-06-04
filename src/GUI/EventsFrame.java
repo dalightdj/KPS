@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import Logger.Event;
@@ -147,7 +148,8 @@ public class EventsFrame extends JFrame implements ActionListener {
 		mainPanel.setLayout(new GridBagLayout());
 		c.insets = new Insets(0,10,0,10); //top, left, bottom, right padding (in that order)
 		c.fill = GridBagConstraints.HORIZONTAL;
-		
+		c.weightx = 1.0;
+
 		/*Initialize all labels*/
 		origin = new JLabel();
 		destination = new JLabel();
@@ -157,14 +159,12 @@ public class EventsFrame extends JFrame implements ActionListener {
 		volume = new JLabel();
 		title = new JLabel();
 		typeTitle = new JLabel();
-
-		c.weightx = 1.0;
 		
 		day.setBackground(Color.BLACK);
 		day.setOpaque(true);
 		day.setBorder(new EmptyBorder(0,10,0,0));
 		
-		origin.setBackground(new Color(44, 44, 44));
+		origin.setBackground(new Color(36, 36, 36));
 		origin.setOpaque(true);
 		origin.setBorder(new EmptyBorder(0,10,0,0));
 
@@ -172,7 +172,7 @@ public class EventsFrame extends JFrame implements ActionListener {
 		destination.setOpaque(true);
 		destination.setBorder(new EmptyBorder(0,10,0,0));
 
-		priority.setBackground(new Color(44, 44, 44));
+		priority.setBackground(new Color(36, 36, 36));
 		priority.setOpaque(true);
 		priority.setBorder(new EmptyBorder(0,10,0,0));
 
@@ -180,34 +180,45 @@ public class EventsFrame extends JFrame implements ActionListener {
 		weight.setOpaque(true);
 		weight.setBorder(new EmptyBorder(0,10,0,0));
 
-		volume.setBackground(new Color(44, 44, 44));
+		volume.setBackground(new Color(36, 36, 36));
 		volume.setOpaque(true);
 		volume.setBorder(new EmptyBorder(0,10,0,0));
 
-
-		c.gridx = 0;
-		c.gridy = 2;
-		mainPanel.add(day,c);
-
-		c.gridx = 0;
-		c.gridy = 3;
-		mainPanel.add(origin,c);
-
-		c.gridx = 0;
-		c.gridy = 4;
-		mainPanel.add(destination,c);
-
-		c.gridx = 0;
-		c.gridy = 5;
-		mainPanel.add(priority,c);
-
-		c.gridx = 0;
-		c.gridy = 6;
-		mainPanel.add(weight,c);
+		JPanel labelPanel = new JPanel();
+		labelPanel.setLayout(new GridBagLayout());
+		GridBagConstraints c2 = new GridBagConstraints();
+		labelPanel.setLayout(new GridBagLayout());
+		labelPanel.setBorder(BorderFactory.createLoweredBevelBorder()); 
 		
-		c.gridx = 0;
-		c.gridy = 7;
-		mainPanel.add(volume,c);
+
+		
+		c2.insets = new Insets(0,0,0,0); //top, left, bottom, right padding (in that order)
+		c2.fill = GridBagConstraints.HORIZONTAL;
+		c2.weightx = 1;
+		
+		c2.gridx = 0;
+		c2.gridy = 2;
+		labelPanel.add(day,c2);
+
+		c2.gridx = 0;
+		c2.gridy = 3;
+		labelPanel.add(origin,c2);
+
+		c2.gridx = 0;
+		c2.gridy = 4;
+		labelPanel.add(destination,c2);
+
+		c2.gridx = 0;
+		c2.gridy = 5;
+		labelPanel.add(priority,c2);
+
+		c2.gridx = 0;
+		c2.gridy = 6;
+		labelPanel.add(weight,c2);
+		
+		c2.gridx = 0;
+		c2.gridy = 7;
+		labelPanel.add(volume,c2);
 		
 		c.insets = new Insets(0,10,10,10); 
 		c.gridx = 0;
@@ -217,6 +228,11 @@ public class EventsFrame extends JFrame implements ActionListener {
 		c.gridx = 0;
 		c.gridy = 1;
 		mainPanel.add(typeTitle,c);
+		
+		c.gridx = 0;
+		c.gridy = 2;
+		mainPanel.add(labelPanel, c);
+
 	}
 
 	private void setupButtons() {
