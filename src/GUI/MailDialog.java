@@ -101,8 +101,8 @@ public class MailDialog extends JDialog implements ActionListener {
 		this.setIconImage(icon.getImage());
 
 
+ 		/*add an acitonListener to the origin combobox and make sure the destinations update according to currently selected origin*/
 		destinationComboBox = new JComboBox();
-
  		ArrayList<String> origins = kpsObject.getOrigins();
 		fromComboBox = new JComboBox(origins.toArray());
 		fromComboBox.addActionListener(this);
@@ -171,17 +171,6 @@ public class MailDialog extends JDialog implements ActionListener {
  		String origin = (String) fromComboBox.getSelectedItem();
  		String destination =  (String) destinationComboBox.getSelectedItem();
  		Location dest = new Location(destination);
-
- 		/*Check what the currently selected priority is and create an enum*/
- 		String priority = (String) priorityComboBox.getSelectedItem();
- 		Priority priorityEnum;
-
- 		if(priority.equals("Air")) {
- 			 priorityEnum = Priority.AIR;
- 		}
- 		else {
- 			priorityEnum = Priority.STANDARD;
- 		}
 
  		ArrayList<String> locs = kpsObject.getDestinations(origin);
 
