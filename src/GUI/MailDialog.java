@@ -109,7 +109,7 @@ public class MailDialog extends JDialog implements ActionListener {
 
 		fromComboBox.addActionListener (new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {
-		        setupOriginComboBox(optionsPanel, c2);
+		    	updateDestinationComboBox(optionsPanel);
 		    }
 		});
 
@@ -117,7 +117,7 @@ public class MailDialog extends JDialog implements ActionListener {
 		/*This is the panel with all the labels*/
 		labelPanel = new JPanel();
 		//labelPanel.setBorder(BorderFactory.createLineBorder(Color.red)); //just for checking the positioning, can remove later
-		labelPanel.setPreferredSize(new Dimension(80,0));
+		labelPanel.setPreferredSize(new Dimension(150,0));
 		labelPanel.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5,1,5,1); //top, left, bottom, right padding (in that order)
@@ -165,7 +165,7 @@ public class MailDialog extends JDialog implements ActionListener {
 	 * @param optionsPanel2
 	 * 	@param c22
  	*/
-	protected void setupOriginComboBox(JPanel op, GridBagConstraints c2) {
+	protected void updateDestinationComboBox(JPanel op) {
 		/*Check what the currently selected destination is and create a location*/
 
  		String origin = (String) fromComboBox.getSelectedItem();
@@ -175,6 +175,7 @@ public class MailDialog extends JDialog implements ActionListener {
  		/*Check what the currently selected priority is and create an enum*/
  		String priority = (String) priorityComboBox.getSelectedItem();
  		Priority priorityEnum;
+
  		if(priority.equals("Air")) {
  			 priorityEnum = Priority.AIR;
  		}
@@ -182,25 +183,12 @@ public class MailDialog extends JDialog implements ActionListener {
  			priorityEnum = Priority.STANDARD;
  		}
 
-
-/*		ArrayList<Location> locs;
- 		locs = kpsObject.getTravelGraph().allReachableLocations(dest, priorityEnum);
-
- 		An array list containing all possible locations
-		ArrayList<String> allLocations = new ArrayList<String>();
-
-		Iterate over locs list and add to new arraylist that will be converted to array later
-		for(Location cityName : locs) {
-			System.out.println("1111"); //test to see if it reaches here
-			allLocations.add(cityName.getCity());
-			System.out.println(cityName.getCity());
-		}*/
-
-
  		ArrayList<String> locs = kpsObject.getDestinations(origin);
- 		destinationComboBox.removeAllItems();
+
+ 		destinationComboBox.removeAllItems(); //remove all the current destinations
+
+ 		/*Update the destinations combo box with available paths from current origin*/
  		for(String s : locs) {
- 			System.out.println(s);
  	    	destinationComboBox.addItem(s);
  		}
 	}
@@ -227,7 +215,7 @@ public class MailDialog extends JDialog implements ActionListener {
 		destinationComboBox.addActionListener(this);
 		c2.gridx = 0;
 		c2.gridy = 2;
-		op.add(destinationComboBox,c2); //TODO add this in later
+		op.add(destinationComboBox,c2);
 
 
 		String[] priorityList = {"Standard", "Air"};
@@ -258,6 +246,7 @@ public class MailDialog extends JDialog implements ActionListener {
 		c2.gridy = 4;
 		op.add(volumeLabelInfo,c2);
 
+		updateDestinationComboBox(op);
 	}
 
 	/**
@@ -315,8 +304,6 @@ public class MailDialog extends JDialog implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == submit) {
-			System.out.println(weightTextField.getText());
-			System.out.println(volumeTextField.getText());
 
 		     if (weightTextField.getText().equals("") && volumeTextField.getText().equals("")) {
 					JOptionPane.showMessageDialog(this,"Please enter all details","Insufficient Details",JOptionPane.ERROR_MESSAGE);
@@ -345,6 +332,13 @@ public class MailDialog extends JDialog implements ActionListener {
 
 		 		String destination =  (String) destinationComboBox.getSelectedItem();
 		 		String origin = (String) fromComboBox.getSelectedItem();
+
+		 		System.out.println(destination);
+
+		 		if(destination == null || destination.equals("")) {
+					JOptionPane.showMessageDialog(this,"There are no paths from the currently selected origin","No Paths",JOptionPane.ERROR_MESSAGE);
+					return;
+		 		}
 
 		 		/*Check to make sure it's an int*/
 		 		int weight = Integer.parseInt(weightTextField.getText());

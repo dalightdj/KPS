@@ -50,6 +50,11 @@ public class EventsFrame extends JFrame implements ActionListener {
 	private JLabel volume;
 	private JLabel title;
 	private JLabel typeTitle;
+	private JLabel maxWeightLabel;
+	private JLabel maxVolumeLabel;
+	private JLabel freqLabel;
+	private JLabel durationLabel;
+	private JLabel companylabel;
 
 	/*Information for the labels*/
 	private String dayString = "";
@@ -59,6 +64,13 @@ public class EventsFrame extends JFrame implements ActionListener {
 	private String weightString = "";
 	private String volumeString = "";
 	private String typeString = "";
+	private String maxWeightString = "";
+	private String maxVolumeString = "";
+	private String freqString = "";
+	private String durationString = "";
+	private String companyString = "";
+
+
 
 	private KPS kpsObject;
 
@@ -131,9 +143,30 @@ public class EventsFrame extends JFrame implements ActionListener {
 			}
 			else if(events.get(eventCount) instanceof TCUEvent) {
 				TCUEvent currentEvent = (TCUEvent) events.get(eventCount);
+				typeString = "Tranport Cost Update";
+				dayString = currentEvent.getDow().toString();
+				originString = currentEvent.getOrigin();
+				destinationString = currentEvent.getDestination();
+				priorityString = currentEvent.getType().toString();
+				weightString = String.valueOf(currentEvent.getWeightCost());
+				volumeString = String.valueOf(currentEvent.getVolumeCost());
+				maxWeightString = String.valueOf(currentEvent.getMaxWeight());
+				maxVolumeString = String.valueOf(currentEvent.getMaxVolume());
+				freqString = String.valueOf(currentEvent.getMaxVolume());
+				durationString = String.valueOf(currentEvent.getDuration());
+				setupTCULabels();
 			}
 			else if(events.get(eventCount) instanceof TDEvent) {
 				TDEvent currentEvent = (TDEvent) events.get(eventCount);
+				typeString = "Transport Discontinued";
+				dayString = currentEvent.getDow().toString();
+				originString = currentEvent.getOrigin();
+				destinationString = currentEvent.getDestination();
+				priorityString = currentEvent.getType().toString();
+				companyString = currentEvent.getCompany();
+
+
+				setupTDLabels();
 			}
 			else if(events.get(eventCount) instanceof CPUEvent) {
 				CPUEvent currentEvent = (CPUEvent) events.get(eventCount);
@@ -156,6 +189,39 @@ public class EventsFrame extends JFrame implements ActionListener {
 
 	}
 
+	private void setupTDLabels() {
+		day.setText("<html><b><font size = 5 color=White>  Date :  <font color = 'yellow'> "+dayString+"</b></html>");
+		origin.setText("<html><b><font size = 5 color=White>  Origin :  <font color = 'yellow'> "+originString+"</b></html>");
+		destination.setText("<html><b><font size = 5 color=White>  Destination : <font color = 'yellow'> "+destinationString+"</b></html>");
+		priority.setText("<html><b><font size = 5 color=White>  Priority : <font color = 'yellow'> "+priorityString+"</b></html>");
+
+		volume.setVisible(false);
+		weight.setVisible(false);
+		companylabel.setVisible(true);
+	}
+
+	private void setupTCULabels() {
+		day.setText("<html><b><font size = 5 color=White>  Date :  <font color = 'yellow'> "+dayString+"</b></html>");
+		origin.setText("<html><b><font size = 5 color=White>  Origin :  <font color = 'yellow'> "+originString+"</b></html>");
+		destination.setText("<html><b><font size = 5 color=White>  Destination : <font color = 'yellow'> "+destinationString+"</b></html>");
+		priority.setText("<html><b><font size = 5 color=White>  Priority : <font color = 'yellow'> "+priorityString+"</b></html>");
+		weight.setText("<html><b><font size = 5 color=White>  Weight : <font color = 'yellow'> "+weightString+"</b></html>");
+		volume.setText("<html><b><font size = 5 color=White>  Volume : <font color = 'yellow'> "+volumeString+"</b></html>");
+
+		maxWeightLabel.setText("<html><b><font size = 5 color=White>  Max Weight : <font color = 'yellow'> "+maxWeightString+"</b></html>");
+		maxVolumeLabel.setText("<html><b><font size = 5 color=White>  Ma Volume : <font color = 'yellow'> "+maxVolumeString+"</b></html>");
+		freqLabel.setText("<html><b><font size = 5 color=White>  Frequency : <font color = 'yellow'> "+freqString+"</b></html>");
+		durationLabel.setText("<html><b><font size = 5 color=White>  Duration : <font color = 'yellow'> "+durationString+"</b></html>");
+
+		/*Make these 4 labels visible for this event*/
+		maxWeightLabel.setVisible(true);
+		maxVolumeLabel.setVisible(true);
+		freqLabel.setVisible(true);
+		durationLabel.setVisible(true);
+		companylabel.setVisible(false);
+
+	}
+
 	private void setupCPULabels() {
 		day.setText("<html><b><font size = 5 color=White>  Date :  <font color = 'yellow'> "+dayString+"</b></html>");
 		origin.setText("<html><b><font size = 5 color=White>  Origin :  <font color = 'yellow'> "+originString+"</b></html>");
@@ -163,6 +229,14 @@ public class EventsFrame extends JFrame implements ActionListener {
 		priority.setText("<html><b><font size = 5 color=White>  Priority : <font color = 'yellow'> "+priorityString+"</b></html>");
 		weight.setText("<html><b><font size = 5 color=White>  Weight : <font color = 'yellow'> "+weightString+"</b></html>");
 		volume.setText("<html><b><font size = 5 color=White>  Volume : <font color = 'yellow'> "+volumeString+"</b></html>");
+
+		/*Make these 4 labels invisible for this event*/
+		maxWeightLabel.setVisible(false);
+		maxVolumeLabel.setVisible(false);
+		freqLabel.setVisible(false);
+		durationLabel.setVisible(false);
+		companylabel.setVisible(false);
+
 	}
 
 	private void setupMDLabels() {
@@ -172,6 +246,14 @@ public class EventsFrame extends JFrame implements ActionListener {
 		priority.setText("<html><b><font size = 5 color=White>  Priority : <font color = 'yellow'> "+priorityString+"</b></html>");
 		weight.setText("<html><b><font size = 5 color=White>  Weight : <font color = 'yellow'> "+weightString+"</b></html>");
 		volume.setText("<html><b><font size = 5 color=White>  Volume : <font color = 'yellow'> "+volumeString+"</b></html>");
+
+		/*Make these 4 labels invisible for this event*/
+		maxWeightLabel.setVisible(false);
+		maxVolumeLabel.setVisible(false);
+		freqLabel.setVisible(false);
+		durationLabel.setVisible(false);
+		companylabel.setVisible(false);
+
 	}
 
 	private void setupLabels() {
@@ -190,6 +272,11 @@ public class EventsFrame extends JFrame implements ActionListener {
 		volume = new JLabel();
 		title = new JLabel();
 		typeTitle = new JLabel();
+		maxWeightLabel = new JLabel();
+		maxVolumeLabel = new JLabel();
+		freqLabel = new JLabel();
+		durationLabel = new JLabel();
+		companylabel = new JLabel();
 
 		day.setBackground(Color.BLACK);
 		day.setOpaque(true);
@@ -214,6 +301,31 @@ public class EventsFrame extends JFrame implements ActionListener {
 		volume.setBackground(new Color(36, 36, 36));
 		volume.setOpaque(true);
 		volume.setBorder(new EmptyBorder(0,10,0,0));
+
+		maxWeightLabel.setBackground(Color.BLACK);
+		maxWeightLabel.setOpaque(true);
+		maxWeightLabel.setBorder(new EmptyBorder(0,10,0,0));
+		maxWeightLabel.setVisible(false);
+
+		maxVolumeLabel.setBackground(new Color(36, 36, 36));
+		maxVolumeLabel.setOpaque(true);
+		maxVolumeLabel.setBorder(new EmptyBorder(0,10,0,0));
+		maxVolumeLabel.setVisible(false);
+
+		freqLabel.setBackground(Color.BLACK);
+		freqLabel.setOpaque(true);
+		freqLabel.setBorder(new EmptyBorder(0,10,0,0));
+		freqLabel.setVisible(false);
+
+		durationLabel.setBackground(new Color(36, 36, 36));
+		durationLabel.setOpaque(true);
+		durationLabel.setBorder(new EmptyBorder(0,10,0,0));
+		durationLabel.setVisible(false);
+
+		companylabel.setBackground(Color.BLACK);
+		companylabel.setOpaque(true);
+		companylabel.setBorder(new EmptyBorder(0,10,0,0));
+		companylabel.setVisible(false);
 
 		JPanel labelPanel = new JPanel();
 		labelPanel.setLayout(new GridBagLayout());
@@ -251,6 +363,26 @@ public class EventsFrame extends JFrame implements ActionListener {
 		c2.gridy = 7;
 		labelPanel.add(volume,c2);
 
+		c2.gridx = 0;
+		c2.gridy = 8;
+		labelPanel.add(maxWeightLabel,c2);
+
+		c2.gridx = 0;
+		c2.gridy = 9;
+		labelPanel.add(maxVolumeLabel,c2);
+
+		c2.gridx = 0;
+		c2.gridy = 10;
+		labelPanel.add(freqLabel,c2);
+
+		c2.gridx = 0;
+		c2.gridy = 11;
+		labelPanel.add(durationLabel,c2);
+
+		c2.gridx = 0;
+		c2.gridy = 11;
+		labelPanel.add(companylabel,c2);
+
 		c.insets = new Insets(0,10,10,10);
 		c.gridx = 0;
 		c.gridy = 0;
@@ -263,7 +395,6 @@ public class EventsFrame extends JFrame implements ActionListener {
 		c.gridx = 0;
 		c.gridy = 2;
 		mainPanel.add(labelPanel, c);
-
 	}
 
 	private void setupButtons() {

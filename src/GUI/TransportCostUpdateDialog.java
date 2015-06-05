@@ -108,7 +108,7 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		/*This is the panel with all the labels*/
 		labelPanel = new JPanel();
 		//labelPanel.setBorder(BorderFactory.createLineBorder(Color.red)); //just for checking the positioning, can remove later
-		labelPanel.setPreferredSize(new Dimension(110,0));
+		labelPanel.setPreferredSize(new Dimension(150,0));
 		labelPanel.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5,1,5,1); //top, left, bottom, right padding (in that order)
