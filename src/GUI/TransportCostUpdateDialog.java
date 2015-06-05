@@ -61,7 +61,7 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 	/*All the options for the form*/
 	private JComboBox daysComboBox;
 	private JTextField destinatinTextField;
-	private JComboBox fromComboBox;
+	private JTextField originTextField;
 	private JComboBox typeComboBox;
 	private JTextField copmanyTextField;
 	private JTextField weightTextField;
@@ -75,6 +75,8 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 	private JLabel weightLabelInfo;
 	private JLabel maxWeightLabelInfo;
 	private JLabel volumeLabelInfo;
+	private JLabel durationLabelInfo; //per hours
+	private JLabel freqLabelInfo; //hours between flight
 
 	private BufferedImage frameIcon;
 
@@ -143,7 +145,7 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
  		mainPanel.setLayout(new BorderLayout());
  		mainPanel.add(optionsPanel, BorderLayout.CENTER);
  		mainPanel.add(labelPanel, BorderLayout.WEST);
- 		TitledBorder title = BorderFactory.createTitledBorder(null, "Transport Price Update", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 15), Color.RED);
+ 		TitledBorder title = BorderFactory.createTitledBorder(null, "Transport Cost Update", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("SansSerif", Font.PLAIN, 15), Color.RED);
  		mainPanel.setBorder(title);
  		underLyingPanel.add(mainPanel,BorderLayout.CENTER);
  		underLyingPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 20, 20)); //this sets up the padding
@@ -175,12 +177,11 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		c2.gridy = 1;
 		op.add(copmanyTextField,c2);
 
-		String[] fromList = {"Auckland", "Hamilton", "Rotorua", "Palmerston North", "Wellington", "Christchurch", "Dunedin"};
-		fromComboBox = new JComboBox(fromList);
-		fromComboBox.addActionListener(this);
+		originTextField = new JTextField();
+		originTextField.addActionListener(this);
 		c2.gridx = 0;
 		c2.gridy = 2;
-		op.add(fromComboBox,c2);
+		op.add(originTextField,c2);
 
 		destinatinTextField = new JTextField(10);
 		destinatinTextField.addActionListener(this);
@@ -225,6 +226,16 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		c2.gridy = 7;
 		op.add(volumeLabelInfo,c2);
 
+		durationLabelInfo = new JLabel("(Hours Between Flight)");
+		c2.gridx = 1;
+		c2.gridy = 10;
+		op.add(durationLabelInfo,c2);
+
+		freqLabelInfo = new JLabel("(Per Hour)");
+		c2.gridx = 1;
+		c2.gridy = 9;
+		op.add(freqLabelInfo,c2);
+
 		//departureTextField = new JTextField(10);
 		//c2.gridx = 0;
 		//c2.gridy = 9;
@@ -239,7 +250,6 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		c2.gridx = 0;
 		c2.gridy = 10;
 		op.add(durationTextField,c2);
-
 
 	}
 
@@ -323,11 +333,11 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		c.gridy = 9;
 		labelPanel.add(frequencyLabel,c);
 
-
 		durationLabel = new JLabel("Duration of Trip: ");
 		c.gridx = 0;
 		c.gridy = 10;
 		labelPanel.add(durationLabel,c);
+
 	}
 
 
@@ -390,8 +400,8 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		    	}
 		    	String companyString = copmanyTextField.getText();
 		    	String destination =  destinatinTextField.getText();
+		 		String origin = originTextField.getText();
 
-		 		String origin = (String) fromComboBox.getSelectedItem();
 		 		String dateString = (String) daysComboBox.getSelectedItem();
 
 
