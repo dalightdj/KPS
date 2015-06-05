@@ -162,7 +162,7 @@ public class TravelGraph_Test {
 	}
 	
 	@Test
-	public void testGetAllPossibleLocationsValid(){
+	public void testGetAllReachableLocationsValid(){
 		TravelGraph graph = createGraph();
 		
 		try {
@@ -183,7 +183,7 @@ public class TravelGraph_Test {
 	}
 	
 	@Test
-	public void testGetAllPossibleLocationsInvalid(){
+	public void testGetAllReachableLocationsInvalid(){
 		TravelGraph graph = createGraph();
 		
 		try {
