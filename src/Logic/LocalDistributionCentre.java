@@ -15,7 +15,7 @@ public class LocalDistributionCentre extends Location{
 	}
 
 	public String getName(){
-		return getCity();
+		return getName();
 	}
 
 	public ArrayList<MailRecord> getAllRecords(){

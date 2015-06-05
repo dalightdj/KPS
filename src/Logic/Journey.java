@@ -70,7 +70,7 @@ public class Journey {
 
 	public boolean checkPath(String origin, String destination, String commpany, TransportType type, DayOfWeek dow){
 		for(Path p: usedPaths){
-			if(p.getOrigin().getCity().equals(origin) && p.getDestination().getCity().equals(destination) && p.getCompany().equals(commpany) &&
+			if(p.getOrigin().getName().equals(origin) && p.getDestination().getName().equals(destination) && p.getCompany().equals(commpany) &&
 					p.getTransportType()==type && p.getDay().equals(dow)){
 				return true;
 			}

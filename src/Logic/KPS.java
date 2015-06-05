@@ -83,7 +83,7 @@ public class KPS {
 		try {
 			reachables = travelGraph.allReachableLocations(origin, priority);
 			for(Location l: reachables){
-				stringReachables.add(l.getCity());
+				stringReachables.add(l.getName());
 			}
 
 		} catch (UnknownLocationException e) {
