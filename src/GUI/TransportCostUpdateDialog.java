@@ -362,7 +362,7 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 					JOptionPane.showMessageDialog(this,"Please enter all details","Insufficient Details",JOptionPane.ERROR_MESSAGE);
 		     }
 		     else {
-		    	 /*Check that the input in the company text field is string only */
+		    	 /*Check that the input in the company, origin, and, destination text fields is string only */
 		    	 if(!copmanyTextField.getText().matches("^[a-zA-Z]+$")) {
 						JOptionPane.showMessageDialog(this,"Please enter a company name (letters only)","Insufficient Details",JOptionPane.ERROR_MESSAGE);
 						return;

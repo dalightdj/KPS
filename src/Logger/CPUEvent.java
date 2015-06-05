@@ -27,7 +27,7 @@ public class CPUEvent extends Event {
 		this.dow = dow;
 	}
 
-
+//origin destinaion priority weight price volune price dow 
 	public String getDestination() {
 		return destination;
 	}

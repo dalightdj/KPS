@@ -189,6 +189,7 @@ public class MainFrame extends JFrame implements ActionListener {
 			}
 			else {
 				JOptionPane.showMessageDialog(this,"Please re-enter your log in details","Invalid Login Details",JOptionPane.ERROR_MESSAGE);
+				password.setText("");
 			}
 	 }
 

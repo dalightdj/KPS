@@ -9,6 +9,7 @@ import travelGraph.Path.TransportType;
 import travelGraph.Path;
 import travelGraph.TravelGraph;
 import travelGraph.TravelGraph.Priority;
+import travelGraph.TravelGraph.UnknownLocationException;
 import Logger.CPUEvent;
 import Logger.Event;
 import Logger.Logger;
@@ -66,7 +67,7 @@ public class KPS {
 	public ArrayList<String> getOrigins(){
 		ArrayList<String> origns = new ArrayList<String>();
 		for(Journey j: journeys){
-			if(origns.contains(j.getOrigin())){
+			if(!origns.contains(j.getOrigin())){
 				origns.add(j.getOrigin());
 			}
 		}
@@ -76,13 +77,22 @@ public class KPS {
 	/**
 	 *
 	 */
-//	public ArrayList<String> getJourneyDestinations(String origin, Priority priority){
-//		ArrayList<String> stringReachables = new ArrayList<String>();
-//		ArrayList<Location> reachables = travelGraph.allReachableLocations(origin, priority);
-//		for(Location l: reachables){
-//
-//		}
-//	}
+	public ArrayList<String> getJourneyDestinations(String origin, Priority priority){
+		ArrayList<String> stringReachables = new ArrayList<String>();
+		ArrayList<Location> reachables;
+		try {
+			reachables = travelGraph.allReachableLocations(origin, priority);
+			for(Location l: reachables){
+				stringReachables.add(l.getCity());
+			}
+
+		} catch (UnknownLocationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return stringReachables;
+
+	}
 
 	public void loadEvents(){
 		if(logger.readXML().size() == 0){
@@ -238,10 +248,14 @@ public class KPS {
 		//return bool ?
 		//change in the GRAPH STRUCTURE
 
-		ArrayList<Path> pathings = travelGraph.getRoute(origin, destination, priority);
-		if(pathings == null){
-			return;
-		}
+		ArrayList<Path> pathings;
+		try {
+			pathings = travelGraph.getRoute(origin, destination, priority);
+			if(pathings == null){
+				return;
+			}
+
+
 
 		//If a new XML needs to be created, create it. Also add a new CPU event to the array of events
 		if(createNew){
@@ -265,6 +279,10 @@ public class KPS {
 					return;
 				}
 			}
+		}
+		} catch (UnknownLocationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

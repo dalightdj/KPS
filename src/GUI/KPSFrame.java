@@ -100,7 +100,7 @@ public class KPSFrame extends JFrame {
 		c.insets = new Insets(0,10,30,0); //top, left, bottom, right padding (in that order)
 		c.fill = GridBagConstraints.HORIZONTAL;
 
-		title = new JLabel("<html><b><u><font size = 5 color=BLACK>KELBURN POSTAL SERVICE</b></u></html>");
+		title = new JLabel("<html><b><u><font size = 5 color=WHITE>KELBURN POSTAL SERVICE</b></u></html>");
 
 		totalRevenue = new JLabel();
 		totalExpenditure = new JLabel();
