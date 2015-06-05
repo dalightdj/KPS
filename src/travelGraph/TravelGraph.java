@@ -85,14 +85,15 @@ public class TravelGraph {
 	 * @param destination Name of destination
 	 * @param priority The priority given to this package determines which routes will be searched
 	 * @return An ordered ArrayList of the Paths from origin to destination. Returns null if no such path exists
+	 * @throws UnknownLocationException If either origin or destination aren't an existing Location
 	 */
-	public ArrayList<Path> getRoute(String origin, String destination, Priority priority){
+	public ArrayList<Path> getRoute(String origin, String destination, Priority priority) throws UnknownLocationException{
 		Location[] locs = getLocs(origin, destination);
 		Location originLoc = locs[0];
 		Location destLoc = locs[1];
 
 		if(originLoc==null || destLoc==null){//if one of the locations don't exist
-			return null;//THROW A LOCATION DOESNT EXIST EXCEPTION
+			throw new UnknownLocationException();
 		}
 
 		//FIND A ROUTE USING DIJKSTRA
@@ -228,23 +229,29 @@ public class TravelGraph {
 	 * @param origin Name of origin
 	 * @param priority Air will only search through paths that provide Air TransportType. Standard will search through all navigable paths
 	 * @return A list of all the possible Locations accessible from the origin using the given priority
+	 * @throws UnknownLocationException  If the given origin isn't an existing Location
 	 */
-	public ArrayList<Location> allReachableLocations(Location origin, Priority priority){
+	public ArrayList<Location> allReachableLocations(String origin, Priority priority) throws UnknownLocationException{
+		Location originLoc = getLocs(origin, origin)[0];
+
+		if(originLoc==null){throw new UnknownLocationException();}
+
 		ArrayList<Location> locs = new ArrayList<Location>();
 
 		Queue<Location> queue = new LinkedList<Location>();
+		queue.offer(originLoc);
 
 		//reset all Location visited fields
 		for(Location l : locations){
 			l.setVisited(false);
 		}
-		
+
 		while(!queue.isEmpty()){
 			Location from = queue.poll();
 			from.setVisited(true);
 
 			for(Path p : from.getPaths()){
-				
+
 				//If its the correct type of path
 				if((priority==Priority.AIR && p.getTransportType()==TransportType.AIR) || (priority==Priority.STANDARD)){
 					//and the path's destination isn't already in the list of reachable Locations 
@@ -255,10 +262,13 @@ public class TravelGraph {
 				}
 			}
 		}
-		
+
 		return locs;
 	}
 
+	public class UnknownLocationException extends Exception{
+
+	}
 
 	//======================================================
 	//====================HELPER METHODS====================
