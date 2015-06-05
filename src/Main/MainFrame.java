@@ -44,45 +44,45 @@ import GUI.KPSFrame;
 public class MainFrame extends JFrame implements ActionListener {
 
 	private JLabel panel;
-	
+
 	private JButton login;
-	
+
 	private JTextField username;
 	private JPasswordField password;
 
 	private JLabel usernameLabel;
 	private JLabel passwordLabel;
-	
+
 	private BufferedImage backgroundImage;
 	private BufferedImage lockImage;
 
-	
-	
-	
+
+
+
 	public static final String ASSETS = "assets" + File.separatorChar;
 
 	public MainFrame() {
 		this.setLayout(new BorderLayout());
-		this.setTitle("Kelburn Postal Serivce");	
-			
+		this.setTitle("Kelburn Postal Serivce");
+
 		/*Center this frame on monitor*/
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
-		
+
 		/*Initialize the background Image*/
 		backgroundImage = load(ASSETS + "silverBackground.png");
-		ImageIcon icon = new ImageIcon(backgroundImage); 
+		ImageIcon icon = new ImageIcon(backgroundImage);
 		panel = new JLabel();
 		panel.setIcon(icon);
 		panel.setBounds(0,0,500, 400); //width, height
-		
+
  		//panel.setBorder(BorderFactory.createLineBorder(Color.red)); //for testing purposes
-			
+
 		/*Initialize the layout and the insets*/
 		panel.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(0,-50,30,50); //top, left, bottom, right padding (in that order)
-		
+
 		JLabel LOGIN = new JLabel("LOGIN");
 		Font LOGINFONT = new Font("Tunga", Font.BOLD, 25);
 		LOGIN.setFont(LOGINFONT);
@@ -90,7 +90,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		c.gridx = 1;
 		c.gridy = 0;
 		panel.add(LOGIN,c);
-		
+
 		c.insets = new Insets(0,-50,0,50); //top, left, bottom, right padding (in that order)
 		usernameLabel = new JLabel("Username: ");
 		Font usernameFont = new Font("Tunga", Font.BOLD, 15);
@@ -107,26 +107,26 @@ public class MainFrame extends JFrame implements ActionListener {
 		c.gridx = 1;
 		c.gridy = 3;
 		panel.add(passwordLabel,c);
-		
+
 		c.insets = new Insets(0,1,0,1); //top, left, bottom, right padding (in that order)
 		username = new JTextField(15);
 		c.gridx = 1;
 		c.gridy = 2;
 		panel.add(username,c);
-		
+
 		password = new JPasswordField(15);
 		c.gridx = 1;
 		c.gridy = 4;
 		c.insets = new Insets(0,1,10,1); //top, left, bottom, right padding (in that order)
 		panel.add(password,c);
-		
+
 		login = new JButton("login");
 		c.gridx = 1;
 		c.gridy = 5;
-		c.insets = new Insets(0,100,3,1); 
+		c.insets = new Insets(0,100,3,1);
 		panel.add(login,c);
 		login.addActionListener(this);
-		
+
 		this.getRootPane().setDefaultButton(login); //sets default (enter key) to login button
 		this.add(panel);
 		this.setPreferredSize(new Dimension(500,400));
@@ -135,8 +135,8 @@ public class MainFrame extends JFrame implements ActionListener {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 	}
-		
-	
+
+
 	     public static void main(String[] args) {
 	    	    JFrame.setDefaultLookAndFeelDecorated(true);
 	    	    SwingUtilities.invokeLater(new Runnable() {
@@ -150,8 +150,8 @@ public class MainFrame extends JFrame implements ActionListener {
 	    	      }
 	    	    });
 	    }
-	     
-	     
+
+
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -159,7 +159,7 @@ public class MainFrame extends JFrame implements ActionListener {
 			login();
 		}
 	}
-	
+
 	 public static BufferedImage load(String base){
 			String filename = base;
 			if (!filename.endsWith(".png")){
@@ -177,7 +177,7 @@ public class MainFrame extends JFrame implements ActionListener {
 			}
 	 }
 
-	 
+
 	 public void login() {
 			if(username.getText().equals("admin") && password.getText().equals("admin")) {
 				this.dispose();
@@ -191,5 +191,5 @@ public class MainFrame extends JFrame implements ActionListener {
 				JOptionPane.showMessageDialog(this,"Please re-enter your log in details","Invalid Login Details",JOptionPane.ERROR_MESSAGE);
 			}
 	 }
-	
+
 }
