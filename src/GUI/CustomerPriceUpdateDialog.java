@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.BorderFactory;
@@ -27,6 +28,7 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
+import travelGraph.Location;
 import travelGraph.Path.DayOfWeek;
 import travelGraph.TravelGraph.Priority;
 import Logic.KPS;
@@ -94,6 +96,19 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
 		this.setIconImage(icon.getImage());
 
 
+ 		/*add an acitonListener to the origin combobox and make sure the destinations update according to currently selected origin*/
+		destinationComboBox = new JComboBox();
+
+ 		ArrayList<String> origins = kpsObject.getOrigins();
+
+		fromComboBox = new JComboBox(origins.toArray());
+		fromComboBox.addActionListener (new ActionListener () {
+		    public void actionPerformed(ActionEvent e) {
+		    	updateDestinationComboBox(optionsPanel);
+		    }
+		});
+
+
 		/*This is the panel with all the labels*/
 		labelPanel = new JPanel();
 		//labelPanel.setBorder(BorderFactory.createLineBorder(Color.red)); //just for checking the positioning, can remove later
@@ -159,15 +174,13 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
 		c2.gridy = 0;
 		op.add(daysComboBox,c2);
 
-		String[] fromList = {"Auckland", "Hamilton", "Rotorua", "Palmerston North", "Wellington", "Christchurch", "Dunedin"};
-		fromComboBox = new JComboBox(fromList);
+		fromComboBox = new JComboBox();
 		fromComboBox.addActionListener(this);
 		c2.gridx = 0;
 		c2.gridy = 2;
 		op.add(fromComboBox,c2);
 
-		String[] destinationList = {"Auckland", "Hamilton", "Rotorua", "Palmerston North", "Wellington", "Christchurch", "Dunedin"};
-		destinationComboBox = new JComboBox(destinationList);
+		destinationComboBox = new JComboBox();
 		destinationComboBox.addActionListener(this);
 		c2.gridx = 0;
 		c2.gridy = 3;
@@ -258,6 +271,40 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
 		labelPanel.add(newVolumeCostLabel,c);
 
 	}
+
+	/**
+	/**Find all possible paths from the currently selected origin and list those destinations in the destination combo box
+	 * @param optionsPanel2
+	 * 	@param c22
+ 	*/
+	protected void updateDestinationComboBox(JPanel op) {
+		/*Check what the currently selected destination is and create a location*/
+
+ 		String origin = (String) fromComboBox.getSelectedItem();
+ 		String destination =  (String) destinationComboBox.getSelectedItem();
+ 		Location dest = new Location(destination);
+
+ 		/*Check what the currently selected priority is and create an enum*/
+ 		String priority = (String) priorityComboBox.getSelectedItem();
+ 		Priority priorityEnum;
+
+ 		if(priority.equals("Air")) {
+ 			 priorityEnum = Priority.AIR;
+ 		}
+ 		else {
+ 			priorityEnum = Priority.STANDARD;
+ 		}
+
+ 		ArrayList<String> locs = kpsObject.getJourneyDestinations(origin, priorityEnum);
+
+ 		destinationComboBox.removeAllItems(); //remove all the current destinations
+
+ 		/*Update the destinations combo box with available paths from current origin*/
+ 		for(String s : locs) {
+ 	    	destinationComboBox.addItem(s);
+ 		}
+	}
+
 
 
 	@Override
