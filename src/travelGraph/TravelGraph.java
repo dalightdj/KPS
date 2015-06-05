@@ -223,6 +223,21 @@ public class TravelGraph {
 		return false;
 	}
 
+	/**
+	 * 
+	 * @return A list containing all Locations that have an outgoing path
+	 */
+	public ArrayList<Location> getAllOriginLocations(){
+		ArrayList<Location> origins = new ArrayList<Location>();
+		
+		for(Location l : locations){
+			if(!l.getPaths().isEmpty()){
+				origins.add(l);
+			}
+		}
+		
+		return origins;
+	}
 
 	/**
 	 * Gets all Locations accessible from a Location using only an identified TransportType
