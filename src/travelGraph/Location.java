@@ -10,7 +10,7 @@ import java.util.Collections;
  */
 public class Location implements Comparable<Location>{
 	
-	private String city;
+	private String name;
 	private ArrayList<Path> paths = new ArrayList<Path>();//outgoing paths
 	
 	//For Dijkstra
@@ -24,7 +24,7 @@ public class Location implements Comparable<Location>{
 	 * @param name Name of Location
 	 */
 	public Location(String name){
-		this.city = name;
+		this.name = name;
 	}
 	
 	public void addPath(Path path){
@@ -35,8 +35,8 @@ public class Location implements Comparable<Location>{
 		paths.remove(path);
 	}
 	
-	public String getCity(){
-		return city;
+	public String getName(){
+		return name;
 	}
 	
 	/**

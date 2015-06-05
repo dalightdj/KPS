@@ -197,7 +197,7 @@ public class Path {
 	
 	
 	public String toString(){
-		return company + " '" + type + "' travel from '" + origin.getCity() + "' to '" + destination.getCity() + "'. Price per gram = '" + ppGram + "', price per centimeter cubed = '" + ppCmCubed
+		return company + " '" + type + "' travel from '" + origin.getName() + "' to '" + destination.getName() + "'. Price per gram = '" + ppGram + "', price per centimeter cubed = '" + ppCmCubed
 				+ "'. Max weight = '" + maxWeight + "', Max volume = '" + maxVolume + "'. Travels on '" + day + "', '" + frequency + "' times a day, duration = '" + duration + "' hours";
 	}
 		
