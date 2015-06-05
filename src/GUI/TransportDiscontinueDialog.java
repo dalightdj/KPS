@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.BorderFactory;
@@ -26,6 +27,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import travelGraph.Location;
 import travelGraph.Path;
 import travelGraph.Path.DayOfWeek;
 import travelGraph.Path.TransportType;
@@ -66,6 +68,8 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 
 	private BufferedImage frameIcon;
 
+	private ArrayList<String> origins;
+
 
 	public TransportDiscontinueDialog(KPSFrame frame, KPS kpsObject) {
 		super(frame,true);
@@ -86,6 +90,12 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 		frameIcon = MainFrame.load(MainFrame.ASSETS + "frameIcon2.png");
 		ImageIcon icon = new ImageIcon(frameIcon);
 		this.setIconImage(icon.getImage());
+
+ 		/*add an acitonListener to the origin combobox and make sure the destinations update according to currently selected origin*/
+		destinationComboBox = new JComboBox();
+		fromComboBox = new JComboBox();
+
+ 		origins = kpsObject.getJourneyOrigins();
 
 
 		/*This is the panel with all the labels*/
@@ -121,6 +131,14 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
  		setupOptions(optionsPanel, c2);
  		//this.add(optionsPanel, BorderLayout.CENTER);
 
+		fromComboBox.addActionListener (new ActionListener () {
+		    public void actionPerformed(ActionEvent e) {
+		    	updateDestinationComboBox(optionsPanel);
+		    }
+		});
+		updateDestinationComboBox(optionsPanel);
+
+
  		/*Main panel that holds the options panel and the labels panel*/
  		mainPanel = new JPanel();
  		mainPanel.setLayout(new BorderLayout());
@@ -136,6 +154,40 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
  		this.add(underLyingPanel,BorderLayout.CENTER);
 		this.setVisible(true);
 	}
+
+	/**
+	/**Find all possible paths from the currently selected origin and list those destinations in the destination combo box
+	 * @param optionsPanel2
+	 * 	@param c22
+ 	*/
+	protected void updateDestinationComboBox(JPanel op) {
+		/*Check what the currently selected destination is and create a location*/
+
+ 		String origin = (String) fromComboBox.getSelectedItem();
+ 		String destination =  (String) destinationComboBox.getSelectedItem();
+ 		Location dest = new Location(destination);
+
+ 		/*Check what the currently selected priority is and create an enum*/
+ 		String priority = (String) typeComboBox.getSelectedItem();
+ 		Priority priorityEnum;
+
+ 		if(priority.equals("Air")) {
+ 			 priorityEnum = Priority.AIR;
+ 		}
+ 		else {
+ 			priorityEnum = Priority.STANDARD;
+ 		}
+
+ 		ArrayList<String> locs = kpsObject.getJourneyDestinations(origin, priorityEnum);
+
+ 		destinationComboBox.removeAllItems(); //remove all the current destinations
+
+ 		/*Update the destinations combo box with available paths from current origin*/
+ 		for(String s : locs) {
+ 	    	destinationComboBox.addItem(s);
+ 		}
+	}
+
 
 	/**
 	 * This method adds all the options into the JComboBoxes
@@ -157,9 +209,11 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 		c2.gridy = 1;
 		op.add(companyTextField,c2);
 
-		String[] fromList = {"Auckland", "Hamilton", "Rotorua", "Palmerston North", "Wellington", "Christchurch", "Dunedin"};
-		fromComboBox = new JComboBox(fromList);
-		fromComboBox.addActionListener(this);
+		fromComboBox.removeAllItems(); //remove all the current destinations
+ 		/*Update the destinations combo box with available paths from current origin*/
+ 		for(String s : origins) {
+ 			fromComboBox.addItem(s);
+ 		}
 		c2.gridx = 0;
 		c2.gridy = 2;
 		op.add(fromComboBox,c2);
