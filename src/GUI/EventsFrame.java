@@ -184,18 +184,18 @@ public class EventsFrame extends JFrame implements ActionListener {
 
 
 		int tempEventCount = eventCount + 1; //this is just for increasing 1 so first event doesn't show as "Event Number: 0"
-		title.setText("<html><b><font size = 5 color=BLACK>Event Number: <font color = 'yellow'> "+tempEventCount+"</b></html>");
-		typeTitle.setText("<html><b><font size = 5 color=BLACK>Event Type:<font color = yellow size = 5> "+typeString+"</b></html>");
+		title.setText("<html><font size = 5 color=White>Event Number: <font color = 'yellow'> "+tempEventCount+"</html>");
+		typeTitle.setText("<html><font size = 5 color=White>Event Type:<font color = yellow size = 5> "+typeString+"</html>");
 
 
 	}
 
 	private void setupTDLabels() {
-		day.setText("<html><b><font size = 5 color=White>  Date :  <font color = 'yellow'> "+dayString+"</b></html>");
-		origin.setText("<html><b><font size = 5 color=White>  Origin :  <font color = 'yellow'> "+originString+"</b></html>");
-		destination.setText("<html><b><font size = 5 color=White>  Destination : <font color = 'yellow'> "+destinationString+"</b></html>");
-		priority.setText("<html><b><font size = 5 color=White>  Priority : <font color = 'yellow'> "+priorityString+"</b></html>");
-		companylabel.setText("<html><b><font size = 5 color=White>  Company : <font color = 'yellow'> "+companyString+"</b></html>");
+		day.setText("<html><font face = Lucida Sans Unicode size = 5 color=White>  Date :  <font color = 'yellow'> "+dayString+"</html>");
+		origin.setText("<html><font face = Lucida Sans Unicode size = 5 color=White>  Origin :  <font color = 'yellow'> "+originString+"</html>");
+		destination.setText("<html><font face = Lucida Sans Unicode size = 5 color=White>  Destination : <font color = 'yellow'> "+destinationString+"</html>");
+		priority.setText("<html><font face = Lucida Sans Unicode size = 5 color=White>  Priority : <font color = 'yellow'> "+priorityString+"</html>");
+		companylabel.setText("<html><font face = Lucida Sans Unicode size = 5 color=White>  Company : <font color = 'yellow'> "+companyString+"</html>");
 
 		maxWeightLabel.setVisible(false);
 		maxVolumeLabel.setVisible(false);
@@ -207,17 +207,17 @@ public class EventsFrame extends JFrame implements ActionListener {
 	}
 
 	private void setupTCULabels() {
-		day.setText("<html><b><font size = 5 color=White>  Date :  <font color = 'yellow'> "+dayString+"</b></html>");
-		origin.setText("<html><b><font size = 5 color=White>  Origin :  <font color = 'yellow'> "+originString+"</b></html>");
-		destination.setText("<html><b><font size = 5 color=White>  Destination : <font color = 'yellow'> "+destinationString+"</b></html>");
-		priority.setText("<html><b><font size = 5 color=White>  Priority : <font color = 'yellow'> "+priorityString+"</b></html>");
-		weight.setText("<html><b><font size = 5 color=White>  Weight : <font color = 'yellow'> "+weightString+"</b></html>");
-		volume.setText("<html><b><font size = 5 color=White>  Volume : <font color = 'yellow'> "+volumeString+"</b></html>");
-		maxWeightLabel.setText("<html><b><font size = 5 color=White>  Max Weight : <font color = 'yellow'> "+maxWeightString+"</b></html>");
-		maxVolumeLabel.setText("<html><b><font size = 5 color=White>  Ma Volume : <font color = 'yellow'> "+maxVolumeString+"</b></html>");
-		freqLabel.setText("<html><b><font size = 5 color=White>  Frequency : <font color = 'yellow'> "+freqString+"</b></html>");
-		durationLabel.setText("<html><b><font size = 5 color=White>  Duration : <font color = 'yellow'> "+durationString+"</b></html>");
-		companylabel.setText("<html><b><font size = 5 color=White>  Company : <font color = 'yellow'> "+companyString+"</b></html>");
+		day.setText("<html><font face = Lucida Sans Unicode size = 5 color=White>  Date :  <font color = 'yellow'> "+dayString+"</html>");
+		origin.setText("<html><font face = Lucida Sans Unicode size = 5 color=White>  Origin :  <font color = 'yellow'> "+originString+"</html>");
+		destination.setText("<html><font face = Lucida Sans Unicode size = 5 color=White>  Destination : <font color = 'yellow'> "+destinationString+"</html>");
+		priority.setText("<html><font face = Lucida Sans Unicode size = 5 color=White>  Priority : <font color = 'yellow'> "+priorityString+"</html>");
+		weight.setText("<html><font face = Lucida Sans Unicode size = 5 color=White>  Weight : <font color = 'yellow'> "+weightString+"</html>");
+		volume.setText("<html><font face = Lucida Sans Unicode size = 5 color=White>  Volume : <font color = 'yellow'> "+volumeString+"</html>");
+		maxWeightLabel.setText("<html><font face = Lucida Sans Unicode size = 5 color=White>  Max Weight : <font color = 'yellow'> "+maxWeightString+"</html>");
+		maxVolumeLabel.setText("<html><font face = Lucida Sans Unicode size = 5 color=White>  Max Volume : <font color = 'yellow'> "+maxVolumeString+"</html>");
+		freqLabel.setText("<html><font face = Lucida Sans Unicode size = 5 color=White>  Frequency : <font color = 'yellow'> "+freqString+"</html>");
+		durationLabel.setText("<html><font face = Lucida Sans Unicode size = 5 color=White>  Duration : <font color = 'yellow'> "+durationString+"</html>");
+		companylabel.setText("<html><font face = Lucida Sans Unicode size = 5 color=White>  Company : <font color = 'yellow'> "+companyString+"</html>");
 
 		/*Make these 4 labels visible for this event*/
 		maxWeightLabel.setVisible(true);
@@ -229,12 +229,12 @@ public class EventsFrame extends JFrame implements ActionListener {
 	}
 
 	private void setupCPULabels() {
-		day.setText("<html><b><font size = 5 color=White>  Date :  <font color = 'yellow'> "+dayString+"</b></html>");
-		origin.setText("<html><b><font size = 5 color=White>  Origin :  <font color = 'yellow'> "+originString+"</b></html>");
-		destination.setText("<html><b><font size = 5 color=White>  Destination : <font color = 'yellow'> "+destinationString+"</b></html>");
-		priority.setText("<html><b><font size = 5 color=White>  Priority : <font color = 'yellow'> "+priorityString+"</b></html>");
-		weight.setText("<html><b><font size = 5 color=White>  Weight : <font color = 'yellow'> "+weightString+"</b></html>");
-		volume.setText("<html><b><font size = 5 color=White>  Volume : <font color = 'yellow'> "+volumeString+"</b></html>");
+		day.setText("<html><font face = Lucida Sans Unicode size = 5 color=White>  Date :  <font color = 'yellow'> "+dayString+"</html>");
+		origin.setText("<html><font face = Lucida Sans Unicode size = 5 color=White>  Origin :  <font color = 'yellow'> "+originString+"</html>");
+		destination.setText("<html><font face = Lucida Sans Unicode size = 5 color=White>  Destination : <font color = 'yellow'> "+destinationString+"</html>");
+		priority.setText("<html><font face = Lucida Sans Unicode size = 5 color=White>  Priority : <font color = 'yellow'> "+priorityString+"</html>");
+		weight.setText("<html><font face = Lucida Sans Unicode size = 5 color=White>  Weight : <font color = 'yellow'> "+weightString+"</html>");
+		volume.setText("<html><font face = Lucida Sans Unicode size = 5 color=White>  Volume : <font color = 'yellow'> "+volumeString+"</html>");
 
 		/*Make these 4 labels invisible for this event*/
 		maxWeightLabel.setVisible(false);
@@ -246,12 +246,12 @@ public class EventsFrame extends JFrame implements ActionListener {
 	}
 
 	private void setupMDLabels() {
-		day.setText("<html><b><font size = 5 color=White>  Date :  <font color = 'yellow'> "+dayString+"</b></html>");
-		origin.setText("<html><b><font size = 5 color=White>  Origin :  <font color = 'yellow'> "+originString+"</b></html>");
-		destination.setText("<html><b><font size = 5 color=White>  Destination : <font color = 'yellow'> "+destinationString+"</b></html>");
-		priority.setText("<html><b><font size = 5 color=White>  Priority : <font color = 'yellow'> "+priorityString+"</b></html>");
-		weight.setText("<html><b><font size = 5 color=White>  Weight : <font color = 'yellow'> "+weightString+"</b></html>");
-		volume.setText("<html><b><font size = 5 color=White>  Volume : <font color = 'yellow'> "+volumeString+"</b></html>");
+		day.setText("<html><font face = Lucida Sans Unicode size = 5 color=White>  Date :  <font color = 'yellow'> "+dayString+"</html>");
+		origin.setText("<html><font face = Lucida Sans Unicode size = 5 color=White>  Origin :  <font color = 'yellow'> "+originString+"</html>");
+		destination.setText("<html><font face = Lucida Sans Unicode size = 5 color=White>  Destination : <font color = 'yellow'> "+destinationString+"</html>");
+		priority.setText("<html><font face = Lucida Sans Unicode size = 5 color=White>  Priority : <font color = 'yellow'> "+priorityString+"</html>");
+		weight.setText("<html><font face = Lucida Sans Unicode size = 5 color=White>  Weight : <font color = 'yellow'> "+weightString+"</html>");
+		volume.setText("<html><font face = Lucida Sans Unicode size = 5 color=White>  Volume : <font color = 'yellow'> "+volumeString+"</html>");
 
 		/*Make these 4 labels invisible for this event*/
 		maxWeightLabel.setVisible(false);
