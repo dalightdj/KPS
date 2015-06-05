@@ -77,13 +77,22 @@ public class KPS {
 	/**
 	 *
 	 */
-//	public ArrayList<String> getJourneyDestinations(String origin, Priority priority){
-//		ArrayList<String> stringReachables = new ArrayList<String>();
-//		ArrayList<Location> reachables = travelGraph.allReachableLocations(origin, priority);
-//		for(Location l: reachables){
-//
-//		}
-//	}
+	public ArrayList<String> getJourneyDestinations(String origin, Priority priority){
+		ArrayList<String> stringReachables = new ArrayList<String>();
+		ArrayList<Location> reachables;
+		try {
+			reachables = travelGraph.allReachableLocations(origin, priority);
+			for(Location l: reachables){
+				stringReachables.add(l.getCity());
+			}
+
+		} catch (UnknownLocationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return stringReachables;
+
+	}
 
 	public void loadEvents(){
 		if(logger.readXML().size() == 0){
