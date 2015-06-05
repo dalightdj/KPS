@@ -77,6 +77,8 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 	private JLabel volumeLabelInfo;
 	private JLabel durationLabelInfo; //per hours
 	private JLabel freqLabelInfo; //hours between flight
+	private JLabel gramLabel;
+	private JLabel cubicLabel;
 
 	private BufferedImage frameIcon;
 
@@ -235,6 +237,16 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		c2.gridx = 1;
 		c2.gridy = 9;
 		op.add(freqLabelInfo,c2);
+
+		gramLabel = new JLabel("(Grams)");
+		c2.gridx = 1;
+		c2.gridy = 6;
+		op.add(gramLabel,c2);
+
+		cubicLabel = new JLabel("(Cubic Centimeters)");
+		c2.gridx = 1;
+		c2.gridy = 8;
+		op.add(cubicLabel,c2);
 
 		//departureTextField = new JTextField(10);
 		//c2.gridx = 0;
