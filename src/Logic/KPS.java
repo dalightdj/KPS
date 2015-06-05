@@ -106,10 +106,11 @@ public class KPS {
 		// take out path from the GRAPH STRUCTURE with the given reference ?
 
 		//If a new XML needs to be created, create it. Also add a new TD event to the array of events
-		TDEvent event = new TDEvent(company, destination, origin, type, day);
-		events.add(event);
 		if(createNew){
+			TDEvent event = new TDEvent(company, destination, origin, type, day);
+			events.add(event);
 			logger.addEvent(event);
+
 		}
 
 		//Journey stuff !?!?!?!?!?
@@ -127,10 +128,10 @@ public class KPS {
 			float weightCost, float volumeCost, int maxWeight, int maxVolume, int duration, int frequency, boolean createNew){
 
 		//If a new XML needs to be created, create it. Also add a new CU event to the array of events
-		TCUEvent event = new TCUEvent(company, destination, origin, type, dow,
-				weightCost, volumeCost, maxWeight, maxVolume, duration, frequency);
-		events.add(event);
 		if(createNew){
+			TCUEvent event = new TCUEvent(company, destination, origin, type, dow,
+					weightCost, volumeCost, maxWeight, maxVolume, duration, frequency);
+			events.add(event);
 			logger.addEvent(event);
 		}
 
@@ -163,9 +164,10 @@ public class KPS {
 		}
 
 		//If a new XML needs to be created, create it. Also add a new MD event to the array of events
-		MDEvent event = new MDEvent(date, destination, origin, priority, weight, volume);
-		events.add(event);
+
 		if(createNew){
+			MDEvent event = new MDEvent(date, destination, origin, priority, weight, volume);
+			events.add(event);
 			logger.addEvent(event);
 		}
 		//Update appropriate MailRecord
@@ -215,9 +217,9 @@ public class KPS {
 		//change in the GRAPH STRUCTURE
 
 		//If a new XML needs to be created, create it. Also add a new CPU event to the array of events
-		CPUEvent event = new CPUEvent(origin, destination, priority, weightPrice, volumePrice, dow);
-		events.add(event);
 		if(createNew){
+			CPUEvent event = new CPUEvent(origin, destination, priority, weightPrice, volumePrice, dow);
+			events.add(event);
 			logger.addEvent(event);
 		}
 
