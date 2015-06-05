@@ -47,13 +47,13 @@ public class ButtonPanel extends JPanel implements ActionListener {
 		c.insets = new Insets(5,1,5,1); //top, left, bottom, right padding (in that order)
 		c.fill = GridBagConstraints.HORIZONTAL;
 
-		mailDelivery = new JButton("Mail Delivery");
+		mailDelivery = new JButton("Create Mail Delivery");
 		c.gridx = 0;
 		c.gridy = 0;
 		this.add(mailDelivery,c);
 		mailDelivery.addActionListener(this);
 
-		customerPriceUpdate = new JButton("Customer Price Update");
+		customerPriceUpdate = new JButton("Update Customer Price");
 		c.gridx = 0;
 		c.gridy = 1;
 		this.add(customerPriceUpdate,c);
@@ -70,20 +70,20 @@ public class ButtonPanel extends JPanel implements ActionListener {
 		c.gridy = 3;
 		this.add(transportDiscontinue,c);
 		transportDiscontinue.addActionListener(this);
-		
+
 		viewEvents = new JButton("View Event History");
 		c.gridx = 0;
 		c.gridy = 4;
 		this.add(viewEvents,c);
 		viewEvents.addActionListener(this);
 		viewEvents.setEnabled(false);
-		
+
 		logout = new JButton("Logout");
 		c.gridx = 0;
 		c.gridy = 5;
 		this.add(logout,c);
 		logout.addActionListener(this);
-		
+
 		if(frame.getIsManager()) {
 			viewEvents.setEnabled(true);
 		}
