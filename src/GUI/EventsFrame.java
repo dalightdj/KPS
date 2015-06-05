@@ -194,7 +194,12 @@ public class EventsFrame extends JFrame implements ActionListener {
 		origin.setText("<html><b><font size = 5 color=White>  Origin :  <font color = 'yellow'> "+originString+"</b></html>");
 		destination.setText("<html><b><font size = 5 color=White>  Destination : <font color = 'yellow'> "+destinationString+"</b></html>");
 		priority.setText("<html><b><font size = 5 color=White>  Priority : <font color = 'yellow'> "+priorityString+"</b></html>");
+		companylabel.setText("<html><b><font size = 5 color=White>  Company : <font color = 'yellow'> "+companyString+"</b></html>");
 
+		maxWeightLabel.setVisible(false);
+		maxVolumeLabel.setVisible(false);
+		freqLabel.setVisible(false);
+		durationLabel.setVisible(false);
 		volume.setVisible(false);
 		weight.setVisible(false);
 		companylabel.setVisible(true);
