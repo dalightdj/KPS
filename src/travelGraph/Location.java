@@ -44,7 +44,7 @@ public class Location implements Comparable<Location>{
 	 * @return An unmodifiable list of all the outgoing paths.
 	 */
 	public ArrayList<Path> getPaths(){
-		return (ArrayList<Path>) Collections.unmodifiableList(paths);
+		return paths;//(ArrayList<Path>) Collections.unmodifiableList(paths);
 	}
 
 	
