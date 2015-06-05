@@ -94,10 +94,14 @@ public class KPS {
 
 	}
 
-//	public ArrayList<String> getJourneyOrigins(){
-//		ArrayList<String> graphNodes = new ArrayList<String>();
-//
-//	}
+	public ArrayList<String> getJourneyOrigins(){
+		ArrayList<String> graphNodes = new ArrayList<String>();
+		ArrayList<Location> locs = travelGraph.getAllOriginLocations();
+		for(Location location:locs){
+			graphNodes.add(location.getName());
+		}
+		return graphNodes;
+	}
 
 	public void loadEvents(){
 		if(logger.readXML().size() == 0){
