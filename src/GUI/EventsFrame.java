@@ -154,6 +154,7 @@ public class EventsFrame extends JFrame implements ActionListener {
 				maxVolumeString = String.valueOf(currentEvent.getMaxVolume());
 				freqString = String.valueOf(currentEvent.getMaxVolume());
 				durationString = String.valueOf(currentEvent.getDuration());
+				companyString = currentEvent.getCompany();
 				setupTCULabels();
 			}
 			else if(events.get(eventCount) instanceof TDEvent) {
@@ -212,18 +213,18 @@ public class EventsFrame extends JFrame implements ActionListener {
 		priority.setText("<html><b><font size = 5 color=White>  Priority : <font color = 'yellow'> "+priorityString+"</b></html>");
 		weight.setText("<html><b><font size = 5 color=White>  Weight : <font color = 'yellow'> "+weightString+"</b></html>");
 		volume.setText("<html><b><font size = 5 color=White>  Volume : <font color = 'yellow'> "+volumeString+"</b></html>");
-
 		maxWeightLabel.setText("<html><b><font size = 5 color=White>  Max Weight : <font color = 'yellow'> "+maxWeightString+"</b></html>");
 		maxVolumeLabel.setText("<html><b><font size = 5 color=White>  Ma Volume : <font color = 'yellow'> "+maxVolumeString+"</b></html>");
 		freqLabel.setText("<html><b><font size = 5 color=White>  Frequency : <font color = 'yellow'> "+freqString+"</b></html>");
 		durationLabel.setText("<html><b><font size = 5 color=White>  Duration : <font color = 'yellow'> "+durationString+"</b></html>");
+		companylabel.setText("<html><b><font size = 5 color=White>  Company : <font color = 'yellow'> "+companyString+"</b></html>");
 
 		/*Make these 4 labels visible for this event*/
 		maxWeightLabel.setVisible(true);
 		maxVolumeLabel.setVisible(true);
 		freqLabel.setVisible(true);
 		durationLabel.setVisible(true);
-		companylabel.setVisible(false);
+		companylabel.setVisible(true);
 
 	}
 
