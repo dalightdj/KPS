@@ -72,7 +72,7 @@ public class MailDialog extends JDialog implements ActionListener {
 
 	GridBagConstraints c2;
 
-	
+
 	Border raisedbevel = BorderFactory.createRaisedBevelBorder();
 	Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 
@@ -87,7 +87,7 @@ public class MailDialog extends JDialog implements ActionListener {
         this.setLocationRelativeTo(frame); //sets position relative to the whole window
 
         c2  = new GridBagConstraints();
-        
+
 		/*Initialize the layout and the insets*/
 		this.setLayout(new BorderLayout());
 
@@ -101,19 +101,19 @@ public class MailDialog extends JDialog implements ActionListener {
 		this.setIconImage(icon.getImage());
 
 
-		destinationComboBox = new JComboBox(); 	
-		
+		destinationComboBox = new JComboBox();
+
 		String[] fromList = {"Auckland", "Hamilton", "Rotorua", "Palmerston North", "Wellington", "Christchurch", "Dunedin"};
 		fromComboBox = new JComboBox(fromList);
 		fromComboBox.addActionListener(this);
 
 		fromComboBox.addActionListener (new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {
-		        setupOptions(optionsPanel, c2);
+		        setupOriginComboBox(optionsPanel, c2);
 		    }
 		});
-		
-		
+
+
 		/*This is the panel with all the labels*/
 		labelPanel = new JPanel();
 		//labelPanel.setBorder(BorderFactory.createLineBorder(Color.red)); //just for checking the positioning, can remove later
@@ -160,6 +160,51 @@ public class MailDialog extends JDialog implements ActionListener {
 
 	}
 
+	/**
+	/**Find all possible paths from the currently selected origin and list those destinations in the destination combo box
+	 * @param optionsPanel2
+	 * 	@param c22
+ 	*/
+	protected void setupOriginComboBox(JPanel op, GridBagConstraints c2) {
+		/*Check what the currently selected destination is and create a location*/
+
+ 		String origin = (String) fromComboBox.getSelectedItem();
+ 		String destination =  (String) destinationComboBox.getSelectedItem();
+ 		Location dest = new Location(destination);
+
+ 		/*Check what the currently selected priority is and create an enum*/
+ 		String priority = (String) priorityComboBox.getSelectedItem();
+ 		Priority priorityEnum;
+ 		if(priority.equals("Air")) {
+ 			 priorityEnum = Priority.AIR;
+ 		}
+ 		else {
+ 			priorityEnum = Priority.STANDARD;
+ 		}
+
+
+/*		ArrayList<Location> locs;
+ 		locs = kpsObject.getTravelGraph().allReachableLocations(dest, priorityEnum);
+
+ 		An array list containing all possible locations
+		ArrayList<String> allLocations = new ArrayList<String>();
+
+		Iterate over locs list and add to new arraylist that will be converted to array later
+		for(Location cityName : locs) {
+			System.out.println("1111"); //test to see if it reaches here
+			allLocations.add(cityName.getCity());
+			System.out.println(cityName.getCity());
+		}*/
+
+
+ 		ArrayList<String> locs = kpsObject.getDestinations(origin);
+ 		destinationComboBox.removeAllItems();
+ 		for(String s : locs) {
+ 			System.out.println(s);
+ 	    	destinationComboBox.addItem(s);
+ 		}
+	}
+
 
 	/**
 	 * This method adds all the options into the JComboBoxes
@@ -173,10 +218,17 @@ public class MailDialog extends JDialog implements ActionListener {
 		c2.fill = GridBagConstraints.HORIZONTAL;
 		c2.weightx = 1.0;
 		c2.weighty = 1.0;
-		
+
 		c2.gridx = 0;
 		c2.gridy = 1;
 		op.add(fromComboBox,c2);
+
+		destinationComboBox = new JComboBox();
+		destinationComboBox.addActionListener(this);
+		c2.gridx = 0;
+		c2.gridy = 2;
+		op.add(destinationComboBox,c2); //TODO add this in later
+
 
 		String[] priorityList = {"Standard", "Air"};
 		priorityComboBox = new JComboBox(priorityList);
@@ -184,49 +236,7 @@ public class MailDialog extends JDialog implements ActionListener {
 		c2.gridx = 0;
 		c2.gridy = 5;
 		op.add(priorityComboBox,c2);
-		
-		
-		/**Find all possible paths from the currently selected origin and list those destinations in the destination combo box*/
-		/*Check what the currently selected destination is and create a location*/		
-		
- 		String destination =  (String) destinationComboBox.getSelectedItem();
- 		Location dest = new Location(destination);
- 		
- 		/*Check what the currently selected priority is and create an enum*/
- 		String priority = (String) priorityComboBox.getSelectedItem();
- 		Priority priorityEnum;
- 		if(priority.equals("Air")) {
- 			 priorityEnum = Priority.AIR;
- 		}
- 		else {
- 			priorityEnum = Priority.STANDARD;
- 		}
- 		
- 		
-		ArrayList<Location> locs;
- 		locs = kpsObject.getTravelGraph().allReachableLocations(dest, priorityEnum);
-		
- 		/*An array list containing all possible locations*/
-		ArrayList<String> allLocations = new ArrayList<String>();
-		
-		/*Iterate over locs list and add to new arraylist that will be converted to array later*/
-		for(Location cityName : locs) {
-			System.out.println("1111"); //test to see if it reaches here
-			allLocations.add(cityName.getCity());
-			System.out.println(cityName.getCity());
-		}
-		//destinationComboBox = new JComboBox(allLocations.toArray()); //convert list to array and give to combobox
-		destinationComboBox.addActionListener(this);
-		c2.gridx = 0;
-		c2.gridy = 2;
-		//op.add(destinationComboBox,c2); //TODO add this in later
 
-		//TODO:REMOVE THIS WHEN THE PART ABOVE IS FIXED
-		String[] fromList = {"Auckland", "Hamilton", "Rotorua", "Palmerston North", "Wellington", "Christchurch", "Dunedin"};
-		destinationComboBox = new JComboBox(fromList); //convert list to array and give to combobox
-		c2.gridx = 0;
-		c2.gridy = 2;
-		op.add(destinationComboBox,c2);
 
 		weightTextField = new JTextField(10);
 		c2.gridx = 0;
@@ -305,8 +315,12 @@ public class MailDialog extends JDialog implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == submit) {
+			System.out.println(weightTextField.getText());
+			System.out.println(volumeTextField.getText());
+
 		     if (weightTextField.getText().equals("") && volumeTextField.getText().equals("")) {
 					JOptionPane.showMessageDialog(this,"Please enter all details","Insufficient Details",JOptionPane.ERROR_MESSAGE);
+					return;
 		     }
 		     else {
 		    	 try {
@@ -350,7 +364,7 @@ public class MailDialog extends JDialog implements ActionListener {
 		    	 frame.updateGUI();
 		    	 this.dispose();
 		     }
-		     
+
 		}
 
 		if(e.getSource() == cancel) {
