@@ -16,6 +16,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
@@ -28,17 +29,17 @@ import Logic.KPS;
 import Main.MainFrame;
 
 public class EventsFrame extends JFrame implements ActionListener {
-	
+
 	private BufferedImage frameIcon;
 
 	private KPSFrame frame;
-	
+
 	private JPanel mainPanel;
 	private JPanel buttons;
-	
+
 	private JButton nextEvent;
 	private JButton prevEvent;
-	
+
 	/*The labels for information*/
 	private JLabel origin;
 	private JLabel destination;
@@ -56,77 +57,84 @@ public class EventsFrame extends JFrame implements ActionListener {
 	private String priorityString = "";
 	private String weightString = "";
 	private String volumeString = "";
-	
+
 	private KPS kpsObject;
-	
+
 	private ArrayList<Event> events;
 	private int eventCount = 0; //keep track of which event we're on (in the list events)
-	
+
 	public EventsFrame(KPSFrame frame) {
-		
+
 		this.frame = frame;
 		this.kpsObject = frame.getKpsObject();
-        this.setLocationRelativeTo(frame); //sets position relative to the frame 
+        this.setLocationRelativeTo(frame); //sets position relative to the frame
 
-		
+
 		this.setLayout(new BorderLayout());
 		this.setTitle("Kelburn Postal Serivce Event History");
  		this.setPreferredSize(new Dimension(600,400));
 
-		
+
 		/*Set the Frames icon*/
 		frameIcon = MainFrame.load(MainFrame.ASSETS + "frameIcon2.png");
 		ImageIcon icon = new ImageIcon(frameIcon);
 		this.setIconImage(icon.getImage());
-		
+
 		mainPanel = new JPanel();
 		mainPanel.setLayout(new GridBagLayout());
 		mainPanel.setBorder(BorderFactory.createLoweredBevelBorder());
 		mainPanel.setBackground(new Color(25,25,25));
  		this.add(mainPanel,BorderLayout.CENTER);
-		
+
 		buttons = new JPanel();
 		buttons.setLayout(new GridBagLayout());
-		buttons.setBorder(BorderFactory.createLoweredBevelBorder()); 
+		buttons.setBorder(BorderFactory.createLoweredBevelBorder());
  		this.add(buttons,BorderLayout.WEST);
- 		
+
  		/*Set up the buttons for the buttons panel*/
  		setupButtons();
-		buttons.setPreferredSize(new Dimension(120,this.getHeight()));
+		buttons.setPreferredSize(new Dimension(150,this.getHeight()));
 
-		/*Set up the labels for the event information*/
-		setupLabels();
-		updateGUI();
-				
+
 		this.setResizable(false);
 		this.pack();
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setVisible(true);
- 		
+
+		/*Set up the labels for the event information*/
+		setupLabels();
+		updateGUI();
+
 	}
 
 	private void updateGUI() {
 		this.events = kpsObject.getEvents(); //get latest events every time it this GUI updates
-		
-		
-		if(events.get(eventCount) instanceof MDEvent) {
-			
-			MDEvent currentEvent =  (MDEvent) events.get(eventCount);
-			dayString = currentEvent.getDate();
-			originString = currentEvent.getOrigin();
-			destinationString = currentEvent.getDestination();
-			priorityString = currentEvent.getPriority().toString();
-			weightString = String.valueOf(currentEvent.getWeight());
-			volumeString = String.valueOf(currentEvent.getVolume());
-			setupMDLabels();
+
+		if(events.size() == 0) {
+			JOptionPane.showMessageDialog(this, "No Events to View!", "No Events", JOptionPane.INFORMATION_MESSAGE);
+			return;
 		}
-		else if(events.get(eventCount) instanceof TCUEvent) {
-			TCUEvent currentEvent = (TCUEvent) events.get(eventCount);
+
+		if(events.size() != 0) {
+			if(events.get(eventCount) instanceof MDEvent) {
+
+				MDEvent currentEvent =  (MDEvent) events.get(eventCount);
+				dayString = currentEvent.getDate();
+				originString = currentEvent.getOrigin();
+				destinationString = currentEvent.getDestination();
+				priorityString = currentEvent.getPriority().toString();
+				weightString = String.valueOf(currentEvent.getWeight());
+				volumeString = String.valueOf(currentEvent.getVolume());
+				setupMDLabels();
+			}
+			else if(events.get(eventCount) instanceof TCUEvent) {
+				TCUEvent currentEvent = (TCUEvent) events.get(eventCount);
+			}
+			if(events.get(eventCount) instanceof TDEvent) {
+				TDEvent currentEvent = (TDEvent) events.get(eventCount);
+			}
 		}
-		if(events.get(eventCount) instanceof TDEvent) {
-			TDEvent currentEvent = (TDEvent) events.get(eventCount);
-		}
-		
+
 		int tempEventCount = eventCount + 1; //this is just for increasing 1 so first event doesn't show as "Event Number: 0"
 		title.setText("<html><b><font size = 5 color=BLACK>Event Number: <font color = 'yellow'> "+tempEventCount+"</b></html>");
 		typeTitle.setText("<html><b><font size = 5 color=BLACK>Event Type:<font color = yellow size = 5> asd</b></html>");
@@ -159,11 +167,11 @@ public class EventsFrame extends JFrame implements ActionListener {
 		volume = new JLabel();
 		title = new JLabel();
 		typeTitle = new JLabel();
-		
+
 		day.setBackground(Color.BLACK);
 		day.setOpaque(true);
 		day.setBorder(new EmptyBorder(0,10,0,0));
-		
+
 		origin.setBackground(new Color(36, 36, 36));
 		origin.setOpaque(true);
 		origin.setBorder(new EmptyBorder(0,10,0,0));
@@ -188,14 +196,14 @@ public class EventsFrame extends JFrame implements ActionListener {
 		labelPanel.setLayout(new GridBagLayout());
 		GridBagConstraints c2 = new GridBagConstraints();
 		labelPanel.setLayout(new GridBagLayout());
-		labelPanel.setBorder(BorderFactory.createLoweredBevelBorder()); 
-		
+		labelPanel.setBorder(BorderFactory.createLoweredBevelBorder());
 
-		
+
+
 		c2.insets = new Insets(0,0,0,0); //top, left, bottom, right padding (in that order)
 		c2.fill = GridBagConstraints.HORIZONTAL;
 		c2.weightx = 1;
-		
+
 		c2.gridx = 0;
 		c2.gridy = 2;
 		labelPanel.add(day,c2);
@@ -215,20 +223,20 @@ public class EventsFrame extends JFrame implements ActionListener {
 		c2.gridx = 0;
 		c2.gridy = 6;
 		labelPanel.add(weight,c2);
-		
+
 		c2.gridx = 0;
 		c2.gridy = 7;
 		labelPanel.add(volume,c2);
-		
-		c.insets = new Insets(0,10,10,10); 
+
+		c.insets = new Insets(0,10,10,10);
 		c.gridx = 0;
 		c.gridy = 0;
 		mainPanel.add(title,c);
-		
+
 		c.gridx = 0;
 		c.gridy = 1;
 		mainPanel.add(typeTitle,c);
-		
+
 		c.gridx = 0;
 		c.gridy = 2;
 		mainPanel.add(labelPanel, c);
@@ -241,13 +249,13 @@ public class EventsFrame extends JFrame implements ActionListener {
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5,1,5,1); //top, left, bottom, right padding (in that order)
 		c.fill = GridBagConstraints.HORIZONTAL;
-		
+
 		nextEvent = new JButton("Next Event");
 		c.gridx = 0;
 		c.gridy = 0;
 		buttons.add(nextEvent,c);
 		nextEvent.addActionListener(this);
-		
+
 		prevEvent = new JButton("Previous Event");
 		c.gridx = 0;
 		c.gridy = 1;
@@ -278,5 +286,5 @@ public class EventsFrame extends JFrame implements ActionListener {
 			}
 		}
 	}
-	
+
 }
