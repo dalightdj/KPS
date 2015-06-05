@@ -139,6 +139,24 @@ public class TravelGraph_Test {
 	}
 	
 	
+	@Test
+	public void testGetAllOriginLocations(){
+		TravelGraph graph = createGraph();
+		
+		ArrayList<Location> locs = graph.getAllOriginLocations();
+		
+		assertEquals(locs.size(), 3);
+		
+		ArrayList<String> locNames = new ArrayList<String>();
+		for(Location loc : locs){
+			locNames.add(loc.getName());
+		}
+		
+		assertTrue(locNames.contains("Wellington"));
+		assertTrue(locNames.contains("Hamilton"));
+		assertTrue(locNames.contains("Auckland"));
+	}
+	
 	
 	private TravelGraph createGraph(){
 		TravelGraph graph = new TravelGraph();
