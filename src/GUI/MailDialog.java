@@ -322,8 +322,6 @@ public class MailDialog extends JDialog implements ActionListener {
 		 		String destination =  (String) destinationComboBox.getSelectedItem();
 		 		String origin = (String) fromComboBox.getSelectedItem();
 
-		 		System.out.println(destination);
-
 		 		if(destination == null || destination.equals("")) {
 					JOptionPane.showMessageDialog(this,"There are no paths from the currently selected origin","No Paths",JOptionPane.ERROR_MESSAGE);
 					return;

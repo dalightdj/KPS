@@ -32,6 +32,7 @@ import travelGraph.Location;
 import travelGraph.Path.DayOfWeek;
 import travelGraph.TravelGraph.Priority;
 import Logic.KPS;
+import Logic.KPS.NothingToDeleteException;
 import Main.MainFrame;
 
 public class CustomerPriceUpdateDialog extends JDialog implements ActionListener {
@@ -75,6 +76,8 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
 	private KPSFrame frame;
 	private KPS kpsObject;
 
+	private ArrayList<String> origins;
+
 	public CustomerPriceUpdateDialog(KPSFrame frame, KPS kpsObject) {
 		super(frame,true);
 		this.kpsObject = kpsObject;
@@ -98,16 +101,9 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
 
  		/*add an acitonListener to the origin combobox and make sure the destinations update according to currently selected origin*/
 		destinationComboBox = new JComboBox();
+		fromComboBox = new JComboBox();
 
- 		ArrayList<String> origins = kpsObject.getOrigins();
-
-		fromComboBox = new JComboBox(origins.toArray());
-		fromComboBox.addActionListener (new ActionListener () {
-		    public void actionPerformed(ActionEvent e) {
-		    	updateDestinationComboBox(optionsPanel);
-		    }
-		});
-
+ 		origins = kpsObject.getJourneyOrigins();
 
 		/*This is the panel with all the labels*/
 		labelPanel = new JPanel();
@@ -142,6 +138,13 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
  		setupOptions(optionsPanel, c2);
  		//this.add(optionsPanel, BorderLayout.CENTER);
 
+		fromComboBox.addActionListener (new ActionListener () {
+		    public void actionPerformed(ActionEvent e) {
+		    	updateDestinationComboBox(optionsPanel);
+		    }
+		});
+		updateDestinationComboBox(optionsPanel);
+
  		/*Main panel that holds the options panel and the labels panel*/
  		mainPanel = new JPanel();
  		mainPanel.setLayout(new BorderLayout());
@@ -174,8 +177,12 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
 		c2.gridy = 0;
 		op.add(daysComboBox,c2);
 
-		fromComboBox = new JComboBox();
-		fromComboBox.addActionListener(this);
+		fromComboBox.removeAllItems(); //remove all the current destinations
+
+ 		/*Update the destinations combo box with available paths from current origin*/
+ 		for(String s : origins) {
+ 			fromComboBox.addItem(s);
+ 		}
 		c2.gridx = 0;
 		c2.gridy = 2;
 		op.add(fromComboBox,c2);
@@ -295,14 +302,18 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
  			priorityEnum = Priority.STANDARD;
  		}
 
- 		ArrayList<String> locs = kpsObject.getJourneyDestinations(origin, priorityEnum);
-
+ 		ArrayList<String> locs;
  		destinationComboBox.removeAllItems(); //remove all the current destinations
+		try {
+			locs = kpsObject.getJourneyDestinations(origin, priorityEnum);
 
- 		/*Update the destinations combo box with available paths from current origin*/
- 		for(String s : locs) {
- 	    	destinationComboBox.addItem(s);
- 		}
+	 		/*Update the destinations combo box with available paths from current origin*/
+	 		for(String s : locs) {
+	 	    	destinationComboBox.addItem(s);
+	 		}
+		} catch (NothingToDeleteException e) {
+			JOptionPane.showMessageDialog(this,"No Origin/Destinations","NOTHING",JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 

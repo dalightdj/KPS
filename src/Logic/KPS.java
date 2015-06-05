@@ -74,10 +74,12 @@ public class KPS {
 		return origns;
 	}
 
+
 	/**
+	 * @throws NothingToDeleteException
 	 *
 	 */
-	public ArrayList<String> getJourneyDestinations(String origin, Priority priority){
+	public ArrayList<String> getJourneyDestinations(String origin, Priority priority) throws NothingToDeleteException{
 		ArrayList<String> stringReachables = new ArrayList<String>();
 		ArrayList<Location> reachables;
 		try {
@@ -87,10 +89,13 @@ public class KPS {
 			}
 
 		} catch (UnknownLocationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new NothingToDeleteException();
 		}
 		return stringReachables;
+
+	}
+
+	public class NothingToDeleteException extends Exception{
 
 	}
 
