@@ -109,7 +109,7 @@ public class MailDialog extends JDialog implements ActionListener {
 
 		fromComboBox.addActionListener (new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {
-		        setupOriginComboBox(optionsPanel, c2);
+		    	updateDestinationComboBox(optionsPanel);
 		    }
 		});
 
@@ -165,7 +165,7 @@ public class MailDialog extends JDialog implements ActionListener {
 	 * @param optionsPanel2
 	 * 	@param c22
  	*/
-	protected void setupOriginComboBox(JPanel op, GridBagConstraints c2) {
+	protected void updateDestinationComboBox(JPanel op) {
 		/*Check what the currently selected destination is and create a location*/
 
  		String origin = (String) fromComboBox.getSelectedItem();
@@ -198,7 +198,10 @@ public class MailDialog extends JDialog implements ActionListener {
 
 
  		ArrayList<String> locs = kpsObject.getDestinations(origin);
- 		destinationComboBox.removeAllItems();
+
+ 		destinationComboBox.removeAllItems(); //remove all the current destinations
+
+ 		/*Update the destinations combo box with available paths from current origin*/
  		for(String s : locs) {
  			System.out.println(s);
  	    	destinationComboBox.addItem(s);
@@ -227,7 +230,7 @@ public class MailDialog extends JDialog implements ActionListener {
 		destinationComboBox.addActionListener(this);
 		c2.gridx = 0;
 		c2.gridy = 2;
-		op.add(destinationComboBox,c2); //TODO add this in later
+		op.add(destinationComboBox,c2);
 
 
 		String[] priorityList = {"Standard", "Air"};
@@ -258,6 +261,7 @@ public class MailDialog extends JDialog implements ActionListener {
 		c2.gridy = 4;
 		op.add(volumeLabelInfo,c2);
 
+		updateDestinationComboBox(op);
 	}
 
 	/**
@@ -345,6 +349,13 @@ public class MailDialog extends JDialog implements ActionListener {
 
 		 		String destination =  (String) destinationComboBox.getSelectedItem();
 		 		String origin = (String) fromComboBox.getSelectedItem();
+
+		 		System.out.println(destination);
+
+		 		if(destination == null || destination.equals("")) {
+					JOptionPane.showMessageDialog(this,"There are no paths from the currently selected origin","No Paths",JOptionPane.ERROR_MESSAGE);
+					return;
+		 		}
 
 		 		/*Check to make sure it's an int*/
 		 		int weight = Integer.parseInt(weightTextField.getText());
