@@ -69,8 +69,8 @@ public class Path {
 	 * @throws ExceededVolumeException  If the volume is greater than the maximum possible volume for this Path
 	 */
 	public float calcCost(int weight, int volume) throws OverweightException, ExceededVolumeException{
-		if(weight>maxWeight) throw new OverweightException();
-		if(volume>maxVolume) throw new  ExceededVolumeException();
+		if(weight>maxWeight) {throw new OverweightException();}
+		if(volume>maxVolume) {throw new  ExceededVolumeException();}
 		return (weight*ppGram) + (volume*ppCmCubed);
 	}
 	
