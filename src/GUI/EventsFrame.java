@@ -289,7 +289,7 @@ public class EventsFrame extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == nextEvent) {
-			if(++eventCount == events.size()) { //make sure we don't increase past the size of events list
+			if(eventCount+1 == events.size()) { //make sure we don't increase past the size of events list
 				//System.out.println("attempting to go out of events list size"); //testing
 				return;
 			}
