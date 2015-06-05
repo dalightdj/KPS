@@ -216,9 +216,14 @@ public class KPS {
 		//return bool ?
 		//change in the GRAPH STRUCTURE
 
+		ArrayList<Path> pathings = travelGraph.getRoute(origin, destination, priority);
+		if(pathings == null){
+			return;
+		}
+
 		//If a new XML needs to be created, create it. Also add a new CPU event to the array of events
 		if(createNew){
-			CPUEvent event = new CPUEvent(origin, destination, priority, weightPrice, volumePrice, dow);
+			CPUEvent event = new CPUEvent(destination, origin, priority, weightPrice, volumePrice, dow);
 			events.add(event);
 			logger.addEvent(event);
 		}
@@ -226,7 +231,7 @@ public class KPS {
 		//checks if the Journey exists, if so update it, otherwise create a new Journey object.
 		Journey jrny = getJourney(origin,destination,priority, dow);
 		if(jrny==null){
-			Journey j = new Journey(destination, origin, priority, weightPrice, volumePrice,travelGraph.getRoute(origin, destination, priority), dow);
+			Journey j = new Journey(destination, origin, priority, weightPrice, volumePrice,pathings, dow);
 			journeys.add(j);
 		}
 		else{
