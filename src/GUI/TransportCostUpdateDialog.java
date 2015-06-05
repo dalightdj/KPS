@@ -60,7 +60,7 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 
 	/*All the options for the form*/
 	private JComboBox daysComboBox;
-	private JComboBox destinationComboBox;
+	private JTextField destinatinTextField;
 	private JComboBox fromComboBox;
 	private JComboBox typeComboBox;
 	private JTextField copmanyTextField;
@@ -182,12 +182,11 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		c2.gridy = 2;
 		op.add(fromComboBox,c2);
 
-		String[] destinationList = {"Wellington", "Hamilton", "Auckland"};
-		destinationComboBox = new JComboBox(destinationList);
-		destinationComboBox.addActionListener(this);
+		destinatinTextField = new JTextField(10);
+		destinatinTextField.addActionListener(this);
 		c2.gridx = 0;
 		c2.gridy = 3;
-		op.add(destinationComboBox,c2);
+		op.add(destinatinTextField,c2);
 
 		String[] typeList = {"Sea", "Air", "Land"};
 		typeComboBox = new JComboBox(typeList);
@@ -390,8 +389,8 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 					return;
 		    	}
 		    	String companyString = copmanyTextField.getText();
+		    	String destination =  destinatinTextField.getText();
 
-		    	String destination =  (String) destinationComboBox.getSelectedItem();
 		 		String origin = (String) fromComboBox.getSelectedItem();
 		 		String dateString = (String) daysComboBox.getSelectedItem();
 
