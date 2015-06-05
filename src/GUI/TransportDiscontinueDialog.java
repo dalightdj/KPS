@@ -239,6 +239,12 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 		if(e.getSource() == submit) {
 		     if (companyTextField.getText().equals("")) {
 					JOptionPane.showMessageDialog(this,"Please enter all details","Insufficient Details",JOptionPane.ERROR_MESSAGE);
+					return;
+		     }
+	    	 /*Check that the input in the company text field is string only */
+	    	 if(!companyTextField.getText().matches("^[a-zA-Z]+$")) {
+					JOptionPane.showMessageDialog(this,"Please enter a company name (letters only)","Insufficient Details",JOptionPane.ERROR_MESSAGE);
+					return;
 		     }
 		     else {
 		    	String companyString = companyTextField.getText();
@@ -251,7 +257,7 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 
 		 		TransportType typeEnum;
 		 		DayOfWeek dayEnum;
-		 		
+
 		 		/*Check for the priority*/
 		 		if(typeString.equals("Air")) {
 		 			typeEnum = TransportType.AIR;
@@ -262,7 +268,7 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 		 		else {
 		 			typeEnum = TransportType.SEA;
 		 		}
-		 		
+
 		 		/*Check for the day*/
 		 		if(dateString.equals("Monday")) {
 		 			dayEnum = DayOfWeek.MONDAY;
@@ -294,6 +300,6 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 			this.dispose();
 		}
 	}
-	
+
 
 }
