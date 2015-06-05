@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import travelGraph.Path;
 import travelGraph.Path.DayOfWeek;
+import travelGraph.Path.ExceededVolumeException;
+import travelGraph.Path.OverweightException;
 import travelGraph.Path.TransportType;
 import travelGraph.TravelGraph.Priority;
 
@@ -40,17 +42,17 @@ public class Journey {
 		return price/100;
 	}
 
-	public float getCost(int weight, int volume){
+	public float getCost(int weight, int volume) {
 		float total = 0;
 		for(Path p: usedPaths){
-			total += p.calcCost(weight, volume);
+				total += p.calcCost(weight, volume);
 		}
 		return total;
 	}
 
 	public boolean checkPath(String origin, String destination, String commpany, TransportType type, DayOfWeek dow){
 		for(Path p: usedPaths){
-			if(p.getOrigin().getCity.equals(origin) && p.getDestination().getCity().equals(destination) && p.getCompany().equals(commpany) &&
+			if(p.getOrigin().getCity().equals(origin) && p.getDestination().getCity().equals(destination) && p.getCompany().equals(commpany) &&
 					p.getTransportType()==type && p.getDay().equals(dow)){
 				return true;
 			}

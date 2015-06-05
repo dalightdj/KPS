@@ -40,6 +40,26 @@ public class KPS {
 		loadEvents(); //WILL BE NULL AT THE START UNLESS WE HAVE A DEFAULT XML FILE
 	}
 
+	public ArrayList<String> getDestinations(String origin){
+		ArrayList<String> dests = new ArrayList<String>();
+		for(Journey j: journeys){
+			if(j.getOrigin().equals(origin)){
+				dests.add(j.getDestination());
+			}
+		}
+		return dests;
+	}
+
+	public ArrayList<String> getOrigins(){
+		ArrayList<String> origns = new ArrayList<String>();
+		for(Journey j: journeys){
+			if(origns.contains(j.getOrigin())){
+				origns.add(j.getOrigin());
+			}
+		}
+		return origns;
+	}
+
 	public void loadEvents(){
 		if(logger.readXML().size() == 0){
 			//File xmlFile = new File("eventsData.xml");
@@ -61,7 +81,7 @@ public class KPS {
 						((TDEvent)e).getDow(), false);
 			}
 			else{
-				priceUpdate(((CPUEvent)e).getDesTo(), ((CPUEvent)e).getDesFrom(), ((CPUEvent)e).getPriority(), ((CPUEvent)e).getWeightPrice(),
+				priceUpdate(((CPUEvent)e).getDestination(), ((CPUEvent)e).getOrigin(), ((CPUEvent)e).getPriority(), ((CPUEvent)e).getWeightPrice(),
 						((CPUEvent)e).getVolumePrice(), ((CPUEvent)e).getDow(), false);
 			}
 
