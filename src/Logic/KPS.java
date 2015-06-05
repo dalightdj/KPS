@@ -9,6 +9,7 @@ import travelGraph.Path.TransportType;
 import travelGraph.Path;
 import travelGraph.TravelGraph;
 import travelGraph.TravelGraph.Priority;
+import travelGraph.TravelGraph.UnknownLocationException;
 import Logger.CPUEvent;
 import Logger.Event;
 import Logger.Logger;
@@ -238,10 +239,14 @@ public class KPS {
 		//return bool ?
 		//change in the GRAPH STRUCTURE
 
-		ArrayList<Path> pathings = travelGraph.getRoute(origin, destination, priority);
-		if(pathings == null){
-			return;
-		}
+		ArrayList<Path> pathings;
+		try {
+			pathings = travelGraph.getRoute(origin, destination, priority);
+			if(pathings == null){
+				return;
+			}
+
+
 
 		//If a new XML needs to be created, create it. Also add a new CPU event to the array of events
 		if(createNew){
@@ -265,6 +270,10 @@ public class KPS {
 					return;
 				}
 			}
+		}
+		} catch (UnknownLocationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
