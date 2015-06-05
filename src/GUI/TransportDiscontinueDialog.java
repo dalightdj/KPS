@@ -33,6 +33,7 @@ import travelGraph.Path.DayOfWeek;
 import travelGraph.Path.TransportType;
 import travelGraph.TravelGraph.Priority;
 import Logic.KPS;
+import Logic.KPS.NothingToDeleteException;
 import Main.MainFrame;
 
 public class TransportDiscontinueDialog extends JDialog implements ActionListener {
@@ -178,14 +179,22 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
  			priorityEnum = Priority.STANDARD;
  		}
 
- 		ArrayList<String> locs = kpsObject.getJourneyDestinations(origin, priorityEnum);
+ 		ArrayList<String> locs;
+		try {
+			locs = kpsObject.getJourneyDestinations(origin, priorityEnum);
 
- 		destinationComboBox.removeAllItems(); //remove all the current destinations
+	 		destinationComboBox.removeAllItems(); //remove all the current destinations
 
- 		/*Update the destinations combo box with available paths from current origin*/
- 		for(String s : locs) {
- 	    	destinationComboBox.addItem(s);
- 		}
+	 		/*Update the destinations combo box with available paths from current origin*/
+	 		for(String s : locs) {
+	 	    	destinationComboBox.addItem(s);
+	 		}
+
+		} catch (NothingToDeleteException e) {
+			JOptionPane.showMessageDialog(this,"No Origin/Destinations","NOTHING",JOptionPane.ERROR_MESSAGE);
+		}
+
+
 	}
 
 
@@ -218,8 +227,7 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 		c2.gridy = 2;
 		op.add(fromComboBox,c2);
 
-		String[] destinationList = {"Wellington", "Hamilton", "Auckland"};
-		destinationComboBox = new JComboBox(destinationList);
+		destinationComboBox = new JComboBox();
 		destinationComboBox.addActionListener(this);
 		c2.gridx = 0;
 		c2.gridy = 3;

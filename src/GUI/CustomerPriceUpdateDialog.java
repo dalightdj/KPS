@@ -32,6 +32,7 @@ import travelGraph.Location;
 import travelGraph.Path.DayOfWeek;
 import travelGraph.TravelGraph.Priority;
 import Logic.KPS;
+import Logic.KPS.NothingToDeleteException;
 import Main.MainFrame;
 
 public class CustomerPriceUpdateDialog extends JDialog implements ActionListener {
@@ -301,14 +302,18 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
  			priorityEnum = Priority.STANDARD;
  		}
 
- 		ArrayList<String> locs = kpsObject.getJourneyDestinations(origin, priorityEnum);
-
+ 		ArrayList<String> locs;
  		destinationComboBox.removeAllItems(); //remove all the current destinations
+		try {
+			locs = kpsObject.getJourneyDestinations(origin, priorityEnum);
 
- 		/*Update the destinations combo box with available paths from current origin*/
- 		for(String s : locs) {
- 	    	destinationComboBox.addItem(s);
- 		}
+	 		/*Update the destinations combo box with available paths from current origin*/
+	 		for(String s : locs) {
+	 	    	destinationComboBox.addItem(s);
+	 		}
+		} catch (NothingToDeleteException e) {
+			JOptionPane.showMessageDialog(this,"No Origin/Destinations","NOTHING",JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 
