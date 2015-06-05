@@ -223,7 +223,7 @@ public class KPS {
 
 		//If a new XML needs to be created, create it. Also add a new CPU event to the array of events
 		if(createNew){
-			CPUEvent event = new CPUEvent(origin, destination, priority, weightPrice, volumePrice, dow);
+			CPUEvent event = new CPUEvent(destination, origin, priority, weightPrice, volumePrice, dow);
 			events.add(event);
 			logger.addEvent(event);
 		}
