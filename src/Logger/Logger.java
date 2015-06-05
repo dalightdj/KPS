@@ -18,7 +18,7 @@ import travelGraph.TravelGraph.Priority;
 
 
 /**
- * This class is in charge of adding Events to a xml file and also reading Events from 
+ * This class is in charge of adding Events to a xml file and also reading Events from
  * that xml file
  * @author rahulnaidu
  *
@@ -53,7 +53,7 @@ public class Logger {
 				}else if (event instanceof TCUEvent){
 					addTCUEvent(rootElement, event);
 				}else if (event instanceof MDEvent){
-					addMDEvent(rootElement, event);			
+					addMDEvent(rootElement, event);
 
 				}
 
@@ -90,7 +90,7 @@ public class Logger {
 			}else if (event instanceof TCUEvent){
 				addTCUEvent(events, event);
 			}else if (event instanceof MDEvent){
-				addMDEvent(events, event);			
+				addMDEvent(events, event);
 			}
 
 			XMLOutputter xmlOutputter = new XMLOutputter();
@@ -145,7 +145,7 @@ public class Logger {
 		cpuNode.addContent(new Element("volumePrice").setText(Float.toString(cpuEvent.getVolumePrice())));
 		cpuNode.addContent(new Element("dow").setText(cpuEvent.getDow().toString()));
 
-		parentElement.addContent(cpuNode);				
+		parentElement.addContent(cpuNode);
 
 	}
 
@@ -172,7 +172,7 @@ public class Logger {
 		tcuNode.addContent(new Element("duration").setText(Integer.toString(tcuEvent.getDuration())));
 		tcuNode.addContent(new Element("frequency").setText(Integer.toString(tcuEvent.getFrequency())));
 
-		parentElement.addContent(tcuNode);		
+		parentElement.addContent(tcuNode);
 	}
 
 
@@ -192,7 +192,7 @@ public class Logger {
 		mdNode.addContent(new Element("day").setText(mdEvent.getDate()));
 		mdNode.addContent(new Element("weight").setText(Integer.toString(mdEvent.getWeight())));
 		mdNode.addContent(new Element("volume").setText(Integer.toString(mdEvent.getVolume())));
-		
+
 		parentElement.addContent(mdNode);
 
 	}
@@ -203,17 +203,17 @@ public class Logger {
 	 */
 	public ArrayList<Event> readXML(){
 
-		
-		
+
+
 		ArrayList<Event> events = new ArrayList<Event>();
 
 		SAXBuilder saxBuilder = new SAXBuilder();
 		File xmlFile = new File("eventsData.xml");
-		
+
 		if (!xmlFile.exists()) {
 			return new ArrayList<Event>();
 		}
-		
+
 		try {
 			Document doc = (Document) saxBuilder.build(xmlFile);
 			Element rootElement = doc.getRootElement();
@@ -229,50 +229,50 @@ public class Logger {
 				case "TDEvent":
 					TDEvent tdEvent = new TDEvent(ele.getChildText("company"),
 							ele.getChildText("destination"),
-							ele.getChildText("origin"), 
+							ele.getChildText("origin"),
 							getType(ele.getChildText("type")),
 							getDow(ele.getChildText("dow")));
-					
+
 					events.add(tdEvent);
 					break;
 				case "MDEvent":
-					
+
 					MDEvent mdEvent = new MDEvent(ele.getChildText("day"),
-							ele.getChildText("destination"), 
-							ele.getChildText("origin"), 
-							getPriority(ele.getChildText("priority")), 
-							Integer.parseInt(ele.getChildText("weight")), 
+							ele.getChildText("destination"),
+							ele.getChildText("origin"),
+							getPriority(ele.getChildText("priority")),
+							Integer.parseInt(ele.getChildText("weight")),
 							Integer.parseInt(ele.getChildText("volume")));
-					
+
 					events.add(mdEvent);
 					break;
 				case "CPUEvent":
-					CPUEvent cpuEvent = new CPUEvent(ele.getChildText("destination"), 
-							ele.getChildText("origin"), 
-							getPriority(ele.getChildText("priority")), 
-							Float.parseFloat(ele.getChildText("weightPrice")), 
+					CPUEvent cpuEvent = new CPUEvent(ele.getChildText("destination"),
+							ele.getChildText("origin"),
+							getPriority(ele.getChildText("priority")),
+							Float.parseFloat(ele.getChildText("weightPrice")),
 							Float.parseFloat(ele.getChildText("volumePrice")),
 							getDow(ele.getChildText("dow")));
-					
+
 					events.add(cpuEvent);
 					break;
 				case "TCUEvent":
-					TCUEvent tcuEvent = new TCUEvent(ele.getChildText("company"), 
-							ele.getChildText("destination"), 
-							ele.getChildText("origin"), 
+					TCUEvent tcuEvent = new TCUEvent(ele.getChildText("company"),
+							ele.getChildText("destination"),
+							ele.getChildText("origin"),
 							getType(ele.getChildText("type")),
 							getDow(ele.getChildText("dow")),
-							Float.parseFloat(ele.getChildText("weightCost")), 
-							Float.parseFloat(ele.getChildText("volumeCost")), 
-							Integer.parseInt(ele.getChildText("maxWeight")), 
-							Integer.parseInt(ele.getChildText("maxVolume")), 
-							Integer.parseInt(ele.getChildText("duration")), 
+							Float.parseFloat(ele.getChildText("weightCost")),
+							Float.parseFloat(ele.getChildText("volumeCost")),
+							Integer.parseInt(ele.getChildText("maxWeight")),
+							Integer.parseInt(ele.getChildText("maxVolume")),
+							Integer.parseInt(ele.getChildText("duration")),
 							Integer.parseInt(ele.getChildText("frequency")));
-					
+
 					events.add(tcuEvent);
 				default:
 					break;
-					
+
 				}
 
 			}
@@ -291,34 +291,34 @@ public class Logger {
 		return events;
 
 	}
-	
+
 	/**
-	 * This returns the right Priority enum given the String representation of it 
+	 * This returns the right Priority enum given the String representation of it
 	 * @param priority
 	 * @return Priority
 	 */
 	public Priority getPriority(String priority){
-		
+
 		Priority p = null;
-		
+
 	if(priority.equals("AIR")){
 		p = Priority.AIR;
 	}else{
 		p = Priority.STANDARD;
 	}
-		
-		return p;	
+
+		return p;
 	}
-	
+
 	/**
 	 * Returns the correct TransporType enum given the String representation of it
 	 * @param type
 	 * @return TransportType
 	 */
 	public TransportType getType(String type){
-		
+
 		TransportType t = null;
-		
+
 		switch (type) {
 		case "AIR":
 			t = TransportType.AIR;
@@ -329,20 +329,20 @@ public class Logger {
 			t = TransportType.SEA;
 			break;
 		}
-		
+
 		return t;
-		
+
 	}
-	
+
 	/**
-	 * Return the correct DayOfWeek given the String representation of it 
+	 * Return the correct DayOfWeek given the String representation of it
 	 * @param dow
 	 * @return TransportType
 	 */
 	public DayOfWeek getDow(String dow){
-		
+
 		DayOfWeek d = null;
-		
+
 		switch (dow) {
 		case "MONDAY":
 			d = DayOfWeek.MONDAY;
@@ -363,9 +363,9 @@ public class Logger {
 		default:
 			break;
 		}
-		
+
 		return d;
-		
+
 	}
 
 }
