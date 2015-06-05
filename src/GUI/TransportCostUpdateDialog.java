@@ -367,6 +367,15 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 						JOptionPane.showMessageDialog(this,"Please enter a company name (letters only)","Insufficient Details",JOptionPane.ERROR_MESSAGE);
 						return;
 			     }
+		    	 if(!originTextField.getText().matches("^[a-zA-Z]+$")) {
+						JOptionPane.showMessageDialog(this,"Please enter an origin (letters only)","Insufficient Details",JOptionPane.ERROR_MESSAGE);
+						return;
+			     }
+		    	 if(!destinatinTextField.getText().matches("^[a-zA-Z]+$")) {
+						JOptionPane.showMessageDialog(this,"Please enter a destination (letters only)","Insufficient Details",JOptionPane.ERROR_MESSAGE);
+						return;
+			     }
+
 		    	 /* Parse the textfields to make sure only integers have been put in*/
 		    	 try {
 		    	     Float.parseFloat(weightTextField.getText());
