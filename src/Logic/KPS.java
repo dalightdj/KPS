@@ -67,7 +67,7 @@ public class KPS {
 	public ArrayList<String> getOrigins(){
 		ArrayList<String> origns = new ArrayList<String>();
 		for(Journey j: journeys){
-			if(origns.contains(j.getOrigin())){
+			if(!origns.contains(j.getOrigin())){
 				origns.add(j.getOrigin());
 			}
 		}
