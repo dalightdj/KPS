@@ -42,6 +42,12 @@ public class KPS {
 		loadEvents(); //WILL BE NULL AT THE START UNLESS WE HAVE A DEFAULT XML FILE
 	}
 
+	/**
+	 * Returns an array of strings that represent the destinations that a mail delivery can
+	 * be sent from the current origin
+	 * @param origin
+	 * @return
+	 */
 	public ArrayList<String> getDestinations(String origin){
 		ArrayList<String> dests = new ArrayList<String>();
 		for(Journey j: journeys){
@@ -52,6 +58,11 @@ public class KPS {
 		return dests;
 	}
 
+	/**
+	 * Returns an array of strings that represent the origins that a mail delivery can
+	 * be sent from.
+	 * @return
+	 */
 	public ArrayList<String> getOrigins(){
 		ArrayList<String> origns = new ArrayList<String>();
 		for(Journey j: journeys){
@@ -61,6 +72,17 @@ public class KPS {
 		}
 		return origns;
 	}
+
+	/**
+	 *
+	 */
+//	public ArrayList<String> getJourneyDestinations(String origin, Priority priority){
+//		ArrayList<String> stringReachables = new ArrayList<String>();
+//		ArrayList<Location> reachables = travelGraph.allReachableLocations(origin, priority);
+//		for(Location l: reachables){
+//
+//		}
+//	}
 
 	public void loadEvents(){
 		if(logger.readXML().size() == 0){
