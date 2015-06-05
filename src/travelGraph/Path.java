@@ -124,12 +124,12 @@ public class Path {
 	 * @return The updated path
 	 */
 	protected Path update(float ppg, float ppcc, int maxWeight, int maxVol, int frequency, int duration){
-		if(ppg<0) {this.ppGram = ppg;}
-		if(ppcc<0) {this.ppCmCubed = ppcc;}
-		if(maxWeight<0) {this.maxWeight = maxWeight;}
-		if(maxVol<0) {this.maxVolume = maxVol;}
-		if(frequency<0) {this.frequency = frequency;}
-		if(duration<0) {this.duration = duration;}
+		if(ppg>0) {this.ppGram = ppg;}
+		if(ppcc>0) {this.ppCmCubed = ppcc;}
+		if(maxWeight>0) {this.maxWeight = maxWeight;}
+		if(maxVol>0) {this.maxVolume = maxVol;}
+		if(frequency>0) {this.frequency = frequency;}
+		if(duration>0) {this.duration = duration;}
 		
 		return this;
 	}

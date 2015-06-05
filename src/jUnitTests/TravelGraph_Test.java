@@ -9,6 +9,8 @@ import org.junit.Test;
 import travelGraph.*;
 import travelGraph.Path.DayOfWeek;
 import travelGraph.Path.TransportType;
+import travelGraph.TravelGraph.Priority;
+import travelGraph.TravelGraph.UnknownLocationException;
 
 public class TravelGraph_Test {
 	
@@ -38,48 +40,159 @@ public class TravelGraph_Test {
 	public void testPathValues(){
 		createGraph();
 		
-		Path p = paths.get(0);
-		System.out.println(p);
-		assertTrue(p.getOrigin().getName().equals("Wellington"));
-		assertTrue(p.getDestination().getName().equals("Hamilton"));
-		assertTrue(p.getCompany().equals("Air NZ"));
-		assertTrue(p.getTransportType()==TransportType.AIR);
-		assertTrue(p.getPPG()==5);
-		assertTrue(p.getPPCC()==6);
-		assertTrue(p.getMaxWeight()==50);
-		assertTrue(p.getMaxVolume()==30);
-		assertTrue(p.getDay()==DayOfWeek.MONDAY);
-		assertTrue(p.getFrequency()==6);
-		assertTrue(p.getDuration()==2);
+		Path p1 = paths.get(0);
+		assertTrue(p1.getOrigin().getName().equals("Wellington"));
+		assertTrue(p1.getDestination().getName().equals("Hamilton"));
+		assertTrue(p1.getCompany().equals("Air NZ"));
+		assertTrue(p1.getTransportType()==TransportType.AIR);
+		assertTrue(p1.getPPG()==5);
+		assertTrue(p1.getPPCC()==6);
+		assertTrue(p1.getMaxWeight()==50);
+		assertTrue(p1.getMaxVolume()==30);
+		assertTrue(p1.getDay()==DayOfWeek.MONDAY);
+		assertTrue(p1.getFrequency()==6);
+		assertTrue(p1.getDuration()==2);
 		
-		p = paths.get(1);
-		assertTrue(p.getOrigin().getName().equals("Auckland"));
-		assertTrue(p.getDestination().getName().equals("Wellington"));
-		assertTrue(p.getCompany().equals("Pacific Blue"));
-		assertTrue(p.getTransportType()==TransportType.SEA);
-		assertTrue(p.getPPG()==3);
-		assertTrue(p.getPPCC()==3);
-		assertTrue(p.getMaxWeight()==75);
-		assertTrue(p.getMaxVolume()==50);
-		assertTrue(p.getDay()==DayOfWeek.TUESDAY);
-		assertTrue(p.getFrequency()==1);
-		assertTrue(p.getDuration()==6);
+		Path p2 = paths.get(1);
+		assertTrue(p2.getOrigin().getName().equals("Auckland"));
+		assertTrue(p2.getDestination().getName().equals("Wellington"));
+		assertTrue(p2.getCompany().equals("Pacific Blue"));
+		assertTrue(p2.getTransportType()==TransportType.SEA);
+		assertTrue(p2.getPPG()==3);
+		assertTrue(p2.getPPCC()==3);
+		assertTrue(p2.getMaxWeight()==75);
+		assertTrue(p2.getMaxVolume()==50);
+		assertTrue(p2.getDay()==DayOfWeek.TUESDAY);
+		assertTrue(p2.getFrequency()==1);
+		assertTrue(p2.getDuration()==6);
 		
-		p = paths.get(2);
-		assertTrue(p.getOrigin().getName().equals("Hamilton"));
-		assertTrue(p.getDestination().getName().equals("Auckland"));
-		assertTrue(p.getCompany().equals("NZ Post"));
-		assertTrue(p.getTransportType()==TransportType.LAND);
-		assertTrue(p.getPPG()==2.5);
-		assertTrue(p.getPPCC()==3.5);
-		assertTrue(p.getMaxWeight()==100);
-		assertTrue(p.getMaxVolume()==100);
-		assertTrue(p.getDay()==DayOfWeek.FRIDAY);
-		assertTrue(p.getFrequency()==4);
-		assertTrue(p.getDuration()==1);
+		Path p3 = paths.get(2);
+		assertTrue(p3.getOrigin().getName().equals("Hamilton"));
+		assertTrue(p3.getDestination().getName().equals("Auckland"));
+		assertTrue(p3.getCompany().equals("NZ Post"));
+		assertTrue(p3.getTransportType()==TransportType.LAND);
+		assertTrue(p3.getPPG()==2.5);
+		assertTrue(p3.getPPCC()==3.5);
+		assertTrue(p3.getMaxWeight()==100);
+		assertTrue(p3.getMaxVolume()==100);
+		assertTrue(p3.getDay()==DayOfWeek.FRIDAY);
+		assertTrue(p3.getFrequency()==4);
+		assertTrue(p3.getDuration()==1);
+	}
+	
+	@Test
+	public void testUpdatePathPrice(){
+		TravelGraph graph = createGraph();
+		
+		Path p1 = paths.get(0);
+		assertTrue(p1.getOrigin().getName().equals("Wellington"));
+		assertTrue(p1.getDestination().getName().equals("Hamilton"));
+		assertTrue(p1.getCompany().equals("Air NZ"));
+		assertTrue(p1.getTransportType()==TransportType.AIR);
+		assertTrue(p1.getPPG()==5);
+		assertTrue(p1.getPPCC()==6);
+		assertTrue(p1.getMaxWeight()==50);
+		assertTrue(p1.getMaxVolume()==30);
+		assertTrue(p1.getDay()==DayOfWeek.MONDAY);
+		assertTrue(p1.getFrequency()==6);
+		assertTrue(p1.getDuration()==2);
+		
+		
+		graph.updatePathPrice("Wellington", "Hamilton", "Air NZ", TransportType.AIR, -1, -1, -1, -1, DayOfWeek.MONDAY, -1, -1);
+		assertTrue(p1.getOrigin().getName().equals("Wellington"));
+		assertTrue(p1.getDestination().getName().equals("Hamilton"));
+		assertTrue(p1.getCompany().equals("Air NZ"));
+		assertTrue(p1.getTransportType()==TransportType.AIR);
+		assertTrue(p1.getPPG()==5);
+		assertTrue(p1.getPPCC()==6);
+		assertTrue(p1.getMaxWeight()==50);
+		assertTrue(p1.getMaxVolume()==30);
+		assertTrue(p1.getDay()==DayOfWeek.MONDAY);
+		assertTrue(p1.getFrequency()==6);
+		assertTrue(p1.getDuration()==2);
+		
+		
+		graph.updatePathPrice("Wellington", "Hamilton", "Air NZ", TransportType.AIR, 1, 2, 3, 4, DayOfWeek.MONDAY, 5, 6);
+		assertTrue(p1.getOrigin().getName().equals("Wellington"));
+		assertTrue(p1.getDestination().getName().equals("Hamilton"));
+		assertTrue(p1.getCompany().equals("Air NZ"));
+		assertTrue(p1.getTransportType()==TransportType.AIR);
+		assertTrue(p1.getPPG()==1);
+		assertTrue(p1.getPPCC()==2);
+		assertTrue(p1.getMaxWeight()==3);
+		assertTrue(p1.getMaxVolume()==4);
+		assertTrue(p1.getDay()==DayOfWeek.MONDAY);
+		assertTrue(p1.getFrequency()==5);
+		assertTrue(p1.getDuration()==6);
+		
+		
+		graph.updatePathPrice("Wellington", "Hamilton", "Air NZ", TransportType.AIR, -1, -1, -1, -1, DayOfWeek.MONDAY, -1, -1);
+		assertTrue(p1.getOrigin().getName().equals("Wellington"));
+		assertTrue(p1.getDestination().getName().equals("Hamilton"));
+		assertTrue(p1.getCompany().equals("Air NZ"));
+		assertTrue(p1.getTransportType()==TransportType.AIR);
+		assertTrue(p1.getPPG()==1);
+		assertTrue(p1.getPPCC()==2);
+		assertTrue(p1.getMaxWeight()==3);
+		assertTrue(p1.getMaxVolume()==4);
+		assertTrue(p1.getDay()==DayOfWeek.MONDAY);
+		assertTrue(p1.getFrequency()==5);
+		assertTrue(p1.getDuration()==6);
 	}
 	
 	
+	@Test
+	public void testGetAllOriginLocations(){
+		TravelGraph graph = createGraph();
+		
+		ArrayList<Location> locs = graph.getAllOriginLocations();
+		
+		assertEquals(locs.size(), 3);
+		
+		ArrayList<String> locNames = new ArrayList<String>();
+		for(Location loc : locs){
+			locNames.add(loc.getName());
+		}
+		
+		assertTrue(locNames.contains("Wellington"));
+		assertTrue(locNames.contains("Hamilton"));
+		assertTrue(locNames.contains("Auckland"));
+		assertFalse(locNames.contains("Christchurch"));
+		assertFalse(locNames.contains(""));
+	}
+	
+	@Test
+	public void testGetAllPossibleLocationsValid(){
+		TravelGraph graph = createGraph();
+		
+		try {
+			ArrayList<Location> locs = graph.allReachableLocations("Wellington", Priority.STANDARD);
+			
+			ArrayList<String> locNames = new ArrayList<String>();
+			for(Location l : locs){
+				locNames.add(l.getName());
+			}
+			
+			assertFalse(locNames.contains("Wellington"));//We dont want to send packages to the place we're sending them from
+			assertTrue(locNames.contains("Hamilton"));
+			assertTrue(locNames.contains("Auckland"));
+			
+		} catch (UnknownLocationException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testGetAllPossibleLocationsInvalid(){
+		TravelGraph graph = createGraph();
+		
+		try {
+			ArrayList<Location> locs = graph.allReachableLocations("", Priority.STANDARD);
+			fail("Expected an UnknownLocationException");
+		} catch (UnknownLocationException e) {
+			//SUCCESS
+		}
+	}
 	
 	private TravelGraph createGraph(){
 		TravelGraph graph = new TravelGraph();
