@@ -270,7 +270,7 @@ public class TravelGraph {
 				//If its the correct type of path
 				if((priority==Priority.AIR && p.getTransportType()==TransportType.AIR) || (priority==Priority.STANDARD)){
 					//and the path's destination isn't already in the list of reachable Locations 
-					if(!locs.contains(p.getDestination())){
+					if((p.getDestination()!=originLoc) && (!locs.contains(p.getDestination()))){
 						queue.offer(p.getDestination());
 						locs.add(p.getDestination());
 					}					

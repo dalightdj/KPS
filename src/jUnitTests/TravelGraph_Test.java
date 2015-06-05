@@ -9,6 +9,8 @@ import org.junit.Test;
 import travelGraph.*;
 import travelGraph.Path.DayOfWeek;
 import travelGraph.Path.TransportType;
+import travelGraph.TravelGraph.Priority;
+import travelGraph.TravelGraph.UnknownLocationException;
 
 public class TravelGraph_Test {
 	
@@ -155,8 +157,42 @@ public class TravelGraph_Test {
 		assertTrue(locNames.contains("Wellington"));
 		assertTrue(locNames.contains("Hamilton"));
 		assertTrue(locNames.contains("Auckland"));
+		assertFalse(locNames.contains("Christchurch"));
+		assertFalse(locNames.contains(""));
 	}
 	
+	@Test
+	public void testGetAllPossibleLocationsValid(){
+		TravelGraph graph = createGraph();
+		
+		try {
+			ArrayList<Location> locs = graph.allReachableLocations("Wellington", Priority.STANDARD);
+			
+			ArrayList<String> locNames = new ArrayList<String>();
+			for(Location l : locs){
+				locNames.add(l.getName());
+			}
+			
+			assertFalse(locNames.contains("Wellington"));//We dont want to send packages to the place we're sending them from
+			assertTrue(locNames.contains("Hamilton"));
+			assertTrue(locNames.contains("Auckland"));
+			
+		} catch (UnknownLocationException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testGetAllPossibleLocationsInvalid(){
+		TravelGraph graph = createGraph();
+		
+		try {
+			ArrayList<Location> locs = graph.allReachableLocations("", Priority.STANDARD);
+			fail("Expected an UnknownLocationException");
+		} catch (UnknownLocationException e) {
+			//SUCCESS
+		}
+	}
 	
 	private TravelGraph createGraph(){
 		TravelGraph graph = new TravelGraph();
