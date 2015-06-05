@@ -117,7 +117,7 @@ public class MailDialog extends JDialog implements ActionListener {
 		/*This is the panel with all the labels*/
 		labelPanel = new JPanel();
 		//labelPanel.setBorder(BorderFactory.createLineBorder(Color.red)); //just for checking the positioning, can remove later
-		labelPanel.setPreferredSize(new Dimension(80,0));
+		labelPanel.setPreferredSize(new Dimension(150,0));
 		labelPanel.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5,1,5,1); //top, left, bottom, right padding (in that order)
@@ -175,6 +175,7 @@ public class MailDialog extends JDialog implements ActionListener {
  		/*Check what the currently selected priority is and create an enum*/
  		String priority = (String) priorityComboBox.getSelectedItem();
  		Priority priorityEnum;
+
  		if(priority.equals("Air")) {
  			 priorityEnum = Priority.AIR;
  		}
@@ -182,28 +183,12 @@ public class MailDialog extends JDialog implements ActionListener {
  			priorityEnum = Priority.STANDARD;
  		}
 
-
-/*		ArrayList<Location> locs;
- 		locs = kpsObject.getTravelGraph().allReachableLocations(dest, priorityEnum);
-
- 		An array list containing all possible locations
-		ArrayList<String> allLocations = new ArrayList<String>();
-
-		Iterate over locs list and add to new arraylist that will be converted to array later
-		for(Location cityName : locs) {
-			System.out.println("1111"); //test to see if it reaches here
-			allLocations.add(cityName.getCity());
-			System.out.println(cityName.getCity());
-		}*/
-
-
  		ArrayList<String> locs = kpsObject.getDestinations(origin);
 
  		destinationComboBox.removeAllItems(); //remove all the current destinations
 
  		/*Update the destinations combo box with available paths from current origin*/
  		for(String s : locs) {
- 			System.out.println(s);
  	    	destinationComboBox.addItem(s);
  		}
 	}
@@ -319,8 +304,6 @@ public class MailDialog extends JDialog implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == submit) {
-			System.out.println(weightTextField.getText());
-			System.out.println(volumeTextField.getText());
 
 		     if (weightTextField.getText().equals("") && volumeTextField.getText().equals("")) {
 					JOptionPane.showMessageDialog(this,"Please enter all details","Insufficient Details",JOptionPane.ERROR_MESSAGE);
