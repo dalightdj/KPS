@@ -17,6 +17,7 @@ public class Journey {
 	private float volumePrice;
 	private ArrayList<Path> usedPaths;
 	private DayOfWeek dow;
+	private boolean isActive;
 //	private double averageDeliveryTime;
 //	private double averagePrice;
 //	private double deliveryTimeSum;
@@ -32,6 +33,7 @@ public class Journey {
 		this.volumePrice = volumePrice;
 		this.usedPaths = usedPaths;
 		this.dow = dow;
+		this.isActive = true;
 //		this.averageDeliveryTime = averageDeliveryTime;
 //		this.averagePrice = averagePrice;
 	}
@@ -56,6 +58,14 @@ public class Journey {
 				}
 		}
 		return total;
+	}
+
+	public void disactivate(){
+		isActive = false;
+	}
+
+	public boolean isActive(){
+		return isActive;
 	}
 
 	public boolean checkPath(String origin, String destination, String commpany, TransportType type, DayOfWeek dow){

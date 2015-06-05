@@ -94,6 +94,11 @@ public class KPS {
 
 	}
 
+//	public ArrayList<String> getJourneyOrigins(){
+//		ArrayList<String> graphNodes = new ArrayList<String>();
+//
+//	}
+
 	public void loadEvents(){
 		if(logger.readXML().size() == 0){
 			//File xmlFile = new File("eventsData.xml");
@@ -145,13 +150,18 @@ public class KPS {
 
 		}
 
-		//Journey stuff !?!?!?!?!?
-
+		ArrayList<Journey> newJourneys = new ArrayList<Journey>();
 		for(Journey j:journeys){
 			if(j.checkPath(origin, destination, company, type, day)){
-				journeys.remove(j);
+				j.disactivate();
 			}
 		}
+		for(Journey j:journeys){
+			if(j.isActive()){
+				newJourneys.add(j);
+			}
+		}
+		journeys = newJourneys;
 
 		travelGraph.removePath(origin, destination, company, type, day);
 	}
