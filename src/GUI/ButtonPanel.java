@@ -59,7 +59,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
 		this.add(customerPriceUpdate,c);
 		customerPriceUpdate.addActionListener(this);
 
-		transportCostUpdate = new JButton("Transport Cost Update");
+		transportCostUpdate = new JButton("Update Transport Price");
 		c.gridx = 0;
 		c.gridy = 2;
 		this.add(transportCostUpdate,c);

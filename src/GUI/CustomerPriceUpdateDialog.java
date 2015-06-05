@@ -166,7 +166,7 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
 		c2.gridy = 2;
 		op.add(fromComboBox,c2);
 
-		String[] destinationList = {"Wellington", "Hamilton", "Auckland"};
+		String[] destinationList = {"Auckland", "Hamilton", "Rotorua", "Palmerston North", "Wellington", "Christchurch", "Dunedin"};
 		destinationComboBox = new JComboBox(destinationList);
 		destinationComboBox.addActionListener(this);
 		c2.gridx = 0;
