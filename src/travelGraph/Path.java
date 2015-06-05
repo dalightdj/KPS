@@ -56,7 +56,13 @@ public class Path {
 		this.dest = dest;
 		this.company = company;
 		this.type = type;
-		
+		this.ppGram = ppg;
+		this.ppCmCubed = ppcc;
+		this.maxWeight = maxWeight;
+		this.maxVolume = maxVolume;
+		this.day = dayOfWeek;
+		this.frequency = frequency;
+		this.duration = duration;
 		updateCost();
 	}
 	
