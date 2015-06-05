@@ -68,6 +68,8 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
 	private JLabel weightLabelInfo;
 	private JLabel volumeLabelInfo;
 
+	private boolean failed = false;
+
 	private BufferedImage frameIcon;
 
 	Border raisedbevel = BorderFactory.createRaisedBevelBorder();
@@ -143,6 +145,7 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
 		    	updateDestinationComboBox(optionsPanel);
 		    }
 		});
+
 		updateDestinationComboBox(optionsPanel);
 
  		/*Main panel that holds the options panel and the labels panel*/
@@ -158,7 +161,13 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
  		/*Add the main panel to the underlying panel and make this dialog visible*/
 		this.getRootPane().setDefaultButton(submit);
  		this.add(underLyingPanel,BorderLayout.CENTER);
-		this.setVisible(true);
+
+		if(failed) {
+			cancel.doClick();
+		}
+		else {
+			this.setVisible(true);
+		}
 	}
 
 
@@ -312,10 +321,10 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
 	 	    	destinationComboBox.addItem(s);
 	 		}
 		} catch (NothingToDeleteException e) {
+			failed = true;
 			JOptionPane.showMessageDialog(this,"No Origin/Destinations","NOTHING",JOptionPane.ERROR_MESSAGE);
 		}
 	}
-
 
 
 	@Override
@@ -324,6 +333,7 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
 		if(e.getSource() == submit) {
 		     if (weightTextField.getText().equals("") && volumeTextField.getText().equals("")) {
 					JOptionPane.showMessageDialog(this,"Please enter all details","Insufficient Details",JOptionPane.ERROR_MESSAGE);
+					return;
 		     }
 		     else {
 		    	 try {
@@ -344,6 +354,7 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
 		 		String destination =  (String) destinationComboBox.getSelectedItem();
 		 		String origin = (String) fromComboBox.getSelectedItem();
 		 		String dateString = (String) daysComboBox.getSelectedItem();
+
 
 		 		/*Check to make sure it's an int*/
 		 		float weight = Float.parseFloat(weightTextField.getText());
@@ -395,7 +406,7 @@ public class CustomerPriceUpdateDialog extends JDialog implements ActionListener
 		 		}
 
 		 		kpsObject.priceUpdate(destination, origin, priorityEnum, weight, volume,dayEnum, true);
-		    	 frame.updateGUI();
+		    	frame.updateGUI();
 		    	this.dispose();
 		     }
 

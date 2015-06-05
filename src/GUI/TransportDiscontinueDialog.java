@@ -69,6 +69,8 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 
 	private BufferedImage frameIcon;
 
+	private boolean failed = false;
+
 	private ArrayList<String> origins;
 
 
@@ -153,7 +155,13 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
  		/*Add the main panel to the underlying panel and make this dialog visible*/
 		this.getRootPane().setDefaultButton(submit);
  		this.add(underLyingPanel,BorderLayout.CENTER);
-		this.setVisible(true);
+
+		if(failed) {
+			cancel.doClick();
+		}
+		else {
+			this.setVisible(true);
+		}
 	}
 
 	/**
@@ -191,6 +199,7 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 	 		}
 
 		} catch (NothingToDeleteException e) {
+			failed = true;
 			JOptionPane.showMessageDialog(this,"No Origin/Destinations","NOTHING",JOptionPane.ERROR_MESSAGE);
 		}
 
