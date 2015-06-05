@@ -182,7 +182,7 @@ public class TravelGraph {
 	 */
 	private ArrayList<Path> getPath(Location destination){
 		ArrayList<Path> path = new ArrayList<Path>();
-		for(Location l = destination; l!=null; l = l.getFromLoc()){
+		for(Location l = destination; l.getFromLoc()!=null; l = l.getFromLoc()){
 			path.add(l.getFromPath());
 		}
 
