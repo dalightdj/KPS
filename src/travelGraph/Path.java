@@ -8,7 +8,7 @@ package travelGraph;
 public class Path {
 	
 	private final Location origin;
-	private final Location dest;//destination
+	private final Location destination;//destination
 	private final String company;
 	private final TransportType type;
 	
@@ -53,7 +53,7 @@ public class Path {
 	 */
 	public Path(Location origin, Location dest, String company, TransportType type, float ppg, float ppcc, int maxWeight, int maxVolume, Path.DayOfWeek dayOfWeek, int frequency, int duration){
 		this.origin = origin;
-		this.dest = dest;
+		this.destination = dest;
 		this.company = company;
 		this.type = type;
 		this.ppGram = ppg;
@@ -92,7 +92,7 @@ public class Path {
 	 * Update 'price per gram'
 	 * @param price The new price per gram
 	 */
-	public void updatePPG(float price){
+	protected void updatePPG(float price){
 		ppGram = price;
 		updateCost();
 	}
@@ -101,7 +101,7 @@ public class Path {
 	 * Update 'price per centimeter cubed'
 	 * @param price
 	 */
-	public void updatePPCC(float price){
+	protected void updatePPCC(float price){
 		ppCmCubed = price;
 		updateCost();
 	}
@@ -123,7 +123,7 @@ public class Path {
 	 * @param duration The new duration of time it takes to travel from origin to destination in hours. 0< to keep the previous duration
 	 * @return The updated path
 	 */
-	public Path update(float ppg, float ppcc, int maxWeight, int maxVol, int frequency, int duration){
+	protected Path update(float ppg, float ppcc, int maxWeight, int maxVol, int frequency, int duration){
 		if(ppg<0) {this.ppGram = ppg;}
 		if(ppcc<0) {this.ppCmCubed = ppcc;}
 		if(maxWeight<0) {this.maxWeight = maxWeight;}
@@ -134,21 +134,6 @@ public class Path {
 		return this;
 	}
 	
-	public Location getDestination(){
-		return dest;
-	}
-	
-	public String getCompany(){
-		return company;
-	}
-	
-	public TransportType getTransportType(){
-		return type;
-	}
-	
-	public DayOfWeek getDay(){
-		return day;
-	}
 	
 	/**
 	 * 
@@ -157,8 +142,63 @@ public class Path {
 	public float getWeight(){
 		return cost;
 	}
-	
-	public Location getOrigin(){
+
+	public Location getOrigin() {
 		return origin;
 	}
+
+	public Location getDestination() {
+		return destination;
+	}
+
+	public String getCompany() {
+		return company;
+	}
+
+	public TransportType getTransportType() {
+		return type;
+	}
+
+	/**
+	 * 
+	 * @return price per gram
+	 */
+	public float getPPG() {
+		return ppGram;
+	}
+
+	/**
+	 * 
+	 * @return price per centimeter squared
+	 */
+	public float getPPCC() {
+		return ppCmCubed;
+	}
+
+	public int getMaxWeight() {
+		return maxWeight;
+	}
+
+	public int getMaxVolume() {
+		return maxVolume;
+	}
+
+	public DayOfWeek getDay() {
+		return day;
+	}
+
+	public int getFrequency() {
+		return frequency;
+	}
+
+	public int getDuration() {
+		return duration;
+	}
+	
+	
+	public String toString(){
+		return company + " '" + type + "' travel from '" + origin.getCity() + "' to '" + destination.getCity() + "'. Price per gram = '" + ppGram + "', price per centimeter cubed = '" + ppCmCubed
+				+ "'. Max weight = '" + maxWeight + "', Max volume = '" + maxVolume + "'. Travels on '" + day + "', '" + frequency + "' times a day, duration = '" + duration + "' hours";
+	}
+		
 }
