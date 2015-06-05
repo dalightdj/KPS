@@ -7,13 +7,20 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+
+import org.pushingpixels.substance.api.skin.SubstanceGraphiteLookAndFeel;
 
 import Logic.KPS;
+import Main.MainFrame;
 
 public class ButtonPanel extends JPanel implements ActionListener {
 
@@ -24,6 +31,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
 	private JButton transportCostUpdate;
 	private JButton transportDiscontinue;
 	private JButton viewEvents;
+	private JButton logout;
 
 	private KPS kpsObject;
 
@@ -31,7 +39,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
 		this.kpsObject = kpsObject;
 		this.frame = frame;
 		this.setPreferredSize(new Dimension(150,0));
-		this.setBorder(BorderFactory.createLineBorder(Color.black)); //just for checking the positioning, can remove later
+		this.setBorder(BorderFactory.createLoweredBevelBorder());//set border for this panel
 
 		/*Initialize the layout and the insets*/
 		this.setLayout(new GridBagLayout());
@@ -70,6 +78,12 @@ public class ButtonPanel extends JPanel implements ActionListener {
 		viewEvents.addActionListener(this);
 		viewEvents.setEnabled(false);
 		
+		logout = new JButton("Logout");
+		c.gridx = 0;
+		c.gridy = 5;
+		this.add(logout,c);
+		logout.addActionListener(this);
+		
 		if(frame.getIsManager()) {
 			viewEvents.setEnabled(true);
 		}
@@ -92,6 +106,11 @@ public class ButtonPanel extends JPanel implements ActionListener {
 		}
 		if(e.getSource() == viewEvents) {
 			new EventsFrame(frame);
+		}
+		if(e.getSource() == logout) {
+			  frame.dispose();
+		      String[] args = new String[] {""};
+		      MainFrame.main(args);
 		}
 	}
 }
