@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
+import Logger.CPUEvent;
 import Logger.Event;
 import Logger.MDEvent;
 import Logger.TCUEvent;
@@ -57,6 +58,7 @@ public class EventsFrame extends JFrame implements ActionListener {
 	private String priorityString = "";
 	private String weightString = "";
 	private String volumeString = "";
+	private String typeString = "";
 
 	private KPS kpsObject;
 
@@ -117,8 +119,8 @@ public class EventsFrame extends JFrame implements ActionListener {
 
 		if(events.size() != 0) {
 			if(events.get(eventCount) instanceof MDEvent) {
-
 				MDEvent currentEvent =  (MDEvent) events.get(eventCount);
+				typeString = "Mail Delivery";
 				dayString = currentEvent.getDate();
 				originString = currentEvent.getOrigin();
 				destinationString = currentEvent.getDestination();
@@ -130,16 +132,37 @@ public class EventsFrame extends JFrame implements ActionListener {
 			else if(events.get(eventCount) instanceof TCUEvent) {
 				TCUEvent currentEvent = (TCUEvent) events.get(eventCount);
 			}
-			if(events.get(eventCount) instanceof TDEvent) {
+			else if(events.get(eventCount) instanceof TDEvent) {
 				TDEvent currentEvent = (TDEvent) events.get(eventCount);
+			}
+			else if(events.get(eventCount) instanceof CPUEvent) {
+				CPUEvent currentEvent = (CPUEvent) events.get(eventCount);
+				typeString = "Customer Price Update";
+				dayString = currentEvent.getDow().toString();
+				originString = currentEvent.getOrigin();
+				destinationString = currentEvent.getDestination();
+				priorityString = currentEvent.getPriority().toString();
+				weightString = String.valueOf(currentEvent.getWeightPrice());
+				volumeString = String.valueOf(currentEvent.getVolumePrice());
+				setupCPULabels();
 			}
 		}
 
+
 		int tempEventCount = eventCount + 1; //this is just for increasing 1 so first event doesn't show as "Event Number: 0"
 		title.setText("<html><b><font size = 5 color=BLACK>Event Number: <font color = 'yellow'> "+tempEventCount+"</b></html>");
-		typeTitle.setText("<html><b><font size = 5 color=BLACK>Event Type:<font color = yellow size = 5> asd</b></html>");
+		typeTitle.setText("<html><b><font size = 5 color=BLACK>Event Type:<font color = yellow size = 5> "+typeString+"</b></html>");
 
 
+	}
+
+	private void setupCPULabels() {
+		day.setText("<html><b><font size = 5 color=White>  Date :  <font color = 'yellow'> "+dayString+"</b></html>");
+		origin.setText("<html><b><font size = 5 color=White>  Origin :  <font color = 'yellow'> "+originString+"</b></html>");
+		destination.setText("<html><b><font size = 5 color=White>  Destination : <font color = 'yellow'> "+destinationString+"</b></html>");
+		priority.setText("<html><b><font size = 5 color=White>  Priority : <font color = 'yellow'> "+priorityString+"</b></html>");
+		weight.setText("<html><b><font size = 5 color=White>  Weight : <font color = 'yellow'> "+weightString+"</b></html>");
+		volume.setText("<html><b><font size = 5 color=White>  Volume : <font color = 'yellow'> "+volumeString+"</b></html>");
 	}
 
 	private void setupMDLabels() {
@@ -266,7 +289,7 @@ public class EventsFrame extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == nextEvent) {
-			if(++eventCount == events.size()) { //make sure we don't increase past the size of events list
+			if(eventCount+1 == events.size()) { //make sure we don't increase past the size of events list
 				//System.out.println("attempting to go out of events list size"); //testing
 				return;
 			}
