@@ -45,7 +45,15 @@ public class Journey {
 	public float getCost(int weight, int volume) {
 		float total = 0;
 		for(Path p: usedPaths){
-				total += p.calcCost(weight, volume);
+				try {
+					total += p.calcCost(weight, volume);
+				} catch (OverweightException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExceededVolumeException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 		}
 		return total;
 	}

@@ -213,9 +213,11 @@ public class KPS {
 		//write XML
 		//return bool ?
 		//change in the GRAPH STRUCTURE
+
+		//If a new XML needs to be created, create it. Also add a new CPU event to the array of events
+		CPUEvent event = new CPUEvent(origin, destination, priority, weightPrice, volumePrice, dow);
+		events.add(event);
 		if(createNew){
-			CPUEvent event = new CPUEvent(origin, destination, priority, weightPrice, volumePrice, dow);
-			events.add(event);
 			logger.addEvent(event);
 		}
 
@@ -223,6 +225,7 @@ public class KPS {
 		Journey jrny = getJourney(origin,destination,priority, dow);
 		if(jrny==null){
 			Journey j = new Journey(destination, origin, priority, weightPrice, volumePrice,travelGraph.getRoute(origin, destination, priority), dow);
+			journeys.add(j);
 		}
 		else{
 			for(Journey j:journeys){
@@ -303,7 +306,7 @@ public class KPS {
 	public ArrayList<Event> getEvents() {
 		return events;
 	}
-	
+
 	public TravelGraph getTravelGraph() {
 		return travelGraph;
 	}
