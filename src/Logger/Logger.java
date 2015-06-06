@@ -30,10 +30,10 @@ public class Logger {
 
 	}
 
-/**
- * Given a Event the method adds the Event to the xml file
- * @param event
- */
+	/**
+	 * Given a Event the method adds the Event to the xml file
+	 * @param event
+	 */
 	public void addEvent(Event event) {
 
 		File xmlFile = new File("eventsData.xml");
@@ -301,11 +301,11 @@ public class Logger {
 
 		Priority p = null;
 
-	if(priority.equals("AIR")){
-		p = Priority.AIR;
-	}else{
-		p = Priority.STANDARD;
-	}
+		if(priority.equals("AIR")){
+			p = Priority.AIR;
+		}else{
+			p = Priority.STANDARD;
+		}
 
 		return p;
 	}
@@ -358,6 +358,12 @@ public class Logger {
 			break;
 		case "FRIDAY":
 			d = DayOfWeek.FRIDAY;
+			break;
+		case "SATURDAY":
+			d = DayOfWeek.SATURDAY;
+			break;
+		case "SUNDAY":
+			d = DayOfWeek.SUNDAY;
 			break;
 
 		default:
