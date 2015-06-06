@@ -44,17 +44,23 @@ public class Journey {
 //		this.averagePrice = averagePrice;
 	}
 
+	/**
+	 * PLEASE DO NOT CALL THIS METHOD
+	 */
 	public Double getPrice(int weight, int volume){
-		System.out.println("getPrice method in Journey called. should have been a delivery.");
+		//System.out.println("getPrice method in Journey called. should have been a delivery.");
 		double price = weightPrice*weight + volumePrice*volume;
 		price = Math.round(price * 100);
 		totalPrice += (price/100);
 		return price/100;
 
 	}
-
+	/**
+	 * PLEASE DO NOT CALL THIS METHOD
+	 */
 	public float getCost(int weight, int volume) {
-		System.out.println("getCost method in Journey called. should have been a delivery.");
+		//System.out.println("getCost method in Journey called. should have been a delivery.");
+		timesUsed++;
 		float total = 0;
 		for(Path p: usedPaths){
 				try {

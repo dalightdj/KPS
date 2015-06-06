@@ -41,6 +41,7 @@ public class KPS {
 		journeys = new ArrayList<Journey>();
 		logger = new Logger(); //Does not affect the XML file.
 		loadEvents(); //WILL BE NULL AT THE START UNLESS WE HAVE A DEFAULT XML FILE
+		//System.out.println("saff");
 	}
 
 	/**
@@ -124,7 +125,7 @@ public class KPS {
 			return;
 		}
 		events = logger.readXML();
-		System.out.println("in loadEvents stop");
+		//System.out.println("in loadEvents stop");
 		for (Event e:events){
 			if(e instanceof MDEvent ){
 				mailDelivery(((MDEvent) e).getDate(), ((MDEvent) e).getDestination(), ((MDEvent) e).getOrigin(),
@@ -164,7 +165,7 @@ public class KPS {
 
 		//If a new XML needs to be created, create it. Also add a new TD event to the array of events
 
-		System.out.println("discontinue Route method called.");
+		//System.out.println("discontinue Route method called.");
 
 		if(createNew){
 			TDEvent event = new TDEvent(company, destination, origin, type, day);
@@ -192,7 +193,7 @@ public class KPS {
 	public void costUpdate(String company, String destination, String origin, TransportType type, DayOfWeek dow,
 			float weightCost, float volumeCost, int maxWeight, int maxVolume, int duration, int frequency, boolean createNew){
 
-		System.out.println("costUpdate method called.");
+		//System.out.println("costUpdate method called.");
 
 		//If a new XML needs to be created, create it. Also add a new CU event to the array of events
 		if(createNew){
@@ -222,8 +223,8 @@ public class KPS {
 		//Checks if the given origin/destination/day/priority given relates to a journey offered by KPS.
 		//If it does, adjust the total revenue and expendeture accordingly. Else return false.
 
-		System.out.println("mailDeliver method called.");
-		System.out.println("getDay(date): " + getDay(date));
+		//System.out.println("mailDeliver method called.");
+		//System.out.println("getDay(date): " + getDay(date));
 		Journey usedJourney = getJourney(origin, destination, priority, getDay(date));
 		if(usedJourney == null){
 			return false;
@@ -286,7 +287,7 @@ public class KPS {
 		//return bool ?
 		//change in the GRAPH STRUCTURE
 
-		System.out.println("price update method called.");
+		//System.out.println("price update method called.");
 
 		ArrayList<Path> pathings;
 		try {
