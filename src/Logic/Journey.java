@@ -17,6 +17,9 @@ public class Journey {
 	private float volumePrice;
 	private ArrayList<Path> usedPaths;
 	private DayOfWeek dow;
+	private int timesUsed;
+	private float totalPrice;
+	private float totalCost;
 	private boolean isActive;
 //	private double averageDeliveryTime;
 //	private double averagePrice;
@@ -34,17 +37,24 @@ public class Journey {
 		this.usedPaths = usedPaths;
 		this.dow = dow;
 		this.isActive = true;
+		this.timesUsed = 0;
+		this.totalCost = 0;
+		this.totalPrice = 0;
 //		this.averageDeliveryTime = averageDeliveryTime;
 //		this.averagePrice = averagePrice;
 	}
 
 	public Double getPrice(int weight, int volume){
+		System.out.println("getPrice method in Journey called. should have been a delivery.");
 		double price = weightPrice*weight + volumePrice*volume;
 		price = Math.round(price * 100);
+		totalPrice += (price/100);
 		return price/100;
+
 	}
 
 	public float getCost(int weight, int volume) {
+		System.out.println("getCost method in Journey called. should have been a delivery.");
 		float total = 0;
 		for(Path p: usedPaths){
 				try {
@@ -57,6 +67,7 @@ public class Journey {
 					e.printStackTrace();
 				}
 		}
+		totalCost += total;
 		return total;
 	}
 
@@ -66,6 +77,14 @@ public class Journey {
 
 	public boolean isActive(){
 		return isActive;
+	}
+
+	public boolean isCritical(){
+		return ((totalCost/timesUsed) > (totalPrice/timesUsed));
+	}
+
+	public float getAverageLoss(){
+		return ((totalCost/timesUsed) - (totalPrice/timesUsed));
 	}
 
 	public boolean checkPath(String origin, String destination, String commpany, TransportType type, DayOfWeek dow){
