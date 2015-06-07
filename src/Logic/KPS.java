@@ -75,30 +75,30 @@ public class KPS {
 		return origns;
 	}
 	
-	public ArrayList<String> getCompanies(){
+	public ArrayList<String> getCompanies(DayOfWeek dow){
 		ArrayList<String> companyNames = new ArrayList<String>();
 		for(Path p: travelGraph.getAllPaths()){
-			if (!companyNames.contains(p.getCompany())){
+			if (p.getDay().equals(dow) && !companyNames.contains(p.getCompany())){
 				companyNames.add(p.getCompany());
 			}
 		}
 		return companyNames;
 	}
 	
-	public ArrayList<String> getOriginsOfCompany(String company){
+	public ArrayList<String> getOriginsOfCompany(DayOfWeek dow, String company){
 		ArrayList<String> originsOfCompany = new ArrayList<String>();
 		for(Path p:travelGraph.getAllPaths()){
-			if(p.getCompany().equals(company) && !originsOfCompany.contains(p.getOrigin().getName())){
+			if(p.getDay().equals(dow) && p.getCompany().equals(company) && !originsOfCompany.contains(p.getOrigin().getName())){
 				originsOfCompany.add(p.getOrigin().getName());
 			}
 		}
 		return originsOfCompany;
 	}
 	
-	public ArrayList<String> getDestinationsOfOriginOfCompany(String company, String origin){
+	public ArrayList<String> getDestinationsOfOriginOfCompany(DayOfWeek dow, String company, String origin){
 		ArrayList<String> destsOfOriginOfCompany = new ArrayList<String>();
 		for(Path p:travelGraph.getAllPaths()){
-			if(p.getCompany().equals(company) && p.getOrigin().equals(origin) && 
+			if(p.getDay().equals(dow) && p.getCompany().equals(company) && p.getOrigin().equals(origin) && 
 					!destsOfOriginOfCompany.contains(p.getDestination().getName())){
 				destsOfOriginOfCompany.add(p.getDestination().getName());
 			}
