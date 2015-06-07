@@ -98,7 +98,7 @@ public class KPS {
 	public ArrayList<String> getDestinationsOfOriginOfCompany(DayOfWeek dow, String company, String origin){
 		ArrayList<String> destsOfOriginOfCompany = new ArrayList<String>();
 		for(Path p:travelGraph.getAllPaths()){
-			if(p.getDay().equals(dow) && p.getCompany().equals(company) && p.getOrigin().equals(origin) && 
+			if(p.getDay().equals(dow) && p.getCompany().equals(company) && p.getOrigin().getName().equals(origin) && 
 					!destsOfOriginOfCompany.contains(p.getDestination().getName())){
 				destsOfOriginOfCompany.add(p.getDestination().getName());
 			}
