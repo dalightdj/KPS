@@ -35,6 +35,7 @@ public class KPSFrame extends JFrame {
 	private JLabel title;
 	private JLabel totalRevenue;
 	private JLabel totalExpenditure;
+	private JLabel netProfit;
 	private JLabel totalNumberOfEvents;
 	private JLabel amountOfMail;
 	private JLabel criticalRoutes;
@@ -104,6 +105,7 @@ public class KPSFrame extends JFrame {
 
 		totalRevenue = new JLabel();
 		totalExpenditure = new JLabel();
+		netProfit = new JLabel();
 		totalNumberOfEvents = new JLabel();
 		amountOfMail = new JLabel();
 		criticalRoutes = new JLabel();
@@ -123,14 +125,18 @@ public class KPSFrame extends JFrame {
 
 		c.gridx = 0;
 		c.gridy = 3;
+		guiInformation.add(netProfit,c);
+		
+		c.gridx = 0;
+		c.gridy = 4;
 		guiInformation.add(totalNumberOfEvents,c);
 
 		c.gridx = 0;
-		c.gridy = 4;
+		c.gridy = 5;
 		guiInformation.add(amountOfMail,c);
 
 		c.gridx = 0;
-		c.gridy = 5;
+		c.gridy = 6;
 		guiInformation.add(criticalRoutes,c);
 
 		c.gridx = 1;
@@ -154,9 +160,11 @@ public class KPSFrame extends JFrame {
 		String expenditureString = String.valueOf(totalExpenditureDouble);
 		String numOfEventsString = String.valueOf(totalNumberOfEventsDouble);
 		String numOfMailsString = String.valueOf(totalAmountOfMailDouble);
-
+		String netProfitString = String.valueOf(totalRevenueDouble - totalExpenditureDouble);
+		
 		totalRevenue.setText("<html><b><font size = 5 color=White>Total Revenue:  <font color = 'yellow'>$ "+revenueString+"</b></html>");
 		totalExpenditure.setText("<html><b><font size = 5 color=White>Total Expenditure: <font color = 'yellow'>$ "+expenditureString+"</b></html>");
+		netProfit.setText("<html><b><font size = 5 color=White>Net Profit/(Loss): <font color = 'yellow'>$ "+netProfitString+"</b></html>");
 		totalNumberOfEvents.setText("<html><b><font size = 5 color=White>Total Number of Events: <font color = 'yellow'> "+numOfEventsString+"</b></html>");
 		amountOfMail.setText("<html><b><font size = 5 color=White>Amount of Mail: <font color = 'yellow'> "+numOfMailsString+"</b></html>");
 

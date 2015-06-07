@@ -228,7 +228,7 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		c2.gridy = 7;
 		op.add(volumeLabelInfo,c2);
 
-		durationLabelInfo = new JLabel("(Hours Between Flight)");
+		durationLabelInfo = new JLabel("(Hours Between Flights)");
 		c2.gridx = 1;
 		c2.gridy = 9;
 		op.add(durationLabelInfo,c2);
@@ -315,7 +315,7 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		c.gridy = 4;
 		labelPanel.add(typeLabel,c);
 
-		newWeightCostLabel = new JLabel("Weight Price: ");
+		newWeightCostLabel = new JLabel("Weight Cost: ");
 		c.gridx = 0;
 		c.gridy = 5;
 		labelPanel.add(newWeightCostLabel,c);
@@ -325,7 +325,7 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 		c.gridy = 6;
 		labelPanel.add(maxwWeightLabel,c);
 
-		newVolumeCostLabel = new JLabel("Volume Price: ");
+		newVolumeCostLabel = new JLabel("Volume Cost: ");
 		c.gridx = 0;
 		c.gridy = 7;
 		labelPanel.add(newVolumeCostLabel,c);
