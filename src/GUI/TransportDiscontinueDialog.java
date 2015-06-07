@@ -144,6 +144,7 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 
 		if(failed) {
 			cancel.doClick();
+			JOptionPane.showMessageDialog(this,"No Listings Made","Failed",JOptionPane.ERROR_MESSAGE);
 		}
 		else {
 			this.setVisible(true);
@@ -156,7 +157,7 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 		daysComboBox = new JComboBox(daysList);
     	DayOfWeek dayEnum = findDay((String) daysComboBox.getSelectedItem());
     	
-    	if(!(kpsObject.getCompanies(dayEnum).size() < 0 )) {
+    	if(!(kpsObject.getCompanies(dayEnum).size() <= 0 )) {
     		fromComboBox = new JComboBox(kpsObject.getOriginsOfCompany(dayEnum, kpsObject.getCompanies(dayEnum).get(0)).toArray()); //get first item from the originsofcompany list
     		companyComboBox = new JComboBox(kpsObject.getCompanies(dayEnum).toArray());
     		
