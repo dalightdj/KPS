@@ -93,19 +93,10 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 		frameIcon = MainFrame.load(MainFrame.ASSETS + "frameIcon2.png");
 		ImageIcon icon = new ImageIcon(frameIcon);
 		this.setIconImage(icon.getImage());
-
- 		/*add an acitonListener to the origin combobox and make sure the destinations update according to currently selected origin*/
-	
-		fromComboBox = new JComboBox(kpsObject.getOriginsOfCompany(kpsObject.getCompanies().get(0)).toArray()); //get first item from the originsofcompany list
-		companyComboBox = new JComboBox(kpsObject.getCompanies().toArray());
-		
- 		String origin = (String) fromComboBox.getSelectedItem();
-    	String companyString = (String) companyComboBox.getSelectedItem();
-		destinationComboBox = new JComboBox(kpsObject.getDestinationsOfOriginOfCompany(companyString, origin).toArray());
-
- 		origins = kpsObject.getOriginsOfCompany((String) companyComboBox.getSelectedItem());
-
  		
+ 		setupListeners();
+
+		
 		/*This is the panel with all the labels*/
 		labelPanel = new JPanel();
 		labelPanel.setPreferredSize(new Dimension(110,0));
@@ -133,21 +124,6 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 		c2.weighty = 1.0;
  		setupOptions(optionsPanel, c2);
 
-		fromComboBox.addActionListener (new ActionListener () {
-		    public void actionPerformed(ActionEvent e) {
-		    	updateDestinationComboBox(optionsPanel);
-		    }
-		});
-		updateDestinationComboBox(optionsPanel);
-
-		companyComboBox.addActionListener (new ActionListener () {
-		    public void actionPerformed(ActionEvent e) {
-		    	updateOriginComboBox(optionsPanel);
-		    }
-		});
-		updateOriginComboBox(optionsPanel);
-		
-
  		/*Main panel that holds the options panel and the labels panel*/
  		mainPanel = new JPanel();
  		mainPanel.setLayout(new BorderLayout());
@@ -170,10 +146,66 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 		}
 	}
 
+	private void setupListeners() {
+		
+		String[] daysList = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+		daysComboBox = new JComboBox(daysList);
+    	DayOfWeek dayEnum = findDay((String) daysComboBox.getSelectedItem());
+
+		fromComboBox = new JComboBox(kpsObject.getOriginsOfCompany(dayEnum, kpsObject.getCompanies(dayEnum).get(0)).toArray()); //get first item from the originsofcompany list
+		companyComboBox = new JComboBox(kpsObject.getCompanies(dayEnum).toArray());
+		
+		
+ 		String origin = (String) fromComboBox.getSelectedItem();
+    	String companyString = (String) companyComboBox.getSelectedItem();
+		destinationComboBox = new JComboBox(kpsObject.getDestinationsOfOriginOfCompany(dayEnum,companyString, origin).toArray());
+
+ 		origins = kpsObject.getOriginsOfCompany(dayEnum,(String) companyComboBox.getSelectedItem());
+ 		
+		fromComboBox.addActionListener (new ActionListener () {
+		    public void actionPerformed(ActionEvent e) {
+		    	updateDestinationComboBox(optionsPanel);
+		    }
+		});
+		updateDestinationComboBox(optionsPanel);
+
+		companyComboBox.addActionListener (new ActionListener () {
+		    public void actionPerformed(ActionEvent e) {
+		    	updateOriginComboBox(optionsPanel);
+		    }
+		});
+		updateOriginComboBox(optionsPanel);
+		
+		daysComboBox.addActionListener (new ActionListener () {
+		    public void actionPerformed(ActionEvent e) {
+		    	updateCompanyComboBox(optionsPanel);
+		    }
+		});
+		updateCompanyComboBox(optionsPanel);		
+	}
+
+	private void updateCompanyComboBox(JPanel optionsPanel) {
+ 		ArrayList<String> comps;
+    	String companyString = (String) companyComboBox.getSelectedItem();
+    	DayOfWeek dayEnum = findDay((String) daysComboBox.getSelectedItem());
+
+    	comps = kpsObject.getCompanies(dayEnum);
+
+
+    	companyComboBox.removeAllItems(); //remove all the current destinations
+
+		/*Update the destinations combo box with available paths from current origin*/
+		for(String s : comps) {
+			companyComboBox.addItem(s);
+		}
+	}
+	
 	private void updateOriginComboBox(JPanel optionsPanel) {
  		ArrayList<String> locs;
     	String companyString = (String) companyComboBox.getSelectedItem();
-		locs = kpsObject.getOriginsOfCompany(companyString);
+    	DayOfWeek dayEnum = findDay((String) daysComboBox.getSelectedItem());
+
+		locs = kpsObject.getOriginsOfCompany(dayEnum, companyString);
 
 		fromComboBox.removeAllItems(); //remove all the current destinations
 
@@ -184,6 +216,37 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 	}
 	
 	/**
+	 * returns the day of week as enum
+	 * @param dateString
+	 * @return enum DayOfWeek
+	 */
+	private DayOfWeek findDay(String dateString) {
+ 		DayOfWeek dayEnum;
+ 		/*Check for the day*/
+ 		if(dateString.equals("Monday")) {
+ 			dayEnum = DayOfWeek.MONDAY;
+ 		}
+ 		else if(dateString.equals("Tuesday")) {
+ 			dayEnum = DayOfWeek.TUESDAY;
+ 		}
+ 		else if(dateString.equals("Wednesday")) {
+ 			dayEnum = DayOfWeek.WEDNESDAY;
+ 		}
+ 		else if(dateString.equals("Thursday")) {
+ 			dayEnum = DayOfWeek.THURSDAY;
+ 		}
+ 		else if(dateString.equals("Friday")) {
+ 			dayEnum = DayOfWeek.FRIDAY;
+ 		}
+ 		else if(dateString.equals("Saturday")) {
+ 			dayEnum = DayOfWeek.SATURDAY;
+ 		}
+ 		else {
+ 			dayEnum = DayOfWeek.SUNDAY;
+ 		}
+ 		return dayEnum;
+	}
+	/**
 	/**Find all possible paths from the currently selected origin and list those destinations in the destination combo box
 	 * @param optionsPanel2
 	 * 	@param c22
@@ -192,32 +255,18 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 		/*Check what the currently selected destination is and create a location*/
 
  		String origin = (String) fromComboBox.getSelectedItem();
- 		String destination =  (String) destinationComboBox.getSelectedItem();
- 		Location dest = new Location(destination);
     	String companyString = (String) companyComboBox.getSelectedItem();
-
- 		/*Check what the currently selected priority is and create an enum*/
- 		String priority = (String) typeComboBox.getSelectedItem();
- 		Priority priorityEnum;
-
- 		if(priority.equals("Air")) {
- 			 priorityEnum = Priority.AIR;
- 		}
- 		else {
- 			priorityEnum = Priority.STANDARD;
- 		}
+    	DayOfWeek dayEnum = findDay((String) daysComboBox.getSelectedItem());
 
  		ArrayList<String> locs;
-		locs = kpsObject.getDestinationsOfOriginOfCompany(companyString, origin);
+		locs = kpsObject.getDestinationsOfOriginOfCompany(dayEnum, companyString, origin);
 
 		destinationComboBox.removeAllItems(); //remove all the current destinations
 
 		/*Update the destinations combo box with available paths from current origin*/
 		for(String s : locs) {
-			System.out.println(s);
 			destinationComboBox.addItem(s);
 		}
-
 
 	}
 
@@ -230,9 +279,7 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 	 * @param c2 - the GridBagConstraints to use for positioning
 	 */
 	private void setupOptions(JPanel op, GridBagConstraints c2) {
-		String[] daysList = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
-		daysComboBox = new JComboBox(daysList);
-		daysComboBox.addActionListener(this);
+
 		c2.gridx = 0;
 		c2.gridy = 0;
 		op.add(daysComboBox,c2);
@@ -338,12 +385,12 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 		    	 
 		 		String destination =  (String) destinationComboBox.getSelectedItem();
 		 		String origin = (String) fromComboBox.getSelectedItem();
-		 		String dateString = (String) daysComboBox.getSelectedItem();
 		 		String typeString = (String) typeComboBox.getSelectedItem();
-		 		String priority = (String) typeComboBox.getSelectedItem();
 
 		 		TransportType typeEnum;
-		 		DayOfWeek dayEnum;
+		 		
+		 		/*Check for day*/
+		    	DayOfWeek dayEnum = findDay((String) daysComboBox.getSelectedItem());
 
 		 		/*Check for the priority*/
 		 		if(typeString.equals("Air")) {
@@ -356,28 +403,6 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 		 			typeEnum = TransportType.SEA;
 		 		}
 
-		 		/*Check for the day*/
-		 		if(dateString.equals("Monday")) {
-		 			dayEnum = DayOfWeek.MONDAY;
-		 		}
-		 		else if(dateString.equals("Tuesday")) {
-		 			dayEnum = DayOfWeek.TUESDAY;
-		 		}
-		 		else if(dateString.equals("Wednesday")) {
-		 			dayEnum = DayOfWeek.WEDNESDAY;
-		 		}
-		 		else if(dateString.equals("Thursday")) {
-		 			dayEnum = DayOfWeek.THURSDAY;
-		 		}
-		 		else if(dateString.equals("Friday")) {
-		 			dayEnum = DayOfWeek.FRIDAY;
-		 		}
-		 		else if(dateString.equals("Saturday")) {
-		 			dayEnum = DayOfWeek.SATURDAY;
-		 		}
-		 		else {
-		 			dayEnum = DayOfWeek.SUNDAY;
-		 		}
 		 		kpsObject.discontinueRoute(origin, destination, companyString, typeEnum, dayEnum, true);
 		    	frame.updateGUI();
 		    	this.dispose();
