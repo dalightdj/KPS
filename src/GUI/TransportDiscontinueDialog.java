@@ -188,9 +188,9 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
     		    }
     		});
     		updateCompanyComboBox(optionsPanel);
-    		
     		setupLabels(labelPanel, c); //method that will setup all the labels
      		setupOptions(optionsPanel, c2);
+    		updateDestinationComboBox(optionsPanel);
     	}	
     	else {
      		failed = true;
