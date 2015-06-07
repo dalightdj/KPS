@@ -230,12 +230,12 @@ public class TransportCostUpdateDialog extends JDialog implements ActionListener
 
 		durationLabelInfo = new JLabel("(Hours Between Flight)");
 		c2.gridx = 1;
-		c2.gridy = 10;
+		c2.gridy = 9;
 		op.add(durationLabelInfo,c2);
 
-		freqLabelInfo = new JLabel("(Per Hour)");
+		freqLabelInfo = new JLabel("(Hours)");
 		c2.gridx = 1;
-		c2.gridy = 9;
+		c2.gridy = 10;
 		op.add(freqLabelInfo,c2);
 
 		gramLabel = new JLabel("(Grams)");
