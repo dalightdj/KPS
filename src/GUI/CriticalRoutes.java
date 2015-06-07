@@ -113,7 +113,9 @@ public class CriticalRoutes extends JFrame implements ActionListener {
 				originString = currentJourney.getOrigin();
 				destinationString = currentJourney.getDestination();
 				priorityString = currentJourney.getPriority().toString();
-				lossString = Float.toString(currentJourney.getAverageLoss());
+				//lossString = Float.toString(currentJourney.getAverageLoss());
+				lossString = String.format("%.2f", currentJourney.getAverageLoss()); //round to 2 dp
+				
 				setupJourneyLabels();
 		}
 		int tempJourneyCount = journeyCount + 1; //this is just for increasing 1 so first journey doesn't show as "Journey Number: 0"
