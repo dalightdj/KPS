@@ -194,6 +194,18 @@ public class TravelGraph_Test {
 		}
 	}
 	
+	@Test
+	public void testRemovePath(){
+		TravelGraph graph = createGraph();
+		
+		graph.removePath("Wellington", "Hamilton", "Air NZ", TransportType.AIR, DayOfWeek.MONDAY);
+		
+		ArrayList<Path> paths = graph.getAllPaths();
+		
+		assertTrue(paths.size()==2);
+		assertFalse(paths.contains(this.paths.get(0)));
+	}
+	
 	private TravelGraph createGraph(){
 		TravelGraph graph = new TravelGraph();
 		String[] origin = {"Wellington", "Auckland", "Hamilton"};
