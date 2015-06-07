@@ -125,7 +125,7 @@ public class CriticalRoutes extends JFrame implements ActionListener {
 		origin.setText("<html><font face = Lucida Sans Unicode size = 5 color=White>  Origin :  <font color = 'yellow'> "+originString+"</html>");
 		destination.setText("<html><font face = Lucida Sans Unicode size = 5 color=White>  Destination : <font color = 'yellow'> "+destinationString+"</html>");
 		priority.setText("<html><font face = Lucida Sans Unicode size = 5 color=White>  Priority : <font color = 'yellow'> "+priorityString+"</html>");
-		loss.setText("<html><font face = Lucida Sans Unicode size = 5 color=White>  Average Loss : <font color = 'yellow'> "+lossString+"</html>");
+		loss.setText("<html><font face = Lucida Sans Unicode size = 5 color=White>  Average Loss : <font color = 'yellow'> "+"$"+lossString+"</html>");
 
 	}
 
