@@ -142,10 +142,10 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 
 		companyComboBox.addActionListener (new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {
-		    	updateDestinationComboBox(optionsPanel);
+		    	updateOriginComboBox(optionsPanel);
 		    }
 		});
-		updateDestinationComboBox(optionsPanel);
+		updateOriginComboBox(optionsPanel);
 		
 
  		/*Main panel that holds the options panel and the labels panel*/
@@ -170,6 +170,19 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 		}
 	}
 
+	private void updateOriginComboBox(JPanel optionsPanel) {
+ 		ArrayList<String> locs;
+    	String companyString = (String) companyComboBox.getSelectedItem();
+		locs = kpsObject.getOriginsOfCompany(companyString);
+
+		fromComboBox.removeAllItems(); //remove all the current destinations
+
+		/*Update the destinations combo box with available paths from current origin*/
+		for(String s : locs) {
+			fromComboBox.addItem(s);
+		}
+	}
+	
 	/**
 	/**Find all possible paths from the currently selected origin and list those destinations in the destination combo box
 	 * @param optionsPanel2
@@ -201,6 +214,7 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 
 		/*Update the destinations combo box with available paths from current origin*/
 		for(String s : locs) {
+			System.out.println(s);
 			destinationComboBox.addItem(s);
 		}
 
