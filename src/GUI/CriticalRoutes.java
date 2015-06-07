@@ -42,13 +42,14 @@ public class CriticalRoutes extends JFrame implements ActionListener {
 	private JLabel priority;
 	private JLabel day;
 	private JLabel title;
-
+	private JLabel loss;
 
 	/*Information for the labels*/
 	private String dayString = "";
 	private String originString ="";
 	private String destinationString = "";
 	private String priorityString = "";
+	private String lossString = "";
 
 	private KPS kpsObject;
 
@@ -112,10 +113,11 @@ public class CriticalRoutes extends JFrame implements ActionListener {
 				originString = currentJourney.getOrigin();
 				destinationString = currentJourney.getDestination();
 				priorityString = currentJourney.getPriority().toString();
+				lossString = Float.toString(currentJourney.getAverageLoss());
 				setupJourneyLabels();
 		}
-		int tempJourneyCount = journeyCount + 1; //this is just for increasing 1 so first event doesn't show as "Event Number: 0"
-		title.setText("<html><font size = 5 color=White>Event Number: <font color = 'yellow'> "+tempJourneyCount+"</html>");
+		int tempJourneyCount = journeyCount + 1; //this is just for increasing 1 so first journey doesn't show as "Journey Number: 0"
+		title.setText("<html><font size = 5 color=White>Journey Number: <font color = 'yellow'> "+tempJourneyCount+"</html>");
 	}
 
 	private void setupJourneyLabels() {
@@ -123,6 +125,8 @@ public class CriticalRoutes extends JFrame implements ActionListener {
 		origin.setText("<html><font face = Lucida Sans Unicode size = 5 color=White>  Origin :  <font color = 'yellow'> "+originString+"</html>");
 		destination.setText("<html><font face = Lucida Sans Unicode size = 5 color=White>  Destination : <font color = 'yellow'> "+destinationString+"</html>");
 		priority.setText("<html><font face = Lucida Sans Unicode size = 5 color=White>  Priority : <font color = 'yellow'> "+priorityString+"</html>");
+		loss.setText("<html><font face = Lucida Sans Unicode size = 5 color=White>  Average Loss : <font color = 'yellow'> "+lossString+"</html>");
+
 	}
 
 	private void setupLabels() {
@@ -138,6 +142,7 @@ public class CriticalRoutes extends JFrame implements ActionListener {
 		priority = new JLabel();
 		day = new JLabel();
 		title = new JLabel();
+		loss = new JLabel();
 
 		day.setBackground(Color.BLACK);
 		day.setOpaque(true);
@@ -155,7 +160,10 @@ public class CriticalRoutes extends JFrame implements ActionListener {
 		priority.setOpaque(true);
 		priority.setBorder(new EmptyBorder(0,10,0,0));
 
-
+		loss.setBackground(Color.BLACK);
+		loss.setOpaque(true);
+		loss.setBorder(new EmptyBorder(0,10,0,0));
+		
 		JPanel labelPanel = new JPanel();
 		labelPanel.setLayout(new GridBagLayout());
 		GridBagConstraints c2 = new GridBagConstraints();
@@ -184,6 +192,9 @@ public class CriticalRoutes extends JFrame implements ActionListener {
 		c2.gridy = 5;
 		labelPanel.add(priority,c2);
 
+		c2.gridx = 0;
+		c2.gridy = 6;
+		labelPanel.add(loss,c2);
 
 		c.insets = new Insets(0,10,10,10);
 		c.gridx = 0;
