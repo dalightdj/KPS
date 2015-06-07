@@ -74,7 +74,37 @@ public class KPS {
 		}
 		return origns;
 	}
-
+	
+	public ArrayList<String> getCompanies(){
+		ArrayList<String> companyNames = new ArrayList<String>();
+		for(Path p: travelGraph.getAllPaths()){
+			if (!companyNames.contains(p.getCompany())){
+				companyNames.add(p.getCompany());
+			}
+		}
+		return companyNames;
+	}
+	
+	public ArrayList<String> getOriginsOfCompany(String company){
+		ArrayList<String> originsOfCompany = new ArrayList<String>();
+		for(Path p:travelGraph.getAllPaths()){
+			if(p.getCompany().equals(company) && !originsOfCompany.contains(p.getOrigin().getName())){
+				originsOfCompany.add(p.getOrigin().getName());
+			}
+		}
+		return originsOfCompany;
+	}
+	
+	public ArrayList<String> getDestinationsOfOriginOfCompany(String company, String origin){
+		ArrayList<String> destsOfOriginOfCompany = new ArrayList<String>();
+		for(Path p:travelGraph.getAllPaths()){
+			if(p.getCompany().equals(company) && p.getOrigin().equals(origin) && 
+					!destsOfOriginOfCompany.contains(p.getDestination().getName())){
+				destsOfOriginOfCompany.add(p.getDestination().getName());
+			}
+		}
+		return destsOfOriginOfCompany;
+	}
 
 	/**
 	 * @throws NothingToDeleteException
@@ -101,6 +131,7 @@ public class KPS {
 	}
 
 	public ArrayList<Journey> getCriticals(){
+		System.out.println("getCriticals called");
 		ArrayList<Journey> criticals = new ArrayList<Journey>();
 		for(Journey j:journeys){
 			if(j.isCritical()){
@@ -232,6 +263,7 @@ public class KPS {
 		else{
 			expendetureTotal += usedJourney.getCost(weight, volume);
 			revenueTotal += usedJourney.getPrice(weight, volume);
+			deliveriesCount++;
 		}
 
 		//If a new XML needs to be created, create it. Also add a new MD event to the array of events
@@ -382,6 +414,7 @@ public class KPS {
 	}
 
 	public int getNoDeliveries(){
+		System.out.println("noDeliveries: " + deliveriesCount);
 		return deliveriesCount;
 	}
 

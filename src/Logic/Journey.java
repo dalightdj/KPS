@@ -86,6 +86,7 @@ public class Journey {
 	}
 
 	public boolean isCritical(){
+		System.out.println("Total cost: " + totalCost + ", totalPrice: " + totalPrice);
 		return ((totalCost/timesUsed) > (totalPrice/timesUsed));
 	}
 
