@@ -94,18 +94,25 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 		ImageIcon icon = new ImageIcon(frameIcon);
 		this.setIconImage(icon.getImage());
  		
- 		setupListeners();
+		
+		GridBagConstraints c = new GridBagConstraints();
+		c.insets = new Insets(5,1,5,1); //top, left, bottom, right padding (in that order)
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weighty = 1.0;
+		
+		GridBagConstraints c2 = new GridBagConstraints();
+		c2.insets = new Insets(5,10,5,1); //top, left, bottom, right padding (in that order)
+		c2.fill = GridBagConstraints.HORIZONTAL;
+		c2.weighty = 1.0;
+		
+
 
 		
 		/*This is the panel with all the labels*/
 		labelPanel = new JPanel();
 		labelPanel.setPreferredSize(new Dimension(110,0));
 		labelPanel.setLayout(new GridBagLayout());
-		GridBagConstraints c = new GridBagConstraints();
-		c.insets = new Insets(5,1,5,1); //top, left, bottom, right padding (in that order)
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weighty = 1.0;
-		setupLabels(labelPanel, c); //method that will setup all the labels
+
 
  		/*This panel is for the buttons submit and cancel*/
  		buttonPanel = new JPanel();
@@ -118,12 +125,9 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
  		optionsPanel = new JPanel();
  		optionsPanel.setPreferredSize(new Dimension(this.getWidth(),80));
  		optionsPanel.setLayout(new GridBagLayout());
-		GridBagConstraints c2 = new GridBagConstraints();
-		c2.insets = new Insets(5,10,5,1); //top, left, bottom, right padding (in that order)
-		c2.fill = GridBagConstraints.HORIZONTAL;
-		c2.weighty = 1.0;
- 		setupOptions(optionsPanel, c2);
 
+ 		setupListeners(labelPanel, optionsPanel, c, c2);
+ 		
  		/*Main panel that holds the options panel and the labels panel*/
  		mainPanel = new JPanel();
  		mainPanel.setLayout(new BorderLayout());
@@ -146,42 +150,50 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 		}
 	}
 
-	private void setupListeners() {
+	private void setupListeners(JPanel labelPanel2, JPanel optionsPanel2, GridBagConstraints c, GridBagConstraints c2) {
 		
 		String[] daysList = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 		daysComboBox = new JComboBox(daysList);
     	DayOfWeek dayEnum = findDay((String) daysComboBox.getSelectedItem());
+    	
+    	if(!(kpsObject.getCompanies(dayEnum).size() < 0 )) {
+    		fromComboBox = new JComboBox(kpsObject.getOriginsOfCompany(dayEnum, kpsObject.getCompanies(dayEnum).get(0)).toArray()); //get first item from the originsofcompany list
+    		companyComboBox = new JComboBox(kpsObject.getCompanies(dayEnum).toArray());
+    		
+    		
+     		String origin = (String) fromComboBox.getSelectedItem();
+        	String companyString = (String) companyComboBox.getSelectedItem();
+    		destinationComboBox = new JComboBox(kpsObject.getDestinationsOfOriginOfCompany(dayEnum,companyString, origin).toArray());
 
-		fromComboBox = new JComboBox(kpsObject.getOriginsOfCompany(dayEnum, kpsObject.getCompanies(dayEnum).get(0)).toArray()); //get first item from the originsofcompany list
-		companyComboBox = new JComboBox(kpsObject.getCompanies(dayEnum).toArray());
-		
-		
- 		String origin = (String) fromComboBox.getSelectedItem();
-    	String companyString = (String) companyComboBox.getSelectedItem();
-		destinationComboBox = new JComboBox(kpsObject.getDestinationsOfOriginOfCompany(dayEnum,companyString, origin).toArray());
+     		origins = kpsObject.getOriginsOfCompany(dayEnum,(String) companyComboBox.getSelectedItem());
+     		
+    		fromComboBox.addActionListener (new ActionListener () {
+    		    public void actionPerformed(ActionEvent e) {
+    		    	updateDestinationComboBox(optionsPanel);
+    		    }
+    		});
+    		updateDestinationComboBox(optionsPanel);
 
- 		origins = kpsObject.getOriginsOfCompany(dayEnum,(String) companyComboBox.getSelectedItem());
- 		
-		fromComboBox.addActionListener (new ActionListener () {
-		    public void actionPerformed(ActionEvent e) {
-		    	updateDestinationComboBox(optionsPanel);
-		    }
-		});
-		updateDestinationComboBox(optionsPanel);
-
-		companyComboBox.addActionListener (new ActionListener () {
-		    public void actionPerformed(ActionEvent e) {
-		    	updateOriginComboBox(optionsPanel);
-		    }
-		});
-		updateOriginComboBox(optionsPanel);
-		
-		daysComboBox.addActionListener (new ActionListener () {
-		    public void actionPerformed(ActionEvent e) {
-		    	updateCompanyComboBox(optionsPanel);
-		    }
-		});
-		updateCompanyComboBox(optionsPanel);		
+    		companyComboBox.addActionListener (new ActionListener () {
+    		    public void actionPerformed(ActionEvent e) {
+    		    	updateOriginComboBox(optionsPanel);
+    		    }
+    		});
+    		updateOriginComboBox(optionsPanel);
+    		
+    		daysComboBox.addActionListener (new ActionListener () {
+    		    public void actionPerformed(ActionEvent e) {
+    		    	updateCompanyComboBox(optionsPanel);
+    		    }
+    		});
+    		updateCompanyComboBox(optionsPanel);
+    		
+    		setupLabels(labelPanel, c); //method that will setup all the labels
+     		setupOptions(optionsPanel, c2);
+    	}	
+    	else {
+     		failed = true;
+    	}
 	}
 
 	private void updateCompanyComboBox(JPanel optionsPanel) {
@@ -370,9 +382,12 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == submit) {
 			
-	    	String companyString = (String) destinationComboBox.getSelectedItem();
-	    	
-		     if (companyString.equals("")) {
+	    	String companyString = (String) companyComboBox.getSelectedItem();
+	 		String destination =  (String) destinationComboBox.getSelectedItem();
+	 		String origin = (String) fromComboBox.getSelectedItem();
+	 		String typeString = (String) typeComboBox.getSelectedItem();
+	 		
+		     if (companyString == null || companyString.equals("")) {
 					JOptionPane.showMessageDialog(this,"Please enter all details","Insufficient Details",JOptionPane.ERROR_MESSAGE);
 					return;
 		     }
@@ -381,11 +396,18 @@ public class TransportDiscontinueDialog extends JDialog implements ActionListene
 					JOptionPane.showMessageDialog(this,"Please enter a company name (letters only)","Insufficient Details",JOptionPane.ERROR_MESSAGE);
 					return;
 		     }
+	    	 /*Check for origin, destination combo box*/
+	    	 if(origin == null || origin.equals("")) {
+					JOptionPane.showMessageDialog(this,"No origin Selected","Insufficient Details",JOptionPane.ERROR_MESSAGE);
+					return;
+	    	 }
+	    	 if(destination == null || destination.equals("")) {
+					JOptionPane.showMessageDialog(this,"No Destination Selected","Insufficient Details",JOptionPane.ERROR_MESSAGE);
+					return;
+	    	 }
 		     else {
 		    	 
-		 		String destination =  (String) destinationComboBox.getSelectedItem();
-		 		String origin = (String) fromComboBox.getSelectedItem();
-		 		String typeString = (String) typeComboBox.getSelectedItem();
+
 
 		 		TransportType typeEnum;
 		 		
