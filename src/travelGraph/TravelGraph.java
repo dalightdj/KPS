@@ -280,6 +280,20 @@ public class TravelGraph {
 
 		return locs;
 	}
+	
+	
+	public ArrayList<Path> getAllPaths(){
+		ArrayList<Path> paths = new ArrayList<Path>();
+		
+		for(Location l : locations){
+			for(Path p : l.getPaths()){
+				paths.add(p);
+			}			
+		}
+		
+		return paths;
+	}
+	
 
 	public class UnknownLocationException extends Exception{
 
