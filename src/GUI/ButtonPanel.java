@@ -31,6 +31,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
 	private JButton transportCostUpdate;
 	private JButton transportDiscontinue;
 	private JButton viewEvents;
+	private JButton viewRoutes;
 	private JButton logout;
 
 	private KPS kpsObject;
@@ -78,9 +79,15 @@ public class ButtonPanel extends JPanel implements ActionListener {
 		viewEvents.addActionListener(this);
 		viewEvents.setEnabled(false);
 
-		logout = new JButton("Logout");
+		viewRoutes = new JButton("View Critical Routes");
 		c.gridx = 0;
 		c.gridy = 5;
+		this.add(viewRoutes,c);
+		viewRoutes.addActionListener(this);
+		
+		logout = new JButton("Logout");
+		c.gridx = 0;
+		c.gridy = 6;
 		this.add(logout,c);
 		logout.addActionListener(this);
 
@@ -106,6 +113,9 @@ public class ButtonPanel extends JPanel implements ActionListener {
 		}
 		if(e.getSource() == viewEvents) {
 			new EventsFrame(frame);
+		}
+		if(e.getSource() == viewRoutes) {
+			new CriticalRoutes(frame);
 		}
 		if(e.getSource() == logout) {
 			  frame.dispose();
